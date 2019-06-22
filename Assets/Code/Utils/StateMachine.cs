@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JRPG.Utils
+namespace AceTheChase.Utils
 {
     /// <summary>
     /// State machine that tracks the current state of the game and notifies subscribers when it 

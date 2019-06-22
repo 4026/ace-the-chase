@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JRPG.Utils 
+namespace AceTheChase.Utils 
 {
     /// <summary>
     /// Extension methods to the built-in generic List.

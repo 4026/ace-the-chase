@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace JRPG.Utils
+namespace AceTheChase.Utils
 {
     public static class KeyValuePairExtensions
     {
