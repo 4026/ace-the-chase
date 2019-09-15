@@ -30,6 +30,8 @@ namespace AceTheChase.GameRules
         public List<IRouteCard> CurrentRoute;
         public Deck<IRouteCard> RouteDiscard;
 
+        public List<IPlayerCard> PossibleDamage;
+
         public bool PlayerHasWon;
 
         public Chase(
@@ -43,7 +45,8 @@ namespace AceTheChase.GameRules
             int StartingMaxControl,
             Deck<IPlayerCard> StartingPlayerDeck,
             Deck<IRouteCard> StartingRouteDeck,
-            Deck<IPursuitCard> StartingPursuitDeck
+            Deck<IPursuitCard> StartingPursuitDeck,
+            List<IPlayerCard> PossibleDamage
         )
         {
             this.Lead = StartingLead;
@@ -66,6 +69,8 @@ namespace AceTheChase.GameRules
             
             this.CurrentRoute = new List<IRouteCard>();
             this.RouteDiscard = new Deck<IRouteCard>(new List<IRouteCard>());
+
+            this.PossibleDamage = PossibleDamage;
 
             this.PlayerHasWon = false;
         }

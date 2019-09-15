@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using AceTheChase.Utils;
 using UnityEngine;
 
 namespace AceTheChase.GameRules
@@ -15,10 +17,12 @@ namespace AceTheChase.GameRules
     public class ChaseMutator
     {
         private Chase chase;
+        private System.Random rng;
 
         public ChaseMutator(Chase chaseState)
         {
             this.chase = chaseState;
+            this.rng = new System.Random();
         }
 
         /// <summary>
@@ -72,9 +76,10 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddControl(int delta)
         {
-            this.chase.Control = Mathf.Clamp(
+            // Control may be negative: this is how we apply penalties to the player's control at 
+            // turn start.
+            this.chase.Control = Mathf.Min(
                 this.chase.Control + delta,
-                0,
                 this.chase.MaxControl
             );
 
@@ -200,6 +205,47 @@ namespace AceTheChase.GameRules
                 this.chase.PlayerDiscard.Draw(this.chase.PlayerDiscard.Count)
             );
             this.chase.PlayerDeck.Shuffle();
+
+            return this;
+        }
+
+        /// <summary>
+        /// Add damage cards to the top of the player's deck, where they'll be drawn next turn.
+        /// </summary>
+        public ChaseMutator AddDamageToTopOfDeck(int numDamage)
+        {
+            for (int i = 0; i < numDamage; ++i)
+            {
+                this.chase.PlayerDeck.Prepend(
+                    this.chase.PossibleDamage.ChooseRandom(this.rng)
+                );
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Add damage cards to the player's discard pile, where they'll definitely not be a problem
+        /// for ages, right?
+        /// </summary>
+        public ChaseMutator AddDamageToDiscardPile(int numDamage)
+        {
+            for (int i = 0; i < numDamage; ++i)
+            {
+                this.chase.PlayerDiscard.Prepend(
+                    this.chase.PossibleDamage.ChooseRandom(this.rng)
+                );
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Set the flag indicating that the player has won.
+        /// </summary>
+        public ChaseMutator SetPlayerHasWon(bool value = true)
+        {
+            this.chase.PlayerHasWon = value;
 
             return this;
         }

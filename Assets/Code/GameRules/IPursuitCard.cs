@@ -6,10 +6,19 @@ namespace AceTheChase.GameRules
     public interface IPursuitCard
     {
         /// <summary>
-        /// This display name of the card.
+        /// The display name of the card.
         /// </summary>
-        /// <value></value>
         string Name { get; }
+
+        /// <summary>
+        /// The body text to display for the card.
+        /// </summary>
+        string Description { get; }
+
+        /// <summary>
+        /// The flavour text to display for the card.
+        /// </summary>
+        string FlavourText { get; }
 
         /// <summary>
         /// Given the current chase state, mutate and return the state to represent the effect of
