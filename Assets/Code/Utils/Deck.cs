@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace AceTheChase.Utils
 {
     /// <summary>
@@ -79,7 +81,7 @@ namespace AceTheChase.Utils
         /// </summary>
         public void Prepend(List<TCard> cards)
         {
-            this.cards.Insert(0, cards);
+            this.cards.InsertRange(0, cards);
         }
     }
 }

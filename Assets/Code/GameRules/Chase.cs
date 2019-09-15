@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using AceTheChase.Utils;
+
 namespace AceTheChase.GameRules
 {
     /// <summary>
@@ -10,12 +13,61 @@ namespace AceTheChase.GameRules
         public int PursuitSpeed;
         public int Control;
 
-        public Deck<PlayerCard> PlayerDeck;
-        public List<PlayerCard> Hand;
-        public Deck<PlayerCard> PlayerDiscard;
-        public Deck<PlayerCard> PlayerTrash;
+        public int MaxLead;
+        public int MaxPlayerSpeed;
+        public int MaxPursuitSpeed;
+        public int MaxControl;
 
-        public Deck<RouteCard> RouteDeck;
-        public List<RouteCard> CurrentRoute;
+        public Deck<IPlayerCard> PlayerDeck;
+        public List<IPlayerCard> Hand;
+        public Deck<IPlayerCard> PlayerDiscard;
+        public Deck<IPlayerCard> PlayerTrash;
+
+        public Deck<IPursuitCard> PursuitDeck;
+        public IPursuitCard PursuitAction;
+
+        public Deck<IRouteCard> RouteDeck;
+        public List<IRouteCard> CurrentRoute;
+        public Deck<IRouteCard> RouteDiscard;
+
+        public bool PlayerHasWon;
+
+        public Chase(
+            int StartingLead,
+            int StartingPlayerSpeed,
+            int StartingPursuitSpeed,
+            int StartingControl,
+            int StartingMaxLead,
+            int StartingMaxPlayerSpeed,
+            int StartingMaxPursuitSpeed,
+            int StartingMaxControl,
+            Deck<IPlayerCard> StartingPlayerDeck,
+            Deck<IRouteCard> StartingRouteDeck,
+            Deck<IPursuitCard> StartingPursuitDeck
+        )
+        {
+            this.Lead = StartingLead;
+            this.PlayerSpeed = StartingPlayerSpeed;
+            this.PursuitSpeed = StartingPursuitSpeed;
+            this.Control = StartingControl;
+
+            this.MaxLead = StartingMaxLead;
+            this.MaxPlayerSpeed = StartingMaxPlayerSpeed;
+            this.MaxPursuitSpeed = StartingMaxPursuitSpeed;
+            this.MaxControl = StartingMaxControl;
+
+            this.PlayerDeck = StartingPlayerDeck;
+            this.PursuitDeck = StartingPursuitDeck;
+            this.RouteDeck = StartingRouteDeck;
+
+            this.Hand = new List<IPlayerCard>();
+            this.PlayerDiscard = new Deck<IPlayerCard>(new List<IPlayerCard>());
+            this.PlayerTrash = new Deck<IPlayerCard>(new List<IPlayerCard>());
+            
+            this.CurrentRoute = new List<IRouteCard>();
+            this.RouteDiscard = new Deck<IRouteCard>(new List<IRouteCard>());
+
+            this.PlayerHasWon = false;
+        }
     }
 }
