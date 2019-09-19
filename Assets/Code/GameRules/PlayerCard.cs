@@ -62,5 +62,11 @@ namespace AceTheChase.GameRules
         {
             return currentState.Control >= this.ControlCost;
         }
+
+        public virtual IProvidesCardParameters GetParameterProvider()
+        {
+            // By default, cards do not require parameters.
+            return null;
+        }
     }
 }
