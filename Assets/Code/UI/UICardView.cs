@@ -15,7 +15,6 @@ namespace AceTheChase.UI
         [SerializeField]
         private Image m_cardImage;
 
-
         [SerializeField]
         private Image m_baseBorder;
         [SerializeField]
@@ -44,7 +43,7 @@ namespace AceTheChase.UI
             m_cardFlavourText.text = card.Name;
             m_cardControlCostLayer.SetActive(false);
 
-            UIPalette.CardTypeColourScheme scheme = UIPalette.PursuitCardColours;
+            UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.PursuitCardColours;
             SetColourScheme(scheme);
 
             m_cardName.text = card.Name;
@@ -56,7 +55,7 @@ namespace AceTheChase.UI
         {
             m_cardControlCostLayer.SetActive(true);
             
-            UIPalette.CardTypeColourScheme scheme = UIPalette.GetCardTypeColorScheme(card.CardType);
+            UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.CardType);
             SetColourScheme(scheme);
 
             m_cardName.text = card.Name;
@@ -69,7 +68,7 @@ namespace AceTheChase.UI
         {
             m_cardControlCostLayer.SetActive(false);
             m_flavourTextLayer.SetActive(string.IsNullOrEmpty(card.FlavourText) == false);
-            UIPalette.CardTypeColourScheme scheme = UIPalette.GetCardTypeColorScheme(card.CardType);
+            UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.CardType);
             SetColourScheme(scheme);
 
             m_cardName.text = card.Name;
