@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c35907751712074db592cbad2e34ee1, type: 3}
   m_Name: Routes_OpenRoad
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Open road
   cardType: 0
   description: 
-  flavourText: 
-  cardImage: {fileID: 0}
+  flavourText: '"Just drive!"'
+  cardImage: {fileID: 21300000, guid: 5165fe297d338428f94e52467414f3b5, type: 3}

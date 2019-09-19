@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03f759deb52d3a041a30f6875b304ea7, type: 3}
   m_Name: Routes_Hideout
   m_EditorClassIdentifier: 
-  displayName: 
-  cardType: 0
-  description: 
+  displayName: Hideout
+  cardType: 3
+  description: If Lead is greater or equal to 10, you win the game.
   flavourText: 
-  cardImage: {fileID: 0}
-  LeadRequired: 0
+  cardImage: {fileID: 21300000, guid: e77d1e60a950f4e90b66923b34309441, type: 3}
+  LeadRequired: 10
