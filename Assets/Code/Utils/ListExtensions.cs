@@ -44,5 +44,27 @@ namespace AceTheChase.Utils
             if (rng == null) { rng = _rng;  }
             return list[rng.Next(list.Count)];
         }
+
+        /// <summary>
+        /// Get a random subset of the specified size from the provided List.
+        /// </summary>
+        public static IList<T> RandomSubset<T>(this IList<T> list, int n, System.Random rng = null)
+        {
+			if (list.Count < n)
+			{
+				throw new ArgumentOutOfRangeException($"Can't select a random subset of {n} items from a list of {list.Count} items.");
+			}
+
+            if (rng == null) { rng = _rng;  }
+            IList<int> indices = rng.Distinct(n, 0, list.Count);
+
+            List<T> output = new List<T>(n);
+            foreach (int index in indices)
+            {
+                output.Add(list[index]);
+            }
+
+            return output;
+        }
     }
 }
