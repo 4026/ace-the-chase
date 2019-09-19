@@ -167,14 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e31459ac5fce24fa5073f899cb3add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingLead: 2
-  StartingPlayerSpeed: 3
-  StartingPursuitSpeed: 3
-  StartingControl: 0
-  StartingMaxLead: 15
-  StartingMaxPlayerSpeed: 5
-  StartingMaxPursuitSpeed: 5
-  StartingMaxControl: 10
+  StartInfo: {fileID: 11400000, guid: 20a19648eec994995ba064f21f8a20d3, type: 2}
   DrawCardsPerTurn: 5
   ControlGainPerTurn: 3
   UiManager: {fileID: 7035666}
