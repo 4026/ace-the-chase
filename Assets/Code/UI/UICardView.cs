@@ -48,6 +48,7 @@ namespace AceTheChase.UI
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
+            m_cardImage.sprite = card.CardImage;
             SetFlavourText(card.FlavourText);
         }
 
@@ -61,6 +62,7 @@ namespace AceTheChase.UI
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
             m_cardControlCost.text = card.ControlCost.ToString();
+            m_cardImage.sprite = card.CardImage;
             SetFlavourText(card.FlavourText);
         }
 
@@ -73,6 +75,7 @@ namespace AceTheChase.UI
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
+            m_cardImage.sprite = card.CardImage;
             SetFlavourText(card.FlavourText);
         }
 
