@@ -21,6 +21,8 @@ namespace AceTheChase.UI
         private UIGradient m_titleGradient;
         [SerializeField]
         private UIGradient m_titleHighlight;
+        [SerializeField]
+        private UIGradient m_imageGradient;
 
         [SerializeField]
         private Text m_cardName;
@@ -141,6 +143,7 @@ namespace AceTheChase.UI
             m_numberOwnedBorder.color = scheme.BorderGradientTop;
             m_cardFlavourText.color = scheme.BorderGradientBottom;
             m_cardTypeBG.color = scheme.BorderGradientBottom;
+            m_imageGradient.SetColours(scheme.BorderGradientTop, scheme.BorderGradientBottom);
         }
 
         public ICard GetCard()
