@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076195b87fd46614180d77ecb9e0e65c, type: 3}
   m_Name: Player_NervesOfSteel
   m_EditorClassIdentifier: 
-  displayName: 
-  controlCost: 0
+  displayName: NERVES_OF_STEEL
+  controlCost: 2
   driver: 0
-  description: 
+  playerCardType: 2
+  description: +1 control per current speed
   flavourText: 
-  cardImage: {fileID: 0}
-  ControlPerSpeed: 0
+  cardImage: {fileID: 21300000, guid: 4b90a581bc70a4263bf2ce2af511b206, type: 3}
+  ControlPerSpeed: 1

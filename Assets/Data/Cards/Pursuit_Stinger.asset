@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2ce759ce34afd40900ddb91e142dab, type: 3}
   m_Name: Pursuit_Stinger
   m_EditorClassIdentifier: 
-  displayName: 
-  description: 
+  displayName: STINGER
+  description: Add a damage card to your deck
   flavourText: 
-  cardImage: {fileID: 0}
-  Damage: 0
+  cardImage: {fileID: 21300000, guid: 670ec7cf68ea748a09d1e71ce3f07f1b, type: 3}
+  Damage: 1

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da80c215b0b884e46bc3114b83cbb77a, type: 3}
   m_Name: Player_Shortcut
   m_EditorClassIdentifier: 
-  displayName: 
-  controlCost: 0
-  driver: 0
+  displayName: Shortcut
+  controlCost: 1
+  driver: 3
+  playerCardType: 3
   description: 
-  flavourText: 
-  cardImage: {fileID: 0}
+  flavourText: '"Quick, turn here"'
+  cardImage: {fileID: 21300000, guid: 6e892bd25477543b2be5481be1abe15b, type: 3}

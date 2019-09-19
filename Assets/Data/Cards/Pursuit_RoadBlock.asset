@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d3fc03bb620b7c4fb29222d4f032635, type: 3}
   m_Name: Pursuit_RoadBlock
   m_EditorClassIdentifier: 
-  displayName: 
-  description: 
+  displayName: Roadblock
+  description: -1 Speed
   flavourText: 
-  cardImage: {fileID: 0}
-  SpeedDecrease: 0
+  cardImage: {fileID: 21300000, guid: eb05ea37747db4c938ec56190026dd22, type: 3}
+  SpeedDecrease: 1

@@ -37,13 +37,13 @@ namespace AceTheChase.GameRules
         /// The card image
         /// </summary>
         [SerializeField]
-        private Image cardImage;
+        private Sprite cardImage;
 
         public string Name => displayName;
         public RouteCardType CardType => cardType;
         public string Description => Description;
         public string FlavourText => flavourText;
-        public Image CardImage => cardImage;
+        public Sprite CardImage => cardImage;
 
         public abstract Chase Play(Chase currentState);
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace AceTheChase.GameRules
@@ -26,6 +27,6 @@ namespace AceTheChase.GameRules
         /// <summary>
         /// The image for this card.
         /// </summary>
-        Image CardImage { get; }
+        Sprite CardImage { get; }
     }
 }

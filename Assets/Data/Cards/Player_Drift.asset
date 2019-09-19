@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abf5b319690be341998cf3cd47a4923, type: 3}
   m_Name: Player_Drift
   m_EditorClassIdentifier: 
-  displayName: 
-  controlCost: 0
-  driver: 0
+  displayName: Drift
+  controlCost: 1
+  driver: 1
+  playerCardType: 0
   description: 
-  flavourText: 
-  cardImage: {fileID: 0}
+  flavourText: '"Life''s simple: You make choices and you don''t look back."'
+  cardImage: {fileID: 21300000, guid: ababfaba81db44da39fcda834a2d6f01, type: 3}

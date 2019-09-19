@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d43bf7857787348afddbe6105d7517, type: 3}
   m_Name: Damage_Stalled
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Stalled
   controlCost: 0
   driver: 0
-  description: 
+  playerCardType: 4
+  description: -1 Speed
   flavourText: 
-  cardImage: {fileID: 0}
-  SpeedDecrease: 0
+  cardImage: {fileID: 21300000, guid: 4f8c6b086d90245a58b4346293da5b43, type: 3}
+  SpeedDecrease: 1

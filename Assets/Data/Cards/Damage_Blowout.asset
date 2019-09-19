@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb09ea969388f5c47841fdd318afdb82, type: 3}
   m_Name: Damage_Blowout
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Blowout
   controlCost: 0
   driver: 0
-  description: 
+  playerCardType: 4
+  description: -1 Control next turn
   flavourText: 
-  cardImage: {fileID: 0}
-  ControlDecrease: 0
+  cardImage: {fileID: 21300000, guid: aa6af5ead36c54df79c99c472db19537, type: 3}
+  ControlDecrease: 1

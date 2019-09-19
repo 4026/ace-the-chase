@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea74c047951f03b46b536916a0a41401, type: 3}
   m_Name: Player_RollingRepairs
   m_EditorClassIdentifier: 
-  displayName: 
-  controlCost: 0
-  driver: 0
+  displayName: Rolling Repairs
+  controlCost: 1
+  driver: 2
+  playerCardType: 1
   description: 
-  flavourText: 
-  cardImage: {fileID: 0}
+  flavourText: '"Hold the wheel."'
+  cardImage: {fileID: 21300000, guid: c926f182f72174dc1bfa4b1999a1037c, type: 3}

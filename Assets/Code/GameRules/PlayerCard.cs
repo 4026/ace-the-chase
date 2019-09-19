@@ -28,6 +28,12 @@ namespace AceTheChase.GameRules
         private PlayerCardDriver driver;
 
         /// <summary>
+        /// The driver personality associated with this card, if any. 
+        /// </summary>
+        [SerializeField]
+        private PlayerCardType playerCardType;
+
+        /// <summary>
         /// The body text to display for the card.
         /// </summary>
         [SerializeField]
@@ -43,15 +49,15 @@ namespace AceTheChase.GameRules
         /// The card image
         /// </summary>
         [SerializeField]
-        private Image cardImage;
+        private Sprite cardImage;
 
         public string Name => displayName;
         public int ControlCost => controlCost;
         public PlayerCardDriver Driver => driver;
-        public virtual PlayerCardType CardType => PlayerCardType.None;
-        public string Description => Description;
+        public virtual PlayerCardType CardType => playerCardType;
+        public string Description => description;
         public string FlavourText => flavourText;
-        public Image CardImage => cardImage;
+        public Sprite CardImage => cardImage;
 
         public abstract Chase Play(
             Chase currentState,
