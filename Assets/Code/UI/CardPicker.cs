@@ -16,7 +16,7 @@ namespace AceTheChase.UI
         {
             foreach(Transform child in this.CardGrid.transform)
             {
-                Destroy(child);
+                Destroy(child.gameObject);
             }
         }
     }

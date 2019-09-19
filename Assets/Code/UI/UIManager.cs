@@ -85,7 +85,7 @@ namespace AceTheChase.UI
 
             foreach (Transform child in this.Hand.transform)
             {
-                Destroy(child);
+                Destroy(child.gameObject);
             }
             foreach (IPlayerCard card in chaseState.Hand)
             {
@@ -94,7 +94,7 @@ namespace AceTheChase.UI
 
             foreach (Transform child in this.Route.transform)
             {
-                Destroy(child);
+                Destroy(child.gameObject);
             }
             foreach (IPlayerCard card in chaseState.CurrentRoute)
             {
@@ -103,7 +103,7 @@ namespace AceTheChase.UI
 
             foreach (Transform child in this.Pursuit.transform)
             {
-                Destroy(child);
+                Destroy(child.gameObject);
             }
             if (chaseState.PursuitAction != null)
             {
@@ -120,30 +120,63 @@ namespace AceTheChase.UI
 
             GameObject parent = this.CardSpawnParents[location];
             GameObject newCard = Instantiate(UICardPrefab, parent.transform);
+            UICardView cardComponent = newCard.GetComponent<UICardView>();
 
             PlayerCard playerCard = card as PlayerCard;
             if (playerCard != null)
             {
-                newCard.GetComponent<UICardView>().Setup(playerCard);
+                cardComponent.Setup(playerCard);
+                cardComponent.OnClick += OnPlayerCardClicked;
                 return newCard;
             }
             
             RouteCard routeCard = card as RouteCard;
             if (routeCard != null)
             {
-                newCard.GetComponent<UICardView>().Setup(routeCard);
+                cardComponent.Setup(routeCard);
+                cardComponent.OnClick += OnRouteCardClicked;
                 return newCard;
             }
 
             PursuitCard pursuitCard = card as PursuitCard;
             if (pursuitCard != null)
             {
-                newCard.GetComponent<UICardView>().Setup(pursuitCard);
+                cardComponent.Setup(pursuitCard);
+                cardComponent.OnClick += OnPursuitCardClicked;
                 return newCard;
             }
 
             throw new ArgumentException($"Don't know how to set up a UI card object for a {card.GetType().FullName}.");
         }
+
+        private void OnPlayerCardClicked(object sender, EventArgs e)
+        {
+            IPlayerCard clickedCard = (sender as GameObject)
+                ?.GetComponent<UICardView>()
+                ?.GetCard() as IPlayerCard;
+
+            this.PlayerCardClicked?.Invoke(clickedCard);
+        }
+
+        private void OnRouteCardClicked(object sender, EventArgs e)
+        {
+            IRouteCard clickedCard = (sender as GameObject)
+                ?.GetComponent<UICardView>()
+                ?.GetCard() as IRouteCard;
+
+            this.RouteCardClicked?.Invoke(clickedCard);
+        }
+
+        private void OnPursuitCardClicked(object sender, EventArgs e)
+        {
+            IPursuitCard clickedCard = (sender as GameObject)
+                ?.GetComponent<UICardView>()
+                ?.GetCard() as IPursuitCard;
+
+            this.PursuitCardClicked?.Invoke(clickedCard);
+        }
+
+        
 
         /// <summary>
         /// Activate the card picker popup and display the provided list of cards in it.
@@ -196,7 +229,7 @@ namespace AceTheChase.UI
         /// </summary>
         public void AnimateCardDraw(IPlayerCard card, Chase newState)
         {
-            this.SpawnCard(card, CardSpawnLocation.Hand);
+            GameObject newCard = this.SpawnCard(card, CardSpawnLocation.Hand);
             this.PlayerDeckCountLabel.text = newState.PlayerDeck.Count.ToString("N0");
         }
 
@@ -226,7 +259,7 @@ namespace AceTheChase.UI
 
                 if (uiCard.GetCard() == card) 
                 {
-                    Destroy(child);
+                    Destroy(child.gameObject);
                     break;
                 }
             }
@@ -251,7 +284,7 @@ namespace AceTheChase.UI
 
                 if (uiCard.GetCard() == card) 
                 {
-                    Destroy(child);
+                    Destroy(child.gameObject);
                     break;
                 }
             }
@@ -274,7 +307,7 @@ namespace AceTheChase.UI
 
                 if (uiCard.GetCard() == card)
                 {
-                    Destroy(child);
+                    Destroy(child.gameObject);
                     break;
                 }
             }
@@ -287,7 +320,7 @@ namespace AceTheChase.UI
         {
             foreach (Transform child in this.Pursuit.transform)
             {
-                Destroy(child);
+                Destroy(child.gameObject);
             }
 
             this.SpawnCard(card, CardSpawnLocation.Pursuit);

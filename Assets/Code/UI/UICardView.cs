@@ -116,7 +116,7 @@ namespace AceTheChase.UI
 
         public void Clicked()
         {
-            Debug.Log("Clicked a card");
+            Debug.Log($"Clicked on {this.m_card.Name}.");
             OnClick?.Invoke(this.gameObject, null);
         }
     }

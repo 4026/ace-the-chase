@@ -62,6 +62,7 @@ namespace AceTheChase.GameRules
                 .Done();
 
             this.PhaseManager.State = ChasePhase.SelectingCard;
+            this.UiManager.PlayerCardClicked += SelectCard;
         }
 
         /// <summary>
@@ -80,12 +81,15 @@ namespace AceTheChase.GameRules
                 // Otherwise, fire up the parameter provider and play the card once parameter values
                 // have been provided.
                 this.PhaseManager.State = ChasePhase.SelectingTarget;
+                this.UiManager.PlayerCardClicked -= SelectCard;
+
                 parameterProvider.PromptForParameters(
                     this.CurrentChaseState,
                     this.UiManager,
                     cardParameters => {
                         this.PlayCard(card, cardParameters);
                         this.PhaseManager.State = ChasePhase.SelectingCard;
+                        this.UiManager.PlayerCardClicked += SelectCard;
                     });
             }
         }
