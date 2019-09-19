@@ -73,9 +73,29 @@ namespace AceTheChase.GameRules
         /// </summary>
         public void SelectCard(IPlayerCard card)
         {
-            this.CurrentChaseState = card
-                .Play(this.CurrentChaseState, new Dictionary<string, object>());
+            IProvidesCardParameters parameterProvider = card.GetParameterProvider();
+            if (parameterProvider == null)
+            {
+                // If the card doesn't require any parameters, jut play it immediately.
+                this.PlayCard(card, new Dictionary<string, object>());
+            } 
+            else 
+            {
+                // Otherwise, fire up the paramter provider and play the card once paramter values
+                // have been provided.
+                this.PhaseManager.State = ChasePhase.SelectingTarget;
+                parameterProvider.PromptForParameters(cardParameters => {
+                    this.PlayCard(card, cardParameters);
+                    this.PhaseManager.State = ChasePhase.SelectingCard;
+                });
+            }
+        }
 
+        private void PlayCard(IPlayerCard card, IDictionary<string, object> cardParameters)
+        {
+            this.CurrentChaseState = card.Play(this.CurrentChaseState, cardParameters);
+
+            // Check if the player has won or lost as a result of playing this card.
             if (this.CurrentChaseState.Lead <= 0)
             {
                 this.PhaseManager.State = ChasePhase.Defeat;
@@ -168,6 +188,12 @@ namespace AceTheChase.GameRules
             mutator.AddPlayerSpeed(
                 this.CurrentChaseState.PlayerSpeed - this.CurrentChaseState.PursuitSpeed
             );
+
+            if (this.CurrentChaseState.Lead <= 0)
+            {
+                this.PhaseManager.State = ChasePhase.Defeat;
+                return;
+            }
 
             this.CurrentChaseState = mutator.Done();
 

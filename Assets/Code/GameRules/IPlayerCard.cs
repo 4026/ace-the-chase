@@ -38,6 +38,12 @@ namespace AceTheChase.GameRules
         string FlavourText { get; }
 
         /// <summary>
+        /// Get the parameter provider for this card, if there is one (null if the card requires no
+        /// parameters).
+        /// </summary>
+        IProvidesCardParameters GetParameterProvider();
+
+        /// <summary>
         /// Given the current chase state and some additional paramteters about how this card is
         /// played, mutate and return the state to represent the effect of playing this card.
         /// </summary>
