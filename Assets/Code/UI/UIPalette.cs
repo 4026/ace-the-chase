@@ -35,15 +35,13 @@ namespace AceTheChase.UI
             public Color BorderGradientTop;
             [SerializeField]
             public Color BorderGradientBottom;
-            [SerializeField]
-            public Sprite Icon;
         }
 
         [Serializable]
         public class PlayerCardTypeColourScheme : CardTypeColourScheme
         {
             [SerializeField]
-            public PlayerCardType CardType;
+            public PlayerCardDriver Driver;
         }
 
         [Serializable]
@@ -59,20 +57,22 @@ namespace AceTheChase.UI
         public RouteCardTypeColourScheme[] RouteCardTypeColours;
         [SerializeField]
         public CardTypeColourScheme PursuitCardColours;
+        [SerializeField]
+        public CardTypeColourScheme DamageCardColours;
 
         [SerializeField]
         public CardTypeColourScheme DefaultCardColours;
 
-        public CardTypeColourScheme GetCardTypeColorScheme(PlayerCardType type)
+        public CardTypeColourScheme GetCardTypeColorScheme(PlayerCardDriver driver)
         {
             foreach (PlayerCardTypeColourScheme scheme in PlayerCardTypeColours)
             {
-                if (scheme.CardType == type)
+                if (scheme.Driver == driver)
                 {
                     return scheme;
                 }
             }
-            Debug.LogError("CardTypeColorScheme not found for player card type: " + type.ToString());
+            Debug.LogError("CardTypeColorScheme not found for player card type: " + driver.ToString());
             return DefaultCardColours;
         }
 

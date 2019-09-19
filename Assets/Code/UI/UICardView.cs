@@ -10,9 +10,6 @@ namespace AceTheChase.UI
     {
         public event EventHandler OnClick;
 
-
-        [SerializeField]
-        private Image m_cardTypeIcon;
         [SerializeField]
         private Image m_cardImage;
 
@@ -39,6 +36,20 @@ namespace AceTheChase.UI
         [SerializeField]
         private GameObject m_flavourTextLayer;
 
+        //cardtype (for special effects)
+        [SerializeField]
+        private GameObject m_cardTypeLayer;
+        [SerializeField]
+        private Text m_cardTypeText;
+
+        //deck building thingy
+        [SerializeField]
+        private GameObject m_numberOwnedLayer;
+        [SerializeField]
+        private Text m_numberOwnedText;
+        [SerializeField]
+        private Image m_numberOwnedBorder;
+
         private ICard m_card;
 
         public void Setup(IPursuitCard card)
@@ -60,7 +71,7 @@ namespace AceTheChase.UI
         {
             m_cardControlCostLayer.SetActive(true);
 
-            UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.CardType);
+            UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.Driver);
             SetColourScheme(scheme);
             m_card = card;
 
@@ -101,12 +112,12 @@ namespace AceTheChase.UI
 
         private void SetColourScheme(UIPalette.CardTypeColourScheme scheme)
         {
-            m_cardTypeIcon.sprite = scheme.Icon;
             m_baseBorder.color = scheme.BorderGradientBottom;
 
             m_borderGradient.SetColours(scheme.BorderGradientTop, scheme.BorderGradientBottom);
             m_titleGradient.SetColours(scheme.TitleColourTop, scheme.TitleColourBottom);
             m_titleHighlight.SetColours(scheme.TitleHighlightTop, scheme.TitleHighlightBottom);
+            m_numberOwnedBorder.color = scheme.BorderGradientTop;
         }
 
         public ICard GetCard()
@@ -118,6 +129,19 @@ namespace AceTheChase.UI
         {
             Debug.Log($"Clicked on {this.m_card.Name}.");
             OnClick?.Invoke(this.gameObject, null);
+        }
+
+        public void SetNumberOwned(int numberOwned)
+        {
+            if (numberOwned > 0)
+            {
+                m_numberOwnedLayer.SetActive(true);
+                m_numberOwnedText.text = "x" + numberOwned.ToString();
+            }
+            else
+            {
+                m_numberOwnedLayer.SetActive(false);
+            }
         }
     }
 }
