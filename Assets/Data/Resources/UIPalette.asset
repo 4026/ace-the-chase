@@ -12,7 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3e5d3a5d8d149f6bba6b1188ad21b3, type: 3}
   m_Name: UIPalette
   m_EditorClassIdentifier: 
-  PlayerCardTypeColours: []
+  PlayerCardTypeColours:
+  - TitleColourTop: {r: 0.7019608, g: 0.7019608, b: 0.7019608, a: 0}
+    TitleColourBottom: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 0}
+    TitleHighlightTop: {r: 0.8313726, g: 0.8313726, b: 0.8313726, a: 0}
+    TitleHighlightBottom: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
+    BorderGradientTop: {r: 1, g: 1, b: 1, a: 0}
+    BorderGradientBottom: {r: 0.8313726, g: 0.8313726, b: 0.8313726, a: 0}
+    Driver: 0
+  - TitleColourTop: {r: 0.41960788, g: 0.82745105, b: 0.69411767, a: 1}
+    TitleColourBottom: {r: 0.41176474, g: 0.87843144, b: 0.86274517, a: 1}
+    TitleHighlightTop: {r: 0.64705884, g: 0.9058824, b: 0.75294125, a: 1}
+    TitleHighlightBottom: {r: 0.52156866, g: 0.9294118, b: 0.9686275, a: 1}
+    BorderGradientTop: {r: 0.4156863, g: 0.8352942, b: 0.72156864, a: 1}
+    BorderGradientBottom: {r: 0.1882353, g: 0.7254902, b: 0.6392157, a: 1}
+    Driver: 2
+  - TitleColourTop: {r: 0.41960788, g: 0.82745105, b: 0.69411767, a: 1}
+    TitleColourBottom: {r: 0.41176474, g: 0.87843144, b: 0.86274517, a: 1}
+    TitleHighlightTop: {r: 0.64705884, g: 0.9058824, b: 0.75294125, a: 1}
+    TitleHighlightBottom: {r: 0.52156866, g: 0.9294118, b: 0.9686275, a: 1}
+    BorderGradientTop: {r: 0.4156863, g: 0.8352942, b: 0.72156864, a: 1}
+    BorderGradientBottom: {r: 0.1882353, g: 0.7254902, b: 0.6392157, a: 1}
+    Driver: 3
   RouteCardTypeColours: []
   PursuitCardColours:
     TitleColourTop: {r: 0, g: 0, b: 0, a: 0}
@@ -21,12 +42,17 @@ MonoBehaviour:
     TitleHighlightBottom: {r: 0, g: 0, b: 0, a: 0}
     BorderGradientTop: {r: 0, g: 0, b: 0, a: 0}
     BorderGradientBottom: {r: 0, g: 0, b: 0, a: 0}
-    Icon: {fileID: 0}
+  DamageCardColours:
+    TitleColourTop: {r: 0, g: 0, b: 0, a: 0}
+    TitleColourBottom: {r: 0, g: 0, b: 0, a: 0}
+    TitleHighlightTop: {r: 0, g: 0, b: 0, a: 0}
+    TitleHighlightBottom: {r: 0, g: 0, b: 0, a: 0}
+    BorderGradientTop: {r: 0, g: 0, b: 0, a: 0}
+    BorderGradientBottom: {r: 0, g: 0, b: 0, a: 0}
   DefaultCardColours:
-    TitleColourTop: {r: 1, g: 0.7117041, b: 0.28773582, a: 1}
-    TitleColourBottom: {r: 1, g: 0.41783023, b: 0.2783019, a: 1}
-    TitleHighlightTop: {r: 1, g: 0.7980366, b: 0.2028302, a: 1}
-    TitleHighlightBottom: {r: 1, g: 0.5957044, b: 0.1745283, a: 1}
-    BorderGradientTop: {r: 1, g: 0.5907963, b: 0.2688679, a: 1}
-    BorderGradientBottom: {r: 1, g: 0.33490568, b: 0.66203797, a: 1}
-    Icon: {fileID: 21300000, guid: fba446c4da62c4c76a726e17257cd9d1, type: 3}
+    TitleColourTop: {r: 0.7019608, g: 0.7019608, b: 0.7019608, a: 1}
+    TitleColourBottom: {r: 0.5294118, g: 0.5294118, b: 0.5294118, a: 1}
+    TitleHighlightTop: {r: 0.8313726, g: 0.8313726, b: 0.8313726, a: 1}
+    TitleHighlightBottom: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    BorderGradientTop: {r: 1, g: 1, b: 1, a: 1}
+    BorderGradientBottom: {r: 0.8313726, g: 0.8313726, b: 0.8313726, a: 1}
