@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c15a1925a1a843408d3748e00d2b9c9, type: 3}
+  m_Name: ChaseStartInfo
+  m_EditorClassIdentifier: 
+  StartingLead: 2
+  StartingPlayerSpeed: 3
+  StartingPursuitSpeed: 3
+  StartingControl: 0
+  StartingMaxLead: 15
+  StartingMaxPlayerSpeed: 5
+  StartingMaxPursuitSpeed: 5
+  StartingMaxControl: 10
+  RouteDeckSize: 21
+  SelectedPlayerCards:
+  - {fileID: 11400000, guid: 4868a0068db234cf1a0e6727d7a494b0, type: 2}
+  - {fileID: 11400000, guid: 81179fda42d044fad9399a85160eb63a, type: 2}
+  - {fileID: 11400000, guid: a5b1c78130ff34c01951ca60d10c297d, type: 2}
+  - {fileID: 11400000, guid: a9cd5fc80ac9646eea1d58e67a765327, type: 2}
+  - {fileID: 11400000, guid: 3b47217d21c0146faa2cb69c4ffde560, type: 2}
+  AllDamageCards:
+  - {fileID: 11400000, guid: 103295747baa7445fa3f8f32129bad32, type: 2}
+  - {fileID: 11400000, guid: 6fa6059dbdcdf4cc181077dce83c8a85, type: 2}
+  - {fileID: 11400000, guid: 4334b28ff4f31494fb08505df60feb25, type: 2}
+  - {fileID: 11400000, guid: 9a366047da16a48749ad9969c0ac4736, type: 2}
+  AllRouteCards:
+  - {fileID: 11400000, guid: 117619840c997461e9696e991e0bdf43, type: 2}
+  - {fileID: 11400000, guid: a0f2cec12c1d84d1ea9e923565ff4350, type: 2}
+  AllPursuitCards:
+  - {fileID: 11400000, guid: 0ad61f38fd26f4cbfb03ef72786ea043, type: 2}
+  - {fileID: 11400000, guid: d1064dc71168e46fb82cb466d143e612, type: 2}
+  - {fileID: 11400000, guid: c8f09063af1f34fa59666c25bcbd37ef, type: 2}
+  - {fileID: 11400000, guid: 156e20b1d6c5a4c489eee79709180b22, type: 2}
+  - {fileID: 11400000, guid: f135946d15f184ed5ab3cd4c00c700f5, type: 2}
+  - {fileID: 11400000, guid: a577e1119a25f4463a65f681b0ed936c, type: 2}
