@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using AceTheChase.GameRules;
-
 namespace AceTheChase.UI
 {
     public class UICardView : MonoBehaviour
     {
+        public event EventHandler OnClick;
 
 
         [SerializeField]
@@ -58,7 +59,7 @@ namespace AceTheChase.UI
         public void Setup(IPlayerCard card)
         {
             m_cardControlCostLayer.SetActive(true);
-            
+
             UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.CardType);
             SetColourScheme(scheme);
             m_card = card;
@@ -111,6 +112,12 @@ namespace AceTheChase.UI
         public ICard GetCard()
         {
             return m_card;
+        }
+
+        public void Clicked()
+        {
+            Debug.Log("Clicked a card");
+            OnClick?.Invoke(this.gameObject, null);
         }
     }
 }
