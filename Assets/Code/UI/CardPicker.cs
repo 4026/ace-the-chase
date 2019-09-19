@@ -12,12 +12,19 @@ namespace AceTheChase.UI
         /// </summary>
         public GameObject CardGrid;
 
+        public UIManager UIManager;
+
         public void Clear()
         {
             foreach(Transform child in this.CardGrid.transform)
             {
                 Destroy(child.gameObject);
             }
+        }
+
+        public void Cancel()
+        {
+            this.UIManager.CancelCardPicker();
         }
     }
 }

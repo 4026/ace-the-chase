@@ -154,9 +154,9 @@ MonoBehaviour:
   PlayerSpeedLabel: {fileID: 740391220}
   PursuitSpeedLabel: {fileID: 608886242}
   ControlLabel: {fileID: 117952215}
-  PlayerDeckCountLabel: {fileID: 0}
-  PlayerDiscardCountLabel: {fileID: 0}
-  RouteDeckCountLabel: {fileID: 0}
+  PlayerDeckCountLabel: {fileID: 1706237651}
+  PlayerDiscardCountLabel: {fileID: 1435968371}
+  RouteDeckCountLabel: {fileID: 1813651901}
   Hand: {fileID: 1234904731}
   Route: {fileID: 2125313215}
   Pursuit: {fileID: 169750227}
@@ -1157,6 +1157,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9140940914141758267, guid: 53baef8a8f47d4cdcad5c24ec72f2af3,
+        type: 3}
+      propertyPath: UIManager
+      value: 
+      objectReference: {fileID: 7035666}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53baef8a8f47d4cdcad5c24ec72f2af3, type: 3}
 --- !u!114 &379289581 stripped

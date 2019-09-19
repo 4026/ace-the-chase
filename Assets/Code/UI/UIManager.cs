@@ -24,6 +24,8 @@ namespace AceTheChase.UI
         public event Action<IRouteCard> RouteCardClicked;
         public event Action<IPursuitCard> PursuitCardClicked;
 
+        public event Action CardPickerCancelled;
+
         public Text LeadLabel;
         public Text PlayerSpeedLabel;
         public Text PursuitSpeedLabel;
@@ -190,6 +192,17 @@ namespace AceTheChase.UI
             }
 
             CardPicker.gameObject.SetActive(true);
+        }
+
+        public void HideCardPicker()
+        {
+            this.CardPicker.gameObject.SetActive(false);
+        }
+
+        public void CancelCardPicker()
+        {
+            this.CardPicker.gameObject.SetActive(false);
+            this.CardPickerCancelled?.Invoke();
         }
 
         /// <summary>
