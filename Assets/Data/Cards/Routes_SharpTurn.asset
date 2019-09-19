@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ccdb20b1436a464ea4981f3ab97875c, type: 3}
+  m_Name: Routes_SharpTurn
+  m_EditorClassIdentifier: 
+  displayName: Sharp Turn
+  cardType: 2
+  description: -1 Speed
+  flavourText: 
+  cardImage: {fileID: 21300000, guid: d4d1dc55a18144381924dc1354dd83cb, type: 3}
+  SpeedDecrease: 1
