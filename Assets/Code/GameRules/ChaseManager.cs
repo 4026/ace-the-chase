@@ -72,7 +72,7 @@ namespace AceTheChase.GameRules
         {
             IProvidesCardParameters parameterProvider = card
                 .GetParameterProvider(this.CurrentChaseState);
-                
+
             if (parameterProvider == null)
             {
                 // If the card doesn't require any parameters, jut play it immediately.
@@ -152,8 +152,11 @@ namespace AceTheChase.GameRules
 
 
             // Then apply any route cards.
-            foreach (IRouteCard routeCard in this.CurrentChaseState.CurrentRoute)
+            while (this.CurrentChaseState.CurrentRoute.Count > 0)
             {
+                // Play the next route card. We charitably assume that route cards discard
+                // themselves after being played.
+                IRouteCard routeCard = this.CurrentChaseState.CurrentRoute[0];
                 this.CurrentChaseState = routeCard.Play(this.CurrentChaseState, this.UiManager);
 
                 if (this.CurrentChaseState.Lead <= 0)
@@ -197,17 +200,15 @@ namespace AceTheChase.GameRules
                 .ForEach(card => mutator.DiscardFromHand(card));
             
             // Finally, apply the effects of pursit speed and the player's speed
-            mutator.AddPlayerSpeed(
+            this.CurrentChaseState = mutator.AddLead(
                 this.CurrentChaseState.PlayerSpeed - this.CurrentChaseState.PursuitSpeed
-            );
+            ).Done();
 
             if (this.CurrentChaseState.Lead <= 0)
             {
                 this.PhaseManager.State = ChasePhase.Defeat;
                 return;
             }
-
-            this.CurrentChaseState = mutator.Done();
 
             BeginTurn();
         }
