@@ -21,7 +21,8 @@ namespace AceTheChase.GameRules
 
         public int RouteDeckSize;
 
-        public PlayerCard[] SelectedPlayerCards;
+        public PlayerCardDriver SelectedPlayerDriver = PlayerCardDriver.None;
+        public IPlayerCard[] SelectedPlayerCards;
         public PlayerCard[] AllDamageCards;
         public RouteCard[] AllRouteCards;
         public PursuitCard[] AllPursuitCards;
