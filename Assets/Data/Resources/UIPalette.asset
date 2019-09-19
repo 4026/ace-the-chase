@@ -56,6 +56,13 @@ MonoBehaviour:
     BorderGradientTop: {r: 0.4901961, g: 0.8078432, b: 0.854902, a: 0}
     BorderGradientBottom: {r: 0.2784314, g: 0.63529414, b: 0.69411767, a: 0}
     CardType: 2
+  - TitleColourTop: {r: 0, g: 0, b: 0, a: 0}
+    TitleColourBottom: {r: 0, g: 0, b: 0, a: 0}
+    TitleHighlightTop: {r: 0.12941177, g: 0.28627452, b: 0.0627451, a: 0}
+    TitleHighlightBottom: {r: 0, g: 0, b: 0, a: 0}
+    BorderGradientTop: {r: 0.7176471, g: 0.9568628, b: 0.32156864, a: 0}
+    BorderGradientBottom: {r: 0.36078432, g: 0.5764706, b: 0.22352943, a: 0}
+    CardType: 3
   PursuitCardColours:
     TitleColourTop: {r: 0, g: 0, b: 0, a: 0}
     TitleColourBottom: {r: 0, g: 0, b: 0, a: 0}
