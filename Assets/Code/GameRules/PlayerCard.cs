@@ -82,8 +82,8 @@ namespace AceTheChase.GameRules
 
         public int CompareTo(PlayerCard obj)
         {
-            int ret = this.Driver - obj.Driver;
-            if(ret == 0)
+            int ret = this.Driver.CompareTo(obj.Driver);
+            if (ret == 0)
             {
                 return string.Compare(this.Name, obj.name, StringComparison.CurrentCulture);
             }
