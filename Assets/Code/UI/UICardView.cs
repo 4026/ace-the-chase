@@ -103,14 +103,9 @@ namespace AceTheChase.UI
             m_cardTypeIcon.sprite = scheme.Icon;
             m_baseBorder.color = scheme.BorderGradientBottom;
 
-            m_borderGradient.m_color1 = scheme.BorderGradientTop;
-            m_borderGradient.m_color2 = scheme.BorderGradientBottom;
-
-            m_titleGradient.m_color1 = scheme.TitleColourTop;
-            m_titleGradient.m_color2 = scheme.TitleColourBottom;
-
-            m_titleHighlight.m_color1 = scheme.TitleHighlightTop;
-            m_titleHighlight.m_color2 = scheme.TitleHighlightBottom;
+            m_borderGradient.SetColours(scheme.BorderGradientTop, scheme.BorderGradientBottom);
+            m_titleGradient.SetColours(scheme.TitleColourTop, scheme.TitleColourBottom);
+            m_titleHighlight.SetColours(scheme.TitleHighlightTop, scheme.TitleHighlightBottom);
         }
 
         public ICard GetCard()
