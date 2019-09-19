@@ -40,7 +40,7 @@ namespace AceTheChase.GameRules
                 this.chase.MaxLead
             );
 
-            this.uiManager.AnimateLeadChange(delta);
+            this.uiManager.AnimateLeadChange(delta, this.chase);
             
             return this;
         }
@@ -57,7 +57,7 @@ namespace AceTheChase.GameRules
                 this.chase.MaxPlayerSpeed
             );
 
-            this.uiManager.AnimatePlayerSpeedChange(delta);
+            this.uiManager.AnimatePlayerSpeedChange(delta, this.chase);
 
             return this;
         }
@@ -74,7 +74,7 @@ namespace AceTheChase.GameRules
                 this.chase.MaxPursuitSpeed
             );
 
-            this.uiManager.AnimatePursuitSpeedChange(delta);
+            this.uiManager.AnimatePursuitSpeedChange(delta, this.chase);
 
             return this;
         }
@@ -92,7 +92,7 @@ namespace AceTheChase.GameRules
                 this.chase.MaxControl
             );
 
-            this.uiManager.AnimateControlChange(delta);
+            this.uiManager.AnimateControlChange(delta, this.chase);
 
             return this;
         }
@@ -120,7 +120,7 @@ namespace AceTheChase.GameRules
             this.chase.Hand.AddRange(drawnCards);
             foreach (IPlayerCard card in drawnCards)
             {
-                this.uiManager.AnimateCardDraw(card);
+                this.uiManager.AnimateCardDraw(card, this.chase);
             }
 
             return this;
@@ -150,7 +150,7 @@ namespace AceTheChase.GameRules
             this.chase.CurrentRoute.AddRange(drawnCards);
             foreach (IRouteCard card in drawnCards)
             {
-                this.uiManager.AnimateRouteCardDraw(card);
+                this.uiManager.AnimateRouteCardDraw(card, this.chase);
             }
 
             return this;
@@ -164,7 +164,7 @@ namespace AceTheChase.GameRules
             this.chase.Hand.Remove(card);
             this.chase.PlayerDiscard.Prepend(card);
 
-            this.uiManager.AnimateDiscard(card);
+            this.uiManager.AnimateDiscard(card, this.chase);
 
             return this;
         }
@@ -177,7 +177,7 @@ namespace AceTheChase.GameRules
             this.chase.Hand.Remove(card);
             this.chase.PlayerTrash.Prepend(card);
 
-            this.uiManager.AnimateExhaust(card);
+            this.uiManager.AnimateExhaust(card, this.chase);
 
             return this;
         }
@@ -190,7 +190,7 @@ namespace AceTheChase.GameRules
             this.chase.CurrentRoute.Remove(card);
             this.chase.RouteDiscard.Prepend(card);
 
-            this.uiManager.AnimateRouteDiscard(card);
+            this.uiManager.AnimateRouteDiscard(card, this.chase);
 
             return this;
         }
@@ -208,7 +208,7 @@ namespace AceTheChase.GameRules
             this.chase.PursuitDeck.Shuffle();
             this.chase.PursuitAction = this.chase.PursuitDeck.Draw(1)[0];
 
-            this.uiManager.AnimatePursuitChange(this.chase.PursuitAction);
+            this.uiManager.AnimatePursuitChange(this.chase.PursuitAction, this.chase);
 
             return this;
         }
@@ -224,7 +224,7 @@ namespace AceTheChase.GameRules
             );
             this.chase.PlayerDeck.Shuffle();
 
-            this.uiManager.AnimatePlayerDeckRecycle();
+            this.uiManager.AnimatePlayerDeckRecycle(this.chase);
 
             return this;
         }
@@ -240,7 +240,7 @@ namespace AceTheChase.GameRules
             );
             this.chase.RouteDeck.Shuffle();
 
-            this.uiManager.AnimateRouteDeckRecycle();
+            this.uiManager.AnimateRouteDeckRecycle(this.chase);
 
             return this;
         }
@@ -254,7 +254,7 @@ namespace AceTheChase.GameRules
             {
                 IPlayerCard addedDamage = this.chase.PossibleDamage.ChooseRandom(this.rng);
                 this.chase.PlayerDeck.Prepend(addedDamage);
-                this.uiManager.AnimateDamageToDeck(addedDamage);
+                this.uiManager.AnimateDamageToDeck(addedDamage, this.chase);
             }
 
             return this;
@@ -270,7 +270,7 @@ namespace AceTheChase.GameRules
             {
                 IPlayerCard addedDamage = this.chase.PossibleDamage.ChooseRandom(this.rng);
                 this.chase.PlayerDiscard.Prepend(addedDamage);
-                this.uiManager.AnimateDamageToDiscard(addedDamage);
+                this.uiManager.AnimateDamageToDiscard(addedDamage, this.chase);
             }
 
             return this;

@@ -45,6 +45,7 @@ namespace AceTheChase.GameRules
 
         void Start()
         {
+            this.UiManager.SetState(this.CurrentChaseState);
             BeginTurn();
         }
 

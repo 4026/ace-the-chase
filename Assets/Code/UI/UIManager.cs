@@ -24,12 +24,13 @@ namespace AceTheChase.UI
         public event Action<IRouteCard> RouteCardClicked;
         public event Action<IPursuitCard> PursuitCardClicked;
 
-        public ChaseManager ChaseManager;
-
         public Text LeadLabel;
         public Text PlayerSpeedLabel;
         public Text PursuitSpeedLabel;
         public Text ControlLabel;
+        public Text PlayerDeckCountLabel;
+        public Text PlayerDiscardCountLabel;
+        public Text RouteDeckCountLabel;
 
 
         /// <summary>
@@ -66,6 +67,48 @@ namespace AceTheChase.UI
             CardSpawnParents[CardSpawnLocation.Route] = Route;
             CardSpawnParents[CardSpawnLocation.Pursuit] = Pursuit;
             CardSpawnParents[CardSpawnLocation.CardPicker] = CardPicker.CardGrid;
+        }
+
+        /// <summary>
+        /// Reset the entire UI to reflect the provided chase state.
+        /// </summary>
+        public void SetState(Chase chaseState)
+        {
+            this.LeadLabel.text = chaseState.Lead.ToString("N0");
+            this.PlayerSpeedLabel.text = chaseState.PlayerSpeed.ToString("N0");
+            this.PursuitSpeedLabel.text = chaseState.PursuitSpeed.ToString("N0");
+            this.ControlLabel.text = chaseState.Control.ToString("N0");
+
+            this.PlayerDeckCountLabel.text = chaseState.PlayerDeck.Count.ToString("N0");
+            this.PlayerDiscardCountLabel.text = chaseState.PlayerDiscard.Count.ToString("N0");
+            this.RouteDeckCountLabel.text = chaseState.RouteDeck.Count.ToString("N0");
+
+            foreach (Transform child in this.Hand.transform)
+            {
+                Destroy(child);
+            }
+            foreach (IPlayerCard card in chaseState.Hand)
+            {
+                this.SpawnCard(card, CardSpawnLocation.Hand);
+            }
+
+            foreach (Transform child in this.Route.transform)
+            {
+                Destroy(child);
+            }
+            foreach (IPlayerCard card in chaseState.CurrentRoute)
+            {
+                this.SpawnCard(card, CardSpawnLocation.Route);
+            }
+
+            foreach (Transform child in this.Pursuit.transform)
+            {
+                Destroy(child);
+            }
+            if (chaseState.PursuitAction != null)
+            {
+                this.SpawnCard(chaseState.PursuitAction, CardSpawnLocation.Pursuit);
+            }
         }
 
         /// <summary>
@@ -119,61 +162,57 @@ namespace AceTheChase.UI
         /// <summary>
         /// Queue an animation to change the player's current lead.
         /// </summary>
-        public void AnimateLeadChange(int delta)
+        public void AnimateLeadChange(int delta, Chase newState)
         {
-            this.LeadLabel.text = this.ChaseManager.CurrentChaseState.Lead.ToString("N0");
+            this.LeadLabel.text = newState.Lead.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to change the player's current speed.
         /// </summary>
-        public void AnimatePlayerSpeedChange(int delta)
+        public void AnimatePlayerSpeedChange(int delta, Chase newState)
         {
-            this.PlayerSpeedLabel.text = this.ChaseManager
-                .CurrentChaseState
-                .PlayerSpeed
-                .ToString("N0");
+            this.PlayerSpeedLabel.text = newState.PlayerSpeed .ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to change the current pursuit speed.
         /// </summary>
-        public void AnimatePursuitSpeedChange(int delta)
+        public void AnimatePursuitSpeedChange(int delta, Chase newState)
         {
-            this.PursuitSpeedLabel.text = this.ChaseManager
-                .CurrentChaseState
-                .PursuitSpeed
-                .ToString("N0");
+            this.PursuitSpeedLabel.text = newState.PursuitSpeed .ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to change the player's current control.
         /// </summary>
-        public void AnimateControlChange(int delta)
+        public void AnimateControlChange(int delta, Chase newState)
         {
-            this.ControlLabel.text = this.ChaseManager.CurrentChaseState.Control.ToString("N0");
+            this.ControlLabel.text = newState.Control.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to show the drawing of a card into the player's hand.
         /// </summary>
-        public void AnimateCardDraw(IPlayerCard card)
+        public void AnimateCardDraw(IPlayerCard card, Chase newState)
         {
             this.SpawnCard(card, CardSpawnLocation.Hand);
+            this.PlayerDeckCountLabel.text = newState.PlayerDeck.Count.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to show the addition of a card to the current route.
         /// </summary>
-        public void AnimateRouteCardDraw(IRouteCard card)
+        public void AnimateRouteCardDraw(IRouteCard card, Chase newState)
         {
             this.SpawnCard(card, CardSpawnLocation.Route);
+            this.RouteDeckCountLabel.text = newState.RouteDeck.Count.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to show a card being discarded from the player's hand.
         /// </summary>
-        public void AnimateDiscard(IPlayerCard card)
+        public void AnimateDiscard(IPlayerCard card, Chase newState)
         {
             // Remove the first matching card from the player's hand.
             foreach (Transform child in this.Hand.transform)
@@ -191,12 +230,14 @@ namespace AceTheChase.UI
                     break;
                 }
             }
+
+            this.PlayerDiscardCountLabel.text = newState.PlayerDiscard.Count.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to show a card being exhausted from the player's hand.
         /// </summary>
-        public void AnimateExhaust(IPlayerCard card)
+        public void AnimateExhaust(IPlayerCard card, Chase newState)
         {
             // Remove the first matching card from the player's hand.
             foreach (Transform child in this.Hand.transform)
@@ -219,7 +260,7 @@ namespace AceTheChase.UI
         /// <summary>
         /// Queue an animation to show a card being removed from the current route.
         /// </summary>
-        public void AnimateRouteDiscard(IRouteCard card)
+        public void AnimateRouteDiscard(IRouteCard card, Chase newState)
         {
             // Remove the first matching card from the current route.
             foreach (Transform child in this.Route.transform)
@@ -242,7 +283,7 @@ namespace AceTheChase.UI
         /// <summary>
         /// Queue an animation to show the swapping out of a pursuit card for a new one.
         /// </summary>
-        public void AnimatePursuitChange(IPursuitCard card)
+        public void AnimatePursuitChange(IPursuitCard card, Chase newState)
         {
             foreach (Transform child in this.Pursuit.transform)
             {
@@ -255,33 +296,34 @@ namespace AceTheChase.UI
         /// <summary>
         /// Queue an animation to show the player's deck being recycled.
         /// </summary>
-        public void AnimatePlayerDeckRecycle()
+        public void AnimatePlayerDeckRecycle(Chase newState)
         {
-            // TODO
+            this.PlayerDeckCountLabel.text = newState.PlayerDeck.Count.ToString("N0");
+            this.PlayerDiscardCountLabel.text = newState.PlayerDiscard.Count.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to show the route deck being recycled.
         /// </summary>
-        public void AnimateRouteDeckRecycle()
+        public void AnimateRouteDeckRecycle(Chase newState)
         {
-            // TODO
+            this.RouteDeckCountLabel.text = newState.RouteDeck.Count.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to show a damage card being added to the player's deck.
         /// </summary>
-        public void AnimateDamageToDeck(IPlayerCard card)
+        public void AnimateDamageToDeck(IPlayerCard card, Chase newState)
         {
-            // TODO
+            this.PlayerDeckCountLabel.text = newState.PlayerDeck.Count.ToString("N0");
         }
 
         /// <summary>
         /// Queue an animation to show a damage card being added to the player's discard pile.
         /// </summary>
-        public void AnimateDamageToDiscard(IPlayerCard card)
+        public void AnimateDamageToDiscard(IPlayerCard card, Chase newState)
         {
-            // TODO
+            this.PlayerDiscardCountLabel.text = newState.PlayerDiscard.Count.ToString("N0");
         }
     }
 }
