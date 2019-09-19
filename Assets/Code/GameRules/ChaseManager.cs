@@ -8,21 +8,7 @@ namespace AceTheChase.GameRules
 {
     public class ChaseManager : MonoBehaviour
     {
-        public int StartingLead;
-        public int StartingPlayerSpeed;
-        public int StartingPursuitSpeed;
-        public int StartingControl;
-
-        public int StartingMaxLead;
-        public int StartingMaxPlayerSpeed;
-        public int StartingMaxPursuitSpeed;
-        public int StartingMaxControl;       
-
-        public Deck<IPlayerCard> StartingPlayerDeck;
-        public Deck<IRouteCard> StartingRouteDeck;
-        public Deck<IPursuitCard> StartingPursuitDeck;
-
-        public List<IPlayerCard> PossibleDamage;
+        public ChaseStartInfo StartInfo;
 
         public int DrawCardsPerTurn;
         public int ControlGainPerTurn;
@@ -42,18 +28,18 @@ namespace AceTheChase.GameRules
         {
             // Bootstrap the chase state.
             this.CurrentChaseState = new Chase(
-                StartingLead,
-                StartingPlayerSpeed,
-                StartingPursuitSpeed,
-                StartingControl,
-                StartingMaxLead,
-                StartingMaxPlayerSpeed,
-                StartingMaxPursuitSpeed,
-                StartingMaxControl,
-                StartingPlayerDeck,
-                StartingRouteDeck,
-                StartingPursuitDeck,
-                PossibleDamage
+                StartInfo.StartingLead,
+                StartInfo.StartingPlayerSpeed,
+                StartInfo.StartingPursuitSpeed,
+                StartInfo.StartingControl,
+                StartInfo.StartingMaxLead,
+                StartInfo.StartingMaxPlayerSpeed,
+                StartInfo.StartingMaxPursuitSpeed,
+                StartInfo.StartingMaxControl,
+                StartInfo.StartingPlayerDeck,
+                StartInfo.StartingRouteDeck,
+                StartInfo.StartingPursuitDeck,
+                StartInfo.AllDamageCards
             );
 
             BeginTurn();
