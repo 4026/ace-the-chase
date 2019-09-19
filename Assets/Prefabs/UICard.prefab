@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cardImage: {fileID: 6851525740009016187}
-  m_baseBorder: {fileID: 734966663790786021}
+  m_baseBorder: {fileID: 144110280}
   m_borderGradient: {fileID: 1171748152239908518}
   m_titleGradient: {fileID: 1155072503991124682}
   m_titleHighlight: {fileID: 4344624295327529364}
