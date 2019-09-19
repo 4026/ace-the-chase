@@ -6,6 +6,7 @@ namespace AceTheChase.GameRules.PlayerCards
     /// <summary>
     /// Gain control based on your current speed.
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Player/Nerves Of Steel", fileName = "Player_NervesOfSteel")]
     public class NervesOfSteel : PlayerCard
     {
         public float ControlPerSpeed;

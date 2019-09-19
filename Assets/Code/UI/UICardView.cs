@@ -19,9 +19,5 @@ namespace AceTheChase.UI
         [SerializeField] private Text m_cardControlCost;
         [SerializeField] private Text m_cardEffects;
         [SerializeField] private Text m_cardFlavourText;
-
-        public void SetupCard(PlayerCardType playerCardType, int ID)
-        {
-        }
     }
 }

@@ -6,6 +6,7 @@ namespace AceTheChase.GameRules.PlayerCards
     /// <summary>
     /// Recycle the route deck.
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Player/Double Back", fileName = "Player_DoubleBack")]
     public class DoubleBack : PlayerCard
     {
         public override Chase Play(

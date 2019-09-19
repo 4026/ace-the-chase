@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace AceTheChase.GameRules.DamageCards
 {
     /// <summary>
     /// Damage. Reduce the player's speed.
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Damage/Stalled", fileName = "Damage_Stalled")]
     public class Stalled : PlayerCard
     {
         public override PlayerCardType CardType => PlayerCardType.Damage;

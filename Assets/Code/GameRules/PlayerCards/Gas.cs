@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace AceTheChase.GameRules.PlayerCards
 {
     /// <summary>
     /// A simple card that adds speed in exchange for Control.
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Player/Gas", fileName = "Player_Gas")]
     public class Gas : PlayerCard
     {
         public int SpeedIncrease;

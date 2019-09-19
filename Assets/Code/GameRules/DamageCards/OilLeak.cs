@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine;
+
 
 namespace AceTheChase.GameRules.DamageCards
 {
     /// <summary>
     /// Damage. Reduce the player's lead.
-    /// </summary>
+    /// </summary
+    [CreateAssetMenu(menuName = "Cards/Damage/Oil Leak", fileName = "Damage_OilLeak")]
     public class OilLeak : PlayerCard
     {
         public override PlayerCardType CardType => PlayerCardType.Damage;

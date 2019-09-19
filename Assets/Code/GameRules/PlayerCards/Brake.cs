@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace AceTheChase.GameRules.PlayerCards
 {
     /// <summary>
     /// Trade speed for control.
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Player/Brake", fileName = "Player_Brake")]
     public class Brake : PlayerCard
     {
         public int SpeedDecrease;
