@@ -14,13 +14,15 @@ namespace AceTheChase.UI
         private Image m_cardImage;
 
         [SerializeField]
-        private Image m_baseBorder;
+        private UIGradient m_baseBorder;
         [SerializeField]
         private UIGradient m_borderGradient;
         [SerializeField]
         private UIGradient m_titleGradient;
         [SerializeField]
         private UIGradient m_titleHighlight;
+        [SerializeField]
+        private UIGradient m_imageGradient;
 
         [SerializeField]
         private Text m_cardName;
@@ -36,12 +38,16 @@ namespace AceTheChase.UI
         [SerializeField]
         private GameObject m_flavourTextLayer;
 
+        [Header("Card Type")]
         //cardtype (for special effects)
         [SerializeField]
         private GameObject m_cardTypeLayer;
         [SerializeField]
         private Text m_cardTypeText;
+        [SerializeField]
+        private Image m_cardTypeBG;
 
+        [Header("Number of cards owned")]
         //deck building thingy
         [SerializeField]
         private GameObject m_numberOwnedLayer;
@@ -74,6 +80,15 @@ namespace AceTheChase.UI
             UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.Driver);
             SetColourScheme(scheme);
             m_card = card;
+            if (card.CardType != PlayerCardType.None)
+            {
+                m_cardTypeLayer.SetActive(true);
+                m_cardTypeText.text = card.CardType.ToString();
+            }
+            else
+            {
+                m_cardTypeLayer.SetActive(false);
+            }
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
@@ -89,6 +104,15 @@ namespace AceTheChase.UI
             UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.CardType);
             SetColourScheme(scheme);
             m_card = card;
+            if (card.CardType != RouteCardType.None)
+            {
+                m_cardTypeLayer.SetActive(true);
+                m_cardTypeText.text = card.CardType.ToString();
+            }
+            else
+            {
+                m_cardTypeLayer.SetActive(false);
+            }
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
@@ -112,12 +136,14 @@ namespace AceTheChase.UI
 
         private void SetColourScheme(UIPalette.CardTypeColourScheme scheme)
         {
-            m_baseBorder.color = scheme.BorderGradientBottom;
-
             m_borderGradient.SetColours(scheme.BorderGradientTop, scheme.BorderGradientBottom);
             m_titleGradient.SetColours(scheme.TitleColourTop, scheme.TitleColourBottom);
+            m_baseBorder.SetColours(scheme.TitleColourBottom, scheme.TitleColourTop);
             m_titleHighlight.SetColours(scheme.TitleHighlightTop, scheme.TitleHighlightBottom);
             m_numberOwnedBorder.color = scheme.BorderGradientTop;
+            m_cardFlavourText.color = scheme.BorderGradientBottom;
+            m_cardTypeBG.color = scheme.BorderGradientBottom;
+            m_imageGradient.SetColours(scheme.BorderGradientTop, scheme.BorderGradientBottom);
         }
 
         public ICard GetCard()

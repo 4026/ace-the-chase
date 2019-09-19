@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cardImage: {fileID: 6851525740009016187}
-  m_baseBorder: {fileID: 734966663790786021}
+  m_baseBorder: {fileID: 144110280}
   m_borderGradient: {fileID: 1171748152239908518}
   m_titleGradient: {fileID: 1155072503991124682}
   m_titleHighlight: {fileID: 4344624295327529364}
@@ -591,6 +591,7 @@ MonoBehaviour:
   m_flavourTextLayer: {fileID: 7037716767421248418}
   m_cardTypeLayer: {fileID: 6019231748147106556}
   m_cardTypeText: {fileID: 2427363467372786661}
+  m_cardTypeBG: {fileID: 2728618171594138418}
   m_numberOwnedLayer: {fileID: 8819513558403426232}
   m_numberOwnedText: {fileID: 943687521652800527}
   m_numberOwnedBorder: {fileID: 4721695467949134120}
