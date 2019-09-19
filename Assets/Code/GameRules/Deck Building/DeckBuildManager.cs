@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using AceTheChase.Utils;
@@ -53,16 +54,44 @@ public class DeckBuildManager : MonoBehaviour
             UICardView uICardView = uiCardObject.GetComponent<UICardView>();
             uICardView.Setup(cardPool[i]);
             uICardView.transform.parent = uiCardPool;
+            uICardView.OnClick += OnUICardViewClicked;
+            uiCardPoolCards.Add(uICardView.GetCard().Name, uICardView);
         }
     }
 
+    public void OnUICardViewClicked(object sender, EventArgs e)
+    {
+        Debug.Log("We know");
+        GameObject uiCardView = sender as GameObject;
+        if (uiCardView != null)
+        {
+            UICardView cardView = uiCardView.GetComponent<UICardView>();
+            if (cardView != null)
+            {
+                if (uiCardView.transform.parent == uiPlayerDeck)
+                {
+                    this.RemoveCardFromDeck(cardView.GetCard() as IPlayerCard);
+                }
+                else if (uiCardView.transform.parent == uiCardPool)
+                {
+                    this.AddCardToDeck(cardView.GetCard() as IPlayerCard);
+                }
+            }
+        }
+    }
 
     public void AddCardToDeck(IPlayerCard card)
     {
+        if(card == null)
+        {
+            return;
+        }
+
         string failureReason;
         if (!ValidateAddCard(card, out failureReason))
         {
             Debug.Log($"DeckBuilding validation failure : {failureReason}");
+            return;
         }
 
         builtDeck.Add(card);
@@ -75,6 +104,8 @@ public class DeckBuildManager : MonoBehaviour
         {
             GameObject g = Instantiate(uiCardView.gameObject);
             UICardView view = g.GetComponent<UICardView>();
+            view.Setup(card);
+            view.OnClick += OnUICardViewClicked;
             uiPlayerDeckCards.Add(card.Name, view);
             g.transform.parent = uiPlayerDeck;
         }
@@ -82,6 +113,11 @@ public class DeckBuildManager : MonoBehaviour
 
     public void RemoveCardFromDeck(IPlayerCard card)
     {
+        if(card == null)
+        {
+            return;
+        }
+
         if(builtDeck.Remove(card))
         {
             int numLeft = builtDeck.FindAll((obj) => { return obj.Name == card.Name; }).Count;
@@ -94,7 +130,7 @@ public class DeckBuildManager : MonoBehaviour
                 }
                 else
                 {
-                    Destroy(uiCardView);
+                    Destroy(uiCardView.gameObject);
                     uiPlayerDeckCards.Remove(card.Name);
                 }
             }

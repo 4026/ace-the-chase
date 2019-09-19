@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 60344844}
   - component: {fileID: 60344842}
   - component: {fileID: 60344841}
-  - component: {fileID: 60344843}
   m_Layer: 5
   m_Name: BuiltDeckScrollRect
   m_TagString: Untagged
@@ -205,35 +204,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &60344843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 60344839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
 --- !u!222 &60344844
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -312,8 +282,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4.2000732, y: 0}
-  m_SizeDelta: {x: 8.4, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.00012207, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &155177022
 MonoBehaviour:
@@ -327,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d0e12d862d04b018bd5112040c3501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numChildren: 0
 --- !u!114 &155177023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,7 +331,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
-  m_StartAxis: 0
+  m_StartAxis: 1
   m_CellSize: {x: 600, y: 1024}
   m_Spacing: {x: -280, y: -480}
   m_Constraint: 0
@@ -375,9 +346,8 @@ GameObject:
   m_Component:
   - component: {fileID: 175860981}
   - component: {fileID: 175860984}
-  - component: {fileID: 175860983}
   - component: {fileID: 175860982}
-  - component: {fileID: 175860985}
+  - component: {fileID: 175860983}
   m_Layer: 5
   m_Name: CardPoolRect
   m_TagString: Untagged
@@ -399,9 +369,9 @@ RectTransform:
   m_Father: {fileID: 191029040}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -719.9996, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0.0004272461, y: 496.9}
   m_SizeDelta: {x: 0, y: 1104.2}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &175860982
@@ -437,26 +407,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 175860980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!222 &175860984
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -465,20 +420,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175860980}
   m_CullTransparentMesh: 0
---- !u!114 &175860985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175860980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 0
 --- !u!1 &191029039
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +430,6 @@ GameObject:
   m_Component:
   - component: {fileID: 191029040}
   - component: {fileID: 191029042}
-  - component: {fileID: 191029041}
   - component: {fileID: 191029043}
   - component: {fileID: 191029044}
   m_Layer: 5
@@ -519,35 +459,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -783.1001}
   m_SizeDelta: {x: 0, y: -1566.2}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &191029041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191029039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
 --- !u!222 &191029042
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -732,20 +643,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPool:
-  - {fileID: 11400000, guid: 103295747baa7445fa3f8f32129bad32, type: 2}
-  - {fileID: 11400000, guid: 6fa6059dbdcdf4cc181077dce83c8a85, type: 2}
-  - {fileID: 11400000, guid: 4334b28ff4f31494fb08505df60feb25, type: 2}
-  - {fileID: 11400000, guid: 9a366047da16a48749ad9969c0ac4736, type: 2}
+  - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
+  - {fileID: 11400000, guid: 3b47217d21c0146faa2cb69c4ffde560, type: 2}
+  - {fileID: 11400000, guid: 6b406f8e4faba468eb01dc43bc31a4b3, type: 2}
+  - {fileID: 11400000, guid: a9cd5fc80ac9646eea1d58e67a765327, type: 2}
   - {fileID: 11400000, guid: 81179fda42d044fad9399a85160eb63a, type: 2}
   - {fileID: 11400000, guid: 78a84fe7f740945a7af519efec87ab29, type: 2}
   - {fileID: 11400000, guid: a5b1c78130ff34c01951ca60d10c297d, type: 2}
   - {fileID: 11400000, guid: 4868a0068db234cf1a0e6727d7a494b0, type: 2}
   - {fileID: 11400000, guid: 214c55b6f9e5c47fdb7cdb3d9ff7bb61, type: 2}
   - {fileID: 11400000, guid: c20b8ef7acc764f1283a6eaa893cd648, type: 2}
-  - {fileID: 11400000, guid: a9cd5fc80ac9646eea1d58e67a765327, type: 2}
-  - {fileID: 11400000, guid: 6b406f8e4faba468eb01dc43bc31a4b3, type: 2}
-  - {fileID: 11400000, guid: 3b47217d21c0146faa2cb69c4ffde560, type: 2}
-  - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
   uiPlayerDeck: {fileID: 155177021}
   uiCardPool: {fileID: 175860981}
   cardUIPrefab: {fileID: 3841765975924350151, guid: 0d3f7b5f7c3a04096a63a11c452a7b0f,

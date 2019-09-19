@@ -88,7 +88,5 @@ namespace AceTheChase.UI
             Debug.LogError("CardTypeColorScheme not found for route card type: " + type.ToString());
             return DefaultCardColours;
         }
-
-
     }
 }

@@ -23,10 +23,10 @@ MonoBehaviour:
     BorderGradientBottom: {r: 0, g: 0, b: 0, a: 0}
     Icon: {fileID: 0}
   DefaultCardColours:
-    TitleColourTop: {r: 1, g: 0.7117041, b: 0.28773582, a: 0}
-    TitleColourBottom: {r: 1, g: 0.41783023, b: 0.2783019, a: 0}
-    TitleHighlightTop: {r: 1, g: 0.7980366, b: 0.2028302, a: 0}
-    TitleHighlightBottom: {r: 1, g: 0.5957044, b: 0.1745283, a: 0}
-    BorderGradientTop: {r: 1, g: 0.5907963, b: 0.2688679, a: 0}
-    BorderGradientBottom: {r: 1, g: 0.33490568, b: 0.66203797, a: 0}
+    TitleColourTop: {r: 1, g: 0.7117041, b: 0.28773582, a: 1}
+    TitleColourBottom: {r: 1, g: 0.41783023, b: 0.2783019, a: 1}
+    TitleHighlightTop: {r: 1, g: 0.7980366, b: 0.2028302, a: 1}
+    TitleHighlightBottom: {r: 1, g: 0.5957044, b: 0.1745283, a: 1}
+    BorderGradientTop: {r: 1, g: 0.5907963, b: 0.2688679, a: 1}
+    BorderGradientBottom: {r: 1, g: 0.33490568, b: 0.66203797, a: 1}
     Icon: {fileID: 21300000, guid: fba446c4da62c4c76a726e17257cd9d1, type: 3}

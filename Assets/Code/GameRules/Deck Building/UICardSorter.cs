@@ -7,7 +7,7 @@ using AceTheChase.UI;
 
 public class UICardSorter : MonoBehaviour
 {
-    private int numChildren = 0;
+    public int numChildren = 0;
 
     private class PlayerCardSortable : IComparable<PlayerCardSortable>
     {
@@ -36,7 +36,7 @@ public class UICardSorter : MonoBehaviour
         if(transform.childCount != numChildren)
         {
             List<PlayerCardSortable> cardsToSort = new List<PlayerCardSortable>();
-            for(var i = 0; i < numChildren; ++i)
+            for(var i = 0; i < transform.childCount; ++i)
             {
                 UICardView cardView = transform.GetChild(i).GetComponent<UICardView>();
                 if (cardView)
