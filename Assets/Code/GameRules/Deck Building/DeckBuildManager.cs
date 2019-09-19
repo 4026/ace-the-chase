@@ -266,7 +266,7 @@ public class DeckBuildManager : MonoBehaviour
 
         if (builtDeck.Count >= maxDeckSize)
         {
-            reason = "Your deck cant have more then 21 cards in it";
+            reason = "Your deck cannot have more than 21 cards in it.";
             return false;
         }
 
@@ -278,7 +278,7 @@ public class DeckBuildManager : MonoBehaviour
             });
             if (outOfFactionCards.Count >= maxOutOfFactionCards)
             {
-                reason = "You cant have more then 4 out of faction cards";
+                reason = "You cannot have more than 4 cards from different specialities.";
                 return false;
             }
         }
@@ -286,7 +286,7 @@ public class DeckBuildManager : MonoBehaviour
         IList<IPlayerCard> cards = builtDeck.FindAll((obj) => { return obj.Name == card.Name; });
         if(cards.Count >= maxDuplicates)
         {
-            reason = "You cant have more then 2 copies of a card in your deck";
+            reason = "You cannot have more than 2 copies of any card in your deck";
             return false;
         }
         reason = "";

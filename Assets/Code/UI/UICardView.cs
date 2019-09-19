@@ -53,8 +53,11 @@ namespace AceTheChase.UI
         private GameObject m_numberOwnedLayer;
         [SerializeField]
         private Text m_numberOwnedText;
+
         [SerializeField]
-        private Image m_numberOwnedBorder;
+        private Image m_numberOwnedBG1;
+        [SerializeField]
+        private Image m_numberOwnedBG2;
 
         private ICard m_card;
 
@@ -142,7 +145,8 @@ namespace AceTheChase.UI
             m_titleGradient.SetColours(scheme.TitleColourTop, scheme.TitleColourBottom);
             m_baseBorder.SetColours(scheme.TitleColourBottom, scheme.TitleColourTop);
             m_titleHighlight.SetColours(scheme.TitleHighlightTop, scheme.TitleHighlightBottom);
-            m_numberOwnedBorder.color = scheme.BorderGradientTop;
+            m_numberOwnedBG1.color = Color.black;
+            m_numberOwnedBG2.color = Color.black;
             m_cardFlavourText.color = scheme.BorderGradientBottom;
             m_cardTypeBG.color = scheme.BorderGradientBottom;
             m_imageGradient.SetColours(scheme.BorderGradientTop, scheme.BorderGradientBottom);
