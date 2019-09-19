@@ -20,7 +20,7 @@ MonoBehaviour:
   StartingMaxPlayerSpeed: 5
   StartingMaxPursuitSpeed: 5
   StartingMaxControl: 10
-  RouteDeckSize: 4
+  RouteDeckSize: 21
   SelectedPlayerCards:
   - {fileID: 11400000, guid: 4868a0068db234cf1a0e6727d7a494b0, type: 2}
   - {fileID: 11400000, guid: 81179fda42d044fad9399a85160eb63a, type: 2}
@@ -43,6 +43,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05de323c9d7934ac69d4b4c3fc116d06, type: 2}
   - {fileID: 11400000, guid: a05e384a710ec441eaa19a2b686b3c0b, type: 2}
   - {fileID: 11400000, guid: c13097bd5569546b291bcb72bfc190bb, type: 2}
+  - {fileID: 11400000, guid: ec83d074af57b473a8e79c37b738df44, type: 2}
+  - {fileID: 11400000, guid: 798f6edcf6d934dc98f745be19127290, type: 2}
+  - {fileID: 11400000, guid: a6c0a8a2b5db645759a0fb487c017d2a, type: 2}
+  - {fileID: 11400000, guid: 1c58fda9357624b809c2a2039c2ee59e, type: 2}
   AllPursuitCards:
   - {fileID: 11400000, guid: 0ad61f38fd26f4cbfb03ef72786ea043, type: 2}
   - {fileID: 11400000, guid: d1064dc71168e46fb82cb466d143e612, type: 2}

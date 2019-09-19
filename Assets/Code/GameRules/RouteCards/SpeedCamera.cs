@@ -4,22 +4,20 @@ using UnityEngine;
 namespace AceTheChase.GameRules.RouteCards
 {
     /// <summary>
-    /// Reduces lead, and damages the car unless the player's speed is high.
+    /// Reduces lead if the player's speed is high.
     /// </summary>
-    [CreateAssetMenu(menuName = "Cards/Routes/Raised Bridge", fileName = "Routes_RaisedBridge")]
-    public class RaisedBridge : RouteCard
+    [CreateAssetMenu(menuName = "Cards/Routes/Speed Camera", fileName = "Routes_SpeedCamera")]
+    public class SpeedCamera : RouteCard
     {
-        public int LeadDecrease;
         public int SpeedThreshold;
-        public int Damage;
+        public int LeadDecrease;
 
         public override Chase Play(Chase currentState, UIManager uiManager)
         {
             ChaseMutator mutator = new ChaseMutator(currentState, uiManager);
-            mutator.AddLead(-LeadDecrease);
-            if (currentState.PlayerSpeed < SpeedThreshold)
+            if (currentState.PlayerSpeed > SpeedThreshold)
             {
-                mutator.AddDamageToTopOfDeck(Damage);
+                mutator.AddLead(-LeadDecrease);
             }
 
             return mutator.DiscardFromRoute(this).Done();
