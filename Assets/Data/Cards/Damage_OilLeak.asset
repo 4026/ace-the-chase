@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601c699c0cf7d784f9a6c4081c1433d9, type: 3}
   m_Name: Damage_OilLeak
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Oil Leak
   controlCost: 0
   driver: 0
-  description: 
-  flavourText: 
-  cardImage: {fileID: 0}
-  LeadDecrease: 0
+  playerCardType: 4
+  description: -1 Lead
+  flavourText: '"Ugh. That''s going to leave a mark."'
+  cardImage: {fileID: 21300000, guid: fab164ab7e2c241f28d54475c354fe9c, type: 3}
+  LeadDecrease: 1

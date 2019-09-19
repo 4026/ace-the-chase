@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using AceTheChase.UI;
 
 namespace AceTheChase.GameRules
 {
@@ -16,6 +16,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         void PromptForParameters(
             Chase currentChaseState,
+            UIManager uiManager,
             Action<IDictionary<string, object>> OnComplete
         );
     }

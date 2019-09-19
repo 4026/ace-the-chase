@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68dfc8b38665166409849b28ca1c2456, type: 3}
   m_Name: Pursuit_PoliceHelicopter
   m_EditorClassIdentifier: 
-  displayName: 
-  description: 
-  flavourText: 
-  cardImage: {fileID: 0}
-  PursuitSpeedIncrease: 0
+  displayName: Police helicopter
+  description: +2 pursuit speed
+  flavourText: '"Air support authorised, we''re on route"'
+  cardImage: {fileID: 21300000, guid: 74dc0e04e53804564aa6a619c75e69ba, type: 3}
+  PursuitSpeedIncrease: 2

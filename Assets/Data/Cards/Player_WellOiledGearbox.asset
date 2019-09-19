@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990936f3cf453ab4e89a9a008f70658b, type: 3}
   m_Name: Player_WellOiledGearbox
   m_EditorClassIdentifier: 
-  displayName: 
-  controlCost: 0
-  driver: 0
-  description: 
+  displayName: Well-oiled gearbox
+  controlCost: 1
+  driver: 2
+  playerCardType: 0
+  description: +3 control
   flavourText: 
-  cardImage: {fileID: 0}
-  ControlIncrease: 0
+  cardImage: {fileID: 21300000, guid: 4fe810a2eb0d44aef80008ebcb93d0d9, type: 3}
+  ControlIncrease: 3

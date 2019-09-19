@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16df08e4b382ace449716e29a79ce494, type: 3}
   m_Name: Player_DoubleBack
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Double back
   controlCost: 0
-  driver: 0
-  description: 
+  driver: 3
+  playerCardType: 0
+  description: Shuffle the Route discard pile into the Route deck
   flavourText: 
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 61a50f7beba4d784e82597df29c22a70, type: 3}

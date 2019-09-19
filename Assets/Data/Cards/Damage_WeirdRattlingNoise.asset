@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec186b66384bcd4681f316ebf6d1e18, type: 3}
   m_Name: Damage_WeirdRattlingNoise
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Weird Rattling Noise
   controlCost: 0
   driver: 0
-  description: 
-  flavourText: 
-  cardImage: {fileID: 0}
-  Damage: 0
+  playerCardType: 0
+  description: 'Add 1 Damage Card to your deck. '
+  flavourText: '"I''m sure it''s fine."'
+  cardImage: {fileID: 21300000, guid: dcf4c1cd6b706459fb539b75a182d43c, type: 3}
+  Damage: 1

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32cb2bf83147a44684603d81c88aab5, type: 3}
   m_Name: Pursuit_PitManeuver
   m_EditorClassIdentifier: 
-  displayName: 
-  description: 
+  displayName: PIT maneuver
+  description: -1 Control
   flavourText: 
-  cardImage: {fileID: 0}
-  ControlDecrease: 0
+  cardImage: {fileID: 21300000, guid: 532d27436bc186d4fa61a9cb99329f1a, type: 3}
+  ControlDecrease: 1

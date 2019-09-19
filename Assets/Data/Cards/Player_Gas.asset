@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8ea5fc17d55e843a7d13eb4d0fa3ad, type: 3}
   m_Name: Player_Gas
   m_EditorClassIdentifier: 
-  displayName: 
-  controlCost: 0
+  displayName: Gas
+  controlCost: 1
   driver: 0
-  description: 
+  playerCardType: 0
+  description: +1 speed
   flavourText: 
   cardImage: {fileID: 0}
-  SpeedIncrease: 0
+  SpeedIncrease: 1

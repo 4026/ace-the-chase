@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9fdaff62d452f4da071cb23cf1285b, type: 3}
   m_Name: Player_Brake
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: BRAKE
   controlCost: 0
   driver: 0
-  description: 
+  playerCardType: 0
+  description: -1 speed, +1 control
   flavourText: 
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 884a21772181f46db8af51adf572a055, type: 3}
   SpeedDecrease: 0
   ControlIncrease: 0
