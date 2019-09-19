@@ -1,17 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace AceTheChase.GameRules
 {
     /// <summary>
     /// A card that the player can add to their deck for use in a chase.
     /// </summary>
-    public interface IPlayerCard
+    public interface IPlayerCard : ICard
     {
-        /// <summary>
-        /// The display name of the card.
-        /// </summary>
-        string Name { get; }
-
         /// <summary>
         /// How much control it costs to play this card.false (may be 0).
         /// </summary>
@@ -26,16 +22,6 @@ namespace AceTheChase.GameRules
         /// The special type of this card, if any.
         /// </summary>
         PlayerCardType CardType { get; }
-
-        /// <summary>
-        /// The body text to display for the card.
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// The flavour text to display for the card.
-        /// </summary>
-        string FlavourText { get; }
 
         /// <summary>
         /// Get the parameter provider for this card, if there is one (null if the card requires no
