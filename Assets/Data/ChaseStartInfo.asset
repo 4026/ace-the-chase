@@ -36,6 +36,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 117619840c997461e9696e991e0bdf43, type: 2}
   - {fileID: 11400000, guid: a0f2cec12c1d84d1ea9e923565ff4350, type: 2}
   - {fileID: 11400000, guid: 22c582900ba194de49d2af8621f7950e, type: 2}
+  - {fileID: 11400000, guid: 156d35baaf8224c10b2905b841f8b49e, type: 2}
+  - {fileID: 11400000, guid: 74dcdb836f7714e188fc785ebe7f522c, type: 2}
+  - {fileID: 11400000, guid: fa7870213bc99415282d567b424e1c8f, type: 2}
+  - {fileID: 11400000, guid: 4ef636e0610ce48bb9301da17b0d2446, type: 2}
+  - {fileID: 11400000, guid: 05de323c9d7934ac69d4b4c3fc116d06, type: 2}
+  - {fileID: 11400000, guid: a05e384a710ec441eaa19a2b686b3c0b, type: 2}
+  - {fileID: 11400000, guid: c13097bd5569546b291bcb72bfc190bb, type: 2}
   AllPursuitCards:
   - {fileID: 11400000, guid: 0ad61f38fd26f4cbfb03ef72786ea043, type: 2}
   - {fileID: 11400000, guid: d1064dc71168e46fb82cb466d143e612, type: 2}

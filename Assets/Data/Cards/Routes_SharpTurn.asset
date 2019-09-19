@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8ea5fc17d55e843a7d13eb4d0fa3ad, type: 3}
-  m_Name: Player_Gas
+  m_Script: {fileID: 11500000, guid: 9ccdb20b1436a464ea4981f3ab97875c, type: 3}
+  m_Name: Routes_SharpTurn
   m_EditorClassIdentifier: 
-  displayName: Gas
-  controlCost: 1
-  driver: 0
-  playerCardType: 0
-  description: +1 speed
+  displayName: Sharp Turn
+  cardType: 2
+  description: -1 Speed
   flavourText: 
-  cardImage: {fileID: 21300000, guid: 13942f2a83ffb47d881bf99a25265348, type: 3}
-  SpeedIncrease: 1
+  cardImage: {fileID: 21300000, guid: d4d1dc55a18144381924dc1354dd83cb, type: 3}
+  SpeedDecrease: 1

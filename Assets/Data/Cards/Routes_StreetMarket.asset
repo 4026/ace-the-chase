@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df8ea5fc17d55e843a7d13eb4d0fa3ad, type: 3}
-  m_Name: Player_Gas
+  m_Script: {fileID: 11500000, guid: e9d9ced0a9818456b8b18b4ef923945f, type: 3}
+  m_Name: Routes_StreetMarket
   m_EditorClassIdentifier: 
-  displayName: Gas
-  controlCost: 1
-  driver: 0
-  playerCardType: 0
-  description: +1 speed
+  displayName: Street Market
+  cardType: 1
+  description: -1 Control next turn per speed
   flavourText: 
-  cardImage: {fileID: 21300000, guid: 13942f2a83ffb47d881bf99a25265348, type: 3}
-  SpeedIncrease: 1
+  cardImage: {fileID: 21300000, guid: 9a1b22f7cca254dcd9ac65f55652f729, type: 3}
