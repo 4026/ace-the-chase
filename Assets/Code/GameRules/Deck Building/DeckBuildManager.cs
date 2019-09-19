@@ -15,11 +15,14 @@ public class DeckBuildManager : MonoBehaviour
 
     public Transform uiPlayerDeck;
     public Transform uiCardPool;
-    public Image deckBuilderBackground;
+    public UIGradient deckBuilderBackground;
 
-    public Color stuntColor;
-    public Color mechanicColor;
-    public Color navigatorColor;
+    public Color stuntColorTop;
+    public Color stuntColorBottom;
+    public Color mechanicColorTop;
+    public Color mechanicColorBottom;
+    public Color navigatorColorTop;
+    public Color navigatorColorBottom;
 
     public ChaseStartInfo initInfo;
 
@@ -233,7 +236,7 @@ public class DeckBuildManager : MonoBehaviour
         {
             ClearDeck();
         }
-        deckBuilderBackground.color = stuntColor;
+        deckBuilderBackground.SetColours(stuntColorTop, stuntColorBottom);
         deckFaction = PlayerCardDriver.StuntDriver;
     }
 
@@ -243,7 +246,7 @@ public class DeckBuildManager : MonoBehaviour
         {
             ClearDeck();
         }
-        deckBuilderBackground.color = navigatorColor;
+        deckBuilderBackground.SetColours(navigatorColorTop, navigatorColorBottom);
         deckFaction = PlayerCardDriver.Navigator;
     }
 
@@ -253,7 +256,7 @@ public class DeckBuildManager : MonoBehaviour
         {
             ClearDeck();
         }
-        deckBuilderBackground.color = mechanicColor;
+        deckBuilderBackground.SetColours(mechanicColorTop, mechanicColorBottom);
         deckFaction = PlayerCardDriver.Mechanic;
     }
 

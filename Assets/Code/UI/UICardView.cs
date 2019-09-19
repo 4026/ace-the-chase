@@ -124,7 +124,7 @@ namespace AceTheChase.UI
 
         private void SetFlavourText(string flavourText)
         {
-            if (string.IsNullOrEmpty(flavourText) == false)
+            if (false && string.IsNullOrEmpty(flavourText) == false)
             {
                 m_flavourTextLayer.SetActive(true);
                 m_cardFlavourText.text = flavourText;
