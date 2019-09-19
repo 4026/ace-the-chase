@@ -24,7 +24,7 @@ namespace AceTheChase.GameRules
         public readonly StateMachine<ChasePhase> PhaseManager
             = new StateMachine<ChasePhase>(ChasePhase.Setup);
 
-        void Start()
+        void Awake()
         {
             // Bootstrap the chase state.
             this.CurrentChaseState = new Chase(
@@ -41,7 +41,10 @@ namespace AceTheChase.GameRules
                 StartInfo.StartingPursuitDeck,
                 StartInfo.AllDamageCards
             );
+        }
 
+        void Start()
+        {
             BeginTurn();
         }
 
@@ -50,7 +53,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public void BeginTurn()
         {
-            this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState)
+            this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState, this.UiManager)
                 .DrawCards(DrawCardsPerTurn)
                 .ReplacePursuitAction()
                 .DrawRouteCards(this.CurrentChaseState.PlayerSpeed)
@@ -88,7 +91,7 @@ namespace AceTheChase.GameRules
 
         private void PlayCard(IPlayerCard card, IDictionary<string, object> cardParameters)
         {
-            this.CurrentChaseState = card.Play(this.CurrentChaseState, cardParameters);
+            this.CurrentChaseState = card.Play(this.CurrentChaseState, cardParameters, this.UiManager);
 
             // Check if the player has won or lost as a result of playing this card.
             if (this.CurrentChaseState.Lead <= 0)
@@ -111,7 +114,7 @@ namespace AceTheChase.GameRules
             this.PhaseManager.State = ChasePhase.ResolvingPursuitAndRoute;
 
             // The player loses any unspent control
-            this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState)
+            this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState, this.UiManager)
                 .AddControl(-this.CurrentChaseState.Control)
                 .Done();
 
@@ -119,7 +122,7 @@ namespace AceTheChase.GameRules
             if (this.CurrentChaseState.PursuitAction != null)
             {
                 this.CurrentChaseState = this.CurrentChaseState.PursuitAction
-                    .Play(this.CurrentChaseState);
+                    .Play(this.CurrentChaseState, this.UiManager);
 
                 if (this.CurrentChaseState.Lead <= 0)
                 {
@@ -137,7 +140,7 @@ namespace AceTheChase.GameRules
             // Then apply any route cards.
             foreach (IRouteCard routeCard in this.CurrentChaseState.CurrentRoute)
             {
-                this.CurrentChaseState = routeCard.Play(this.CurrentChaseState);
+                this.CurrentChaseState = routeCard.Play(this.CurrentChaseState, this.UiManager);
 
                 if (this.CurrentChaseState.Lead <= 0)
                 {
@@ -159,7 +162,7 @@ namespace AceTheChase.GameRules
             foreach (IPlayerCard damageCard in damageCards)
             {
                 this.CurrentChaseState = damageCard
-                    .Play(this.CurrentChaseState, new Dictionary<string, object>());
+                    .Play(this.CurrentChaseState, new Dictionary<string, object>(), this.UiManager);
 
                 if (this.CurrentChaseState.Lead <= 0)
                 {
@@ -174,7 +177,7 @@ namespace AceTheChase.GameRules
             }
 
             // Discard any remaining cards in the player's hand.
-            ChaseMutator mutator = new ChaseMutator(this.CurrentChaseState);
+            ChaseMutator mutator = new ChaseMutator(this.CurrentChaseState, this.UiManager);
             
             this.CurrentChaseState.Hand.ToList()
                 .ForEach(card => mutator.DiscardFromHand(card));

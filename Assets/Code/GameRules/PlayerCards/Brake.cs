@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AceTheChase.UI;
 using UnityEngine;
 
 namespace AceTheChase.GameRules.PlayerCards
@@ -14,10 +15,11 @@ namespace AceTheChase.GameRules.PlayerCards
 
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, object> additionalParameters
+            IDictionary<string, object> additionalParameters,
+            UIManager uiManager
         )
         {
-            return new ChaseMutator(currentState)
+            return new ChaseMutator(currentState, uiManager)
                 .AddPlayerSpeed(-SpeedDecrease)
                 .AddControl(ControlIncrease - this.ControlCost)
                 .DiscardFromHand(this)

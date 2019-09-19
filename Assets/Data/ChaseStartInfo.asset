@@ -20,7 +20,7 @@ MonoBehaviour:
   StartingMaxPlayerSpeed: 5
   StartingMaxPursuitSpeed: 5
   StartingMaxControl: 10
-  RouteDeckSize: 21
+  RouteDeckSize: 2
   SelectedPlayerCards:
   - {fileID: 11400000, guid: 4868a0068db234cf1a0e6727d7a494b0, type: 2}
   - {fileID: 11400000, guid: 81179fda42d044fad9399a85160eb63a, type: 2}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AceTheChase.UI;
 using UnityEngine;
 
 namespace AceTheChase.GameRules.PlayerCards
@@ -13,12 +14,13 @@ namespace AceTheChase.GameRules.PlayerCards
         
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, object> additionalParameters
+            IDictionary<string, object> additionalParameters,
+            UIManager uiManager
         )
         {
             IPlayerCard repairedDamage = additionalParameters["repairedDamage"] as IPlayerCard;
 
-            return new ChaseMutator(currentState)
+            return new ChaseMutator(currentState, uiManager)
                 .ExhaustFromHand(repairedDamage)
                 .AddControl(-this.ControlCost)
                 .DiscardFromHand(this)

@@ -1,3 +1,5 @@
+using AceTheChase.UI;
+
 namespace AceTheChase.GameRules
 {
     /// <summary>
@@ -9,6 +11,6 @@ namespace AceTheChase.GameRules
         /// Given the current chase state, mutate and return the state to represent the effect of
         /// playing this card.
         /// </summary>
-        Chase Play(Chase currentState);
+        Chase Play(Chase currentState, UIManager uiManager);
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AceTheChase.UI;
 using AceTheChase.Utils;
 using UnityEngine;
 
@@ -18,11 +19,13 @@ namespace AceTheChase.GameRules
     {
         private Chase chase;
         private System.Random rng;
+        private UIManager uiManager;
 
-        public ChaseMutator(Chase chaseState)
+        public ChaseMutator(Chase chaseState, UIManager uiManager)
         {
             this.chase = chaseState;
             this.rng = new System.Random();
+            this.uiManager = uiManager;
         }
 
         /// <summary>
@@ -36,6 +39,8 @@ namespace AceTheChase.GameRules
                 0,
                 this.chase.MaxLead
             );
+
+            this.uiManager.AnimateLeadChange(delta);
             
             return this;
         }
@@ -52,6 +57,8 @@ namespace AceTheChase.GameRules
                 this.chase.MaxPlayerSpeed
             );
 
+            this.uiManager.AnimatePlayerSpeedChange(delta);
+
             return this;
         }
 
@@ -66,6 +73,8 @@ namespace AceTheChase.GameRules
                 0,
                 this.chase.MaxPursuitSpeed
             );
+
+            this.uiManager.AnimatePursuitSpeedChange(delta);
 
             return this;
         }
@@ -83,6 +92,8 @@ namespace AceTheChase.GameRules
                 this.chase.MaxControl
             );
 
+            this.uiManager.AnimateControlChange(delta);
+
             return this;
         }
 
@@ -95,15 +106,21 @@ namespace AceTheChase.GameRules
             int cardsToDrawFromThisDeck = Mathf.Min(numCards, this.chase.PlayerDeck.Count);
             int cardsToDrawAfterRecycle = numCards - cardsToDrawFromThisDeck;
 
-            this.chase.Hand.AddRange(this.chase.PlayerDeck.Draw(cardsToDrawFromThisDeck));
+            List<IPlayerCard> drawnCards = this.chase.PlayerDeck.Draw(cardsToDrawFromThisDeck);
             if (cardsToDrawAfterRecycle > 0)
             {
                 this.RecyclePlayerDeck();
-                this.chase.Hand.AddRange(
+                drawnCards.AddRange(
                     this.chase.PlayerDeck.Draw(
                         Mathf.Min(cardsToDrawAfterRecycle, this.chase.PlayerDeck.Count)
                     )
                 );
+            }
+
+            this.chase.Hand.AddRange(drawnCards);
+            foreach (IPlayerCard card in drawnCards)
+            {
+                this.uiManager.AnimateCardDraw(card);
             }
 
             return this;
@@ -118,15 +135,22 @@ namespace AceTheChase.GameRules
             int cardsToDrawFromThisDeck = Mathf.Min(numCards, this.chase.RouteDeck.Count);
             int cardsToDrawAfterRecycle = numCards - cardsToDrawFromThisDeck;
 
-            this.chase.CurrentRoute.AddRange(this.chase.RouteDeck.Draw(cardsToDrawFromThisDeck));
+            List<IRouteCard> drawnCards = this.chase.RouteDeck.Draw(cardsToDrawFromThisDeck);
+            
             if (cardsToDrawAfterRecycle > 0)
             {
                 this.RecycleRouteDeck();
-                this.chase.CurrentRoute.AddRange(
+                drawnCards.AddRange(
                     this.chase.RouteDeck.Draw(
                         Mathf.Min(cardsToDrawAfterRecycle, this.chase.RouteDeck.Count)
                     )
                 );
+            }
+
+            this.chase.CurrentRoute.AddRange(drawnCards);
+            foreach (IRouteCard card in drawnCards)
+            {
+                this.uiManager.AnimateRouteCardDraw(card);
             }
 
             return this;
@@ -140,6 +164,8 @@ namespace AceTheChase.GameRules
             this.chase.Hand.Remove(card);
             this.chase.PlayerDiscard.Prepend(card);
 
+            this.uiManager.AnimateDiscard(card);
+
             return this;
         }
 
@@ -151,6 +177,8 @@ namespace AceTheChase.GameRules
             this.chase.Hand.Remove(card);
             this.chase.PlayerTrash.Prepend(card);
 
+            this.uiManager.AnimateExhaust(card);
+
             return this;
         }
 
@@ -161,6 +189,8 @@ namespace AceTheChase.GameRules
         {
             this.chase.CurrentRoute.Remove(card);
             this.chase.RouteDiscard.Prepend(card);
+
+            this.uiManager.AnimateRouteDiscard(card);
 
             return this;
         }
@@ -178,6 +208,8 @@ namespace AceTheChase.GameRules
             this.chase.PursuitDeck.Shuffle();
             this.chase.PursuitAction = this.chase.PursuitDeck.Draw(1)[0];
 
+            this.uiManager.AnimatePursuitChange(this.chase.PursuitAction);
+
             return this;
         }
 
@@ -192,6 +224,8 @@ namespace AceTheChase.GameRules
             );
             this.chase.PlayerDeck.Shuffle();
 
+            this.uiManager.AnimatePlayerDeckRecycle();
+
             return this;
         }
 
@@ -201,10 +235,12 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator RecycleRouteDeck()
         {
-            this.chase.PlayerDeck.Append(
-                this.chase.PlayerDiscard.Draw(this.chase.PlayerDiscard.Count)
+            this.chase.RouteDeck.Append(
+                this.chase.RouteDiscard.Draw(this.chase.RouteDiscard.Count)
             );
-            this.chase.PlayerDeck.Shuffle();
+            this.chase.RouteDeck.Shuffle();
+
+            this.uiManager.AnimateRouteDeckRecycle();
 
             return this;
         }
@@ -216,9 +252,9 @@ namespace AceTheChase.GameRules
         {
             for (int i = 0; i < numDamage; ++i)
             {
-                this.chase.PlayerDeck.Prepend(
-                    this.chase.PossibleDamage.ChooseRandom(this.rng)
-                );
+                IPlayerCard addedDamage = this.chase.PossibleDamage.ChooseRandom(this.rng);
+                this.chase.PlayerDeck.Prepend(addedDamage);
+                this.uiManager.AnimateDamageToDeck(addedDamage);
             }
 
             return this;
@@ -232,9 +268,9 @@ namespace AceTheChase.GameRules
         {
             for (int i = 0; i < numDamage; ++i)
             {
-                this.chase.PlayerDiscard.Prepend(
-                    this.chase.PossibleDamage.ChooseRandom(this.rng)
-                );
+                IPlayerCard addedDamage = this.chase.PossibleDamage.ChooseRandom(this.rng);
+                this.chase.PlayerDiscard.Prepend(addedDamage);
+                this.uiManager.AnimateDamageToDiscard(addedDamage);
             }
 
             return this;

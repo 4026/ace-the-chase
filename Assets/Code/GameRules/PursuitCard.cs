@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AceTheChase.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,10 +35,10 @@ namespace AceTheChase.GameRules
         private Sprite cardImage;
 
         public string Name => displayName;
-        public string Description => Description;
+        public string Description => description;
         public string FlavourText => flavourText;
         public Sprite CardImage => cardImage;
 
-        public abstract Chase Play(Chase currentState);
+        public abstract Chase Play(Chase currentState, UIManager uiManager);
     }
 }

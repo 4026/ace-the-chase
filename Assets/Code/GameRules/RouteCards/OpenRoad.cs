@@ -1,3 +1,4 @@
+using AceTheChase.UI;
 using UnityEngine;
 
 namespace AceTheChase.GameRules.RouteCards
@@ -8,9 +9,9 @@ namespace AceTheChase.GameRules.RouteCards
     [CreateAssetMenu(menuName = "Cards/Routes/Open Road", fileName = "Routes_OpenRoad")]
     public class OpenRoad : RouteCard
     {
-        public override Chase Play(Chase currentState)
+        public override Chase Play(Chase currentState, UIManager uiManager)
         {
-            return new ChaseMutator(currentState).DiscardFromRoute(this).Done();
+            return new ChaseMutator(currentState, uiManager).DiscardFromRoute(this).Done();
         }
     }
 }

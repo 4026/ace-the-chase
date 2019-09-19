@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AceTheChase.GameRules;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AceTheChase.UI
 {
@@ -22,6 +23,13 @@ namespace AceTheChase.UI
         public event Action<IPlayerCard> PlayerCardClicked;
         public event Action<IRouteCard> RouteCardClicked;
         public event Action<IPursuitCard> PursuitCardClicked;
+
+        public ChaseManager ChaseManager;
+
+        public Text LeadLabel;
+        public Text PlayerSpeedLabel;
+        public Text PursuitSpeedLabel;
+        public Text ControlLabel;
 
 
         /// <summary>
@@ -106,6 +114,174 @@ namespace AceTheChase.UI
             }
 
             CardPicker.gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// Queue an animation to change the player's current lead.
+        /// </summary>
+        public void AnimateLeadChange(int delta)
+        {
+            this.LeadLabel.text = this.ChaseManager.CurrentChaseState.Lead.ToString("N0");
+        }
+
+        /// <summary>
+        /// Queue an animation to change the player's current speed.
+        /// </summary>
+        public void AnimatePlayerSpeedChange(int delta)
+        {
+            this.PlayerSpeedLabel.text = this.ChaseManager
+                .CurrentChaseState
+                .PlayerSpeed
+                .ToString("N0");
+        }
+
+        /// <summary>
+        /// Queue an animation to change the current pursuit speed.
+        /// </summary>
+        public void AnimatePursuitSpeedChange(int delta)
+        {
+            this.PursuitSpeedLabel.text = this.ChaseManager
+                .CurrentChaseState
+                .PursuitSpeed
+                .ToString("N0");
+        }
+
+        /// <summary>
+        /// Queue an animation to change the player's current control.
+        /// </summary>
+        public void AnimateControlChange(int delta)
+        {
+            this.ControlLabel.text = this.ChaseManager.CurrentChaseState.Control.ToString("N0");
+        }
+
+        /// <summary>
+        /// Queue an animation to show the drawing of a card into the player's hand.
+        /// </summary>
+        public void AnimateCardDraw(IPlayerCard card)
+        {
+            this.SpawnCard(card, CardSpawnLocation.Hand);
+        }
+
+        /// <summary>
+        /// Queue an animation to show the addition of a card to the current route.
+        /// </summary>
+        public void AnimateRouteCardDraw(IRouteCard card)
+        {
+            this.SpawnCard(card, CardSpawnLocation.Route);
+        }
+
+        /// <summary>
+        /// Queue an animation to show a card being discarded from the player's hand.
+        /// </summary>
+        public void AnimateDiscard(IPlayerCard card)
+        {
+            // Remove the first matching card from the player's hand.
+            foreach (Transform child in this.Hand.transform)
+            {
+                UICardView uiCard = child.GetComponent<UICardView>();
+                if (uiCard == null) 
+                {
+                    Debug.LogWarning("Found object in hand that didn't have a UICardView component. Disregarding...");
+                    continue;
+                }
+
+                if (uiCard.GetCard() == card) 
+                {
+                    Destroy(child);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Queue an animation to show a card being exhausted from the player's hand.
+        /// </summary>
+        public void AnimateExhaust(IPlayerCard card)
+        {
+            // Remove the first matching card from the player's hand.
+            foreach (Transform child in this.Hand.transform)
+            {
+                UICardView uiCard = child.GetComponent<UICardView>();
+                if (uiCard == null) 
+                {
+                    Debug.LogWarning("Found object in hand that didn't have a UICardView component. Disregarding...");
+                    continue;
+                }
+
+                if (uiCard.GetCard() == card) 
+                {
+                    Destroy(child);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Queue an animation to show a card being removed from the current route.
+        /// </summary>
+        public void AnimateRouteDiscard(IRouteCard card)
+        {
+            // Remove the first matching card from the current route.
+            foreach (Transform child in this.Route.transform)
+            {
+                UICardView uiCard = child.GetComponent<UICardView>();
+                if (uiCard == null) 
+                {
+                    Debug.LogWarning("Found object in route that didn't have a UICardView component. Disregarding...");
+                    continue;
+                }
+
+                if (uiCard.GetCard() == card)
+                {
+                    Destroy(child);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Queue an animation to show the swapping out of a pursuit card for a new one.
+        /// </summary>
+        public void AnimatePursuitChange(IPursuitCard card)
+        {
+            foreach (Transform child in this.Pursuit.transform)
+            {
+                Destroy(child);
+            }
+
+            this.SpawnCard(card, CardSpawnLocation.Pursuit);
+        }
+
+        /// <summary>
+        /// Queue an animation to show the player's deck being recycled.
+        /// </summary>
+        public void AnimatePlayerDeckRecycle()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Queue an animation to show the route deck being recycled.
+        /// </summary>
+        public void AnimateRouteDeckRecycle()
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Queue an animation to show a damage card being added to the player's deck.
+        /// </summary>
+        public void AnimateDamageToDeck(IPlayerCard card)
+        {
+            // TODO
+        }
+
+        /// <summary>
+        /// Queue an animation to show a damage card being added to the player's discard pile.
+        /// </summary>
+        public void AnimateDamageToDiscard(IPlayerCard card)
+        {
+            // TODO
         }
     }
 }

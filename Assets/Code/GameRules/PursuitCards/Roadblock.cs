@@ -1,3 +1,4 @@
+using AceTheChase.UI;
 using UnityEngine;
 
 namespace AceTheChase.GameRules.PursuitCards
@@ -10,9 +11,9 @@ namespace AceTheChase.GameRules.PursuitCards
     {
         public int SpeedDecrease;
 
-        public override Chase Play(Chase currentState)
+        public override Chase Play(Chase currentState, UIManager uiManager)
         {
-            return new ChaseMutator(currentState)
+            return new ChaseMutator(currentState, uiManager)
                 .AddPlayerSpeed(-SpeedDecrease)
                 .Done();
         }

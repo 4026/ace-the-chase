@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AceTheChase.UI;
 using UnityEngine.UI;
 
 namespace AceTheChase.GameRules
@@ -33,7 +34,11 @@ namespace AceTheChase.GameRules
         /// Given the current chase state and some additional paramteters about how this card is
         /// played, mutate and return the state to represent the effect of playing this card.
         /// </summary>
-        Chase Play(Chase currentState, IDictionary<string, object> additionalParameters);
+        Chase Play(
+            Chase currentState,
+            IDictionary<string, object> additionalParameters,
+            UIManager uiManager
+        );
 
         /// <summary>
         /// Returns true if, in the provided chase state, the player may play this card.

@@ -1,3 +1,4 @@
+using AceTheChase.UI;
 using UnityEngine;
 
 namespace AceTheChase.GameRules.RouteCards
@@ -10,9 +11,9 @@ namespace AceTheChase.GameRules.RouteCards
     {
         public int LeadRequired;
 
-        public override Chase Play(Chase currentState)
+        public override Chase Play(Chase currentState, UIManager uiManager)
         {
-            ChaseMutator mutator = new ChaseMutator(currentState);
+            ChaseMutator mutator = new ChaseMutator(currentState, uiManager);
 
             if (currentState.Lead >= LeadRequired) 
             {
