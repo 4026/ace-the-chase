@@ -20,7 +20,7 @@ namespace AceTheChase.Utils
         /// <summary>
         /// Construct a new deck from a provided list of cards.
         /// </summary>
-        public Deck(List<TCard> cards)
+        public Deck(IList<TCard> cards)
         {
             this.cards = new List<TCard>(cards);
         }
