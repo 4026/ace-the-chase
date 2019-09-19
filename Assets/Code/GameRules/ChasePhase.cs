@@ -7,7 +7,7 @@ namespace AceTheChase.GameRules
     { 
         Setup,
         SelectingCard,
-        SelectingTarget,
+        SelectingParameters,
         PlayingAnimation,
         ResolvingPursuitAndRoute,
         Victory,

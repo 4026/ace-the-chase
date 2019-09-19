@@ -11,13 +11,15 @@ namespace AceTheChase.GameRules
     public interface IProvidesCardParameters
     {
         /// <summary>
-        /// Begin the process of obtaining values for the card's paramters. Accepts a callback
-        /// function that will be invoked with the card parameters once done.
+        /// Begin the process of obtaining values for the card's paramters. Accepts callback
+        /// functions that will be invoked with the card parameters once done or when the user
+        /// cancels the parameter dialogue, respectively.
         /// </summary>
         void PromptForParameters(
             Chase currentChaseState,
             UIManager uiManager,
-            Action<IDictionary<string, object>> OnComplete
+            Action<IDictionary<string, object>> OnComplete,
+            Action OnCancel
         );
     }
 }

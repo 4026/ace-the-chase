@@ -70,7 +70,9 @@ namespace AceTheChase.GameRules
         /// </summary>
         public void SelectCard(IPlayerCard card)
         {
-            IProvidesCardParameters parameterProvider = card.GetParameterProvider();
+            IProvidesCardParameters parameterProvider = card
+                .GetParameterProvider(this.CurrentChaseState);
+                
             if (parameterProvider == null)
             {
                 // If the card doesn't require any parameters, jut play it immediately.
@@ -80,14 +82,21 @@ namespace AceTheChase.GameRules
             {
                 // Otherwise, fire up the parameter provider and play the card once parameter values
                 // have been provided.
-                this.PhaseManager.State = ChasePhase.SelectingTarget;
+                this.PhaseManager.State = ChasePhase.SelectingParameters;
                 this.UiManager.PlayerCardClicked -= SelectCard;
 
                 parameterProvider.PromptForParameters(
                     this.CurrentChaseState,
                     this.UiManager,
                     cardParameters => {
+                        // Paramters provided, play the card.
                         this.PlayCard(card, cardParameters);
+                        this.PhaseManager.State = ChasePhase.SelectingCard;
+                        this.UiManager.PlayerCardClicked += SelectCard;
+                    },
+                    () => {
+                        // User cancelled out of parameter dialogue, go back to selecting card to
+                        // play.
                         this.PhaseManager.State = ChasePhase.SelectingCard;
                         this.UiManager.PlayerCardClicked += SelectCard;
                     });

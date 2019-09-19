@@ -19,5 +19,5 @@ MonoBehaviour:
   description: -1 speed, +1 control
   flavourText: 
   cardImage: {fileID: 21300000, guid: 884a21772181f46db8af51adf572a055, type: 3}
-  SpeedDecrease: 0
-  ControlIncrease: 0
+  SpeedDecrease: 1
+  ControlIncrease: 1

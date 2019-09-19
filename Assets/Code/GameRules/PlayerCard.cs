@@ -74,7 +74,7 @@ namespace AceTheChase.GameRules
         }
 
 
-        public virtual IProvidesCardParameters GetParameterProvider()
+        public virtual IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
             // By default, cards do not require parameters.
             return null;
