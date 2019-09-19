@@ -12,8 +12,14 @@ namespace AceTheChase.UI
             Hand,
             Route,
             Pursuit,
-            PopupGrid, // A UI element for choosing a card from a list.
+            CardPicker, // A UI element for choosing a card from a list.
         }
+
+        public event Action<IPlayerCard> PlayerCardSpawned;
+        public event Action<IRouteCard> RouteCardSpawned;
+        public event Action<IPursuitCard> PursuitCardSpawned;
+
+        public event Action<ICard> CardPicked;
 
 
         /// <summary>
@@ -32,35 +38,72 @@ namespace AceTheChase.UI
         public GameObject Pursuit;
 
         /// <summary>
-        /// The UI object for the player's hand in the scene.
+        /// The UI object for the card picker in the scene.
         /// </summary>
-        public GameObject PopupGrid;
+        public CardPicker CardPicker;
 
         /// <summary>
-        /// Spawn a new player card prefab at the specified location
+        /// The prefab to instantiate to display a card in the UI.
         /// </summary>
-        public GameObject SpawnCard(IPlayerCard card, CardSpawnLocation location)
+        public GameObject UICardPrefab;
+
+        private Dictionary<CardSpawnLocation, GameObject> CardSpawnParents
+            = new Dictionary<CardSpawnLocation, GameObject>();
+
+        void Start()
         {
-            // TODO
-            throw new NotImplementedException();
+            CardSpawnParents[CardSpawnLocation.Hand] = Hand;
+            CardSpawnParents[CardSpawnLocation.Route] = Route;
+            CardSpawnParents[CardSpawnLocation.Pursuit] = Pursuit;
+            CardSpawnParents[CardSpawnLocation.CardPicker] = CardPicker.CardGrid;
         }
 
         /// <summary>
-        /// Spawn a new route card prefab at the specified location
+        /// Spawn a new card prefab at the specified location.
         /// </summary>
-        public GameObject SpawnCard(IRouteCard card, CardSpawnLocation location)
+        public GameObject SpawnCard<TCard>(TCard card, CardSpawnLocation location) 
+            where TCard : ICard
         {
-            // TODO
-            throw new NotImplementedException();
+
+            GameObject parent = this.CardSpawnParents[location];
+            GameObject newCard = Instantiate(UICardPrefab, parent.transform);
+
+            PlayerCard playerCard = card as PlayerCard;
+            if (playerCard != null)
+            {
+                newCard.GetComponent<UICardView>().Setup(playerCard);
+                return newCard;
+            }
+            
+            RouteCard routeCard = card as RouteCard;
+            if (routeCard != null)
+            {
+                newCard.GetComponent<UICardView>().Setup(routeCard);
+                return newCard;
+            }
+
+            PursuitCard pursuitCard = card as PursuitCard;
+            if (pursuitCard != null)
+            {
+                newCard.GetComponent<UICardView>().Setup(pursuitCard);
+                return newCard;
+            }
+
+            throw new ArgumentException($"Don't know how to set up a UI card object for a {card.GetType().FullName}.");
         }
 
         /// <summary>
-        /// Spawn a new pursuit card prefab at the specified location
+        /// Activate the card picker popup and display the provided list of cards in it.
         /// </summary>
-        public GameObject SpawnCard(IPursuitCard card, CardSpawnLocation location)
+        public void DisplayCardPicker(IList<ICard> cards)
         {
-            // TODO
-            throw new NotImplementedException();
+            this.CardPicker.Clear();
+            foreach(ICard card in cards)
+            {
+                this.SpawnCard(card, CardSpawnLocation.CardPicker);
+            }
+
+            CardPicker.gameObject.SetActive(true);
         }
     }
 }
