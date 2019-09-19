@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AceTheChase.UI
 {
-    public class UIManger : MonoBehaviour
+    public class UIManager : MonoBehaviour
     {
         public enum CardSpawnLocation
         {
@@ -19,7 +19,9 @@ namespace AceTheChase.UI
         public event Action<IRouteCard> RouteCardSpawned;
         public event Action<IPursuitCard> PursuitCardSpawned;
 
-        public event Action<ICard> CardPicked;
+        public event Action<IPlayerCard> PlayerCardClicked;
+        public event Action<IRouteCard> RouteCardClicked;
+        public event Action<IPursuitCard> PursuitCardClicked;
 
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace AceTheChase.UI
         /// <summary>
         /// Activate the card picker popup and display the provided list of cards in it.
         /// </summary>
-        public void DisplayCardPicker(IList<ICard> cards)
+        public void DisplayCardPicker<TCard>(IList<TCard> cards) where TCard : ICard
         {
             this.CardPicker.Clear();
             foreach(ICard card in cards)

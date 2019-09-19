@@ -10,13 +10,19 @@ namespace AceTheChase.GameRules.PlayerCards
     public class Drift : PlayerCard
     {
         public override PlayerCardType CardType => PlayerCardType.Stunt;
+
+        public override IProvidesCardParameters GetParameterProvider()
+        {
+            // Drift is a stunt, so it requires a route card as a parameter.
+            return new RouteCardParameterProvider();
+        }
         
         public override Chase Play(
             Chase currentState,
             IDictionary<string, object> additionalParameters
         )
         {
-            IRouteCard discardedRouteCard = additionalParameters["discardedRouteCard"] as IRouteCard;
+            IRouteCard discardedRouteCard = additionalParameters["routeCard"] as IRouteCard;
 
             return new ChaseMutator(currentState)
                 .DiscardFromRoute(discardedRouteCard)

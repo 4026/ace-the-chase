@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using AceTheChase.UI;
 using AceTheChase.Utils;
 using UnityEngine;
 
@@ -26,8 +27,13 @@ namespace AceTheChase.GameRules
         public int DrawCardsPerTurn;
         public int ControlGainPerTurn;
 
+        /// <summary>
+        /// The UI Manger in the scene.
+        /// </summary>
+        public UIManager UiManager;
 
         public Chase CurrentChaseState { get; set; }
+        
 
         public readonly StateMachine<ChasePhase> PhaseManager
             = new StateMachine<ChasePhase>(ChasePhase.Setup);
@@ -81,13 +87,16 @@ namespace AceTheChase.GameRules
             } 
             else 
             {
-                // Otherwise, fire up the paramter provider and play the card once paramter values
+                // Otherwise, fire up the parameter provider and play the card once parameter values
                 // have been provided.
                 this.PhaseManager.State = ChasePhase.SelectingTarget;
-                parameterProvider.PromptForParameters(this.CurrentChaseState, cardParameters => {
-                    this.PlayCard(card, cardParameters);
-                    this.PhaseManager.State = ChasePhase.SelectingCard;
-                });
+                parameterProvider.PromptForParameters(
+                    this.CurrentChaseState,
+                    this.UiManager,
+                    cardParameters => {
+                        this.PlayCard(card, cardParameters);
+                        this.PhaseManager.State = ChasePhase.SelectingCard;
+                    });
             }
         }
 
