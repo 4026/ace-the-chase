@@ -84,7 +84,7 @@ namespace AceTheChase.GameRules
                 // Otherwise, fire up the paramter provider and play the card once paramter values
                 // have been provided.
                 this.PhaseManager.State = ChasePhase.SelectingTarget;
-                parameterProvider.PromptForParameters(cardParameters => {
+                parameterProvider.PromptForParameters(this.CurrentChaseState, cardParameters => {
                     this.PlayCard(card, cardParameters);
                     this.PhaseManager.State = ChasePhase.SelectingCard;
                 });

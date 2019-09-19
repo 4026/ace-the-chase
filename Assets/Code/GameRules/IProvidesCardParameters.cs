@@ -14,6 +14,9 @@ namespace AceTheChase.GameRules
         /// Begin the process of obtaining values for the card's paramters. Accepts a callback
         /// function that will be invoked with the card parameters once done.
         /// </summary>
-        void PromptForParameters(Action<IDictionary<string, object>> OnComplete);
+        void PromptForParameters(
+            Chase currentChaseState,
+            Action<IDictionary<string, object>> OnComplete
+        );
     }
 }
