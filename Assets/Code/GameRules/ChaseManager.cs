@@ -158,12 +158,17 @@ namespace AceTheChase.GameRules
                 }
             }
 
-            // Finally, discard any remaining cards in the player's hand and .
+            // Discard any remaining cards in the player's hand.
             ChaseMutator mutator = new ChaseMutator(this.CurrentChaseState);
             
             this.CurrentChaseState.Hand.ToList()
                 .ForEach(card => mutator.DiscardFromHand(card));
             
+            // Finally, apply the effects of pursit speed and the player's speed
+            mutator.AddPlayerSpeed(
+                this.CurrentChaseState.PlayerSpeed - this.CurrentChaseState.PursuitSpeed
+            );
+
             this.CurrentChaseState = mutator.Done();
 
             BeginTurn();
