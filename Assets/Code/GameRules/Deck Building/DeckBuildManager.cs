@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,22 +14,32 @@ public class DeckBuildManager : MonoBehaviour
 
     public Transform uiPlayerDeck;
     public Transform uiCardPool;
+    public Image deckBuilderBackground;
+
+    public Color stuntColor;
+    public Color mechanicColor;
+    public Color navigatorColor;
+
+    public ChaseStartInfo initInfo;
+
+    public GameObject errorMessage;
+    public Text errorMessageText; 
 
     Dictionary<string, UICardView> uiPlayerDeckCards;
     Dictionary<string, UICardView> uiCardPoolCards;
 
     public GameObject cardUIPrefab;
 
-    int maxDuplicates = 2;
-    int maxDeckSize = 21;
-    int maxOutOfFactionCards = 4;
-    PlayerCardDriver deckFaction = PlayerCardDriver.StuntDriver;
+    public int maxDuplicates = 2;
+    public int maxDeckSize = 21;
+    public int maxOutOfFactionCards = 4;
+    PlayerCardDriver deckFaction = PlayerCardDriver.None;
 
 
 
     public void Start()
     {
-        this.builtDeck = new List<IPlayerCard>();
+        //Error checks
         if(uiPlayerDeck == null)
         {
             Debug.LogError("UIPLAYERDECK NOT SETUP IN DECK BUILD MANAGER");
@@ -44,6 +55,23 @@ public class DeckBuildManager : MonoBehaviour
             Debug.LogError("CARD UI PREFAB NOT SETUP IN DECK BUILD MANAGER");
         }
 
+        if (deckBuilderBackground == null)
+        {
+            Debug.LogError("DECK BUILDER BACKGROUND NOT SETUP IN DECK BUILD MANAGER");
+        }
+
+        if (initInfo == null)
+        {
+            Debug.LogError("CHASE START INFO NOT SETUP IN DECK BUILD MANAGER");
+        }
+        // ---
+
+        if(errorMessage != null)
+        {
+            errorMessage.SetActive(false);
+        }
+
+        this.builtDeck = new List<IPlayerCard>();
         uiPlayerDeckCards = new Dictionary<string, UICardView>();
         uiCardPoolCards = new Dictionary<string, UICardView>();
 
@@ -57,11 +85,31 @@ public class DeckBuildManager : MonoBehaviour
             uICardView.OnClick += OnUICardViewClicked;
             uiCardPoolCards.Add(uICardView.GetCard().Name, uICardView);
         }
+
+        switch (initInfo.SelectedPlayerDriver)
+        {
+            case PlayerCardDriver.StuntDriver:
+                ChangeDriverToStunt();
+                break;
+            case PlayerCardDriver.Navigator:
+                ChangeDriverToNavigator();
+                break;
+            default: //Intended to catch the none case
+                ChangeDriverToMechanic();
+                break;
+        }
+
+        if(initInfo.SelectedPlayerCards != null)
+        {
+            for(var i = 0; i < initInfo.SelectedPlayerCards.Length; ++i)
+            {
+                AddCardToDeck(initInfo.SelectedPlayerCards[i]);
+            }
+        }
     }
 
     public void OnUICardViewClicked(object sender, EventArgs e)
     {
-        Debug.Log("We know");
         GameObject uiCardView = sender as GameObject;
         if (uiCardView != null)
         {
@@ -90,6 +138,16 @@ public class DeckBuildManager : MonoBehaviour
         string failureReason;
         if (!ValidateAddCard(card, out failureReason))
         {
+            if (errorMessage)
+            {
+                errorMessage.SetActive(true);
+                StartCoroutine("HideErrorMessage");
+            }
+            if (errorMessageText)
+            {
+                errorMessageText.text = failureReason;
+            }
+
             Debug.Log($"DeckBuilding validation failure : {failureReason}");
             return;
         }
@@ -98,7 +156,8 @@ public class DeckBuildManager : MonoBehaviour
         UICardView uiCardView;
         if(uiPlayerDeckCards.TryGetValue(card.Name, out uiCardView))
         {
-            //Increment number of on card
+            IList<IPlayerCard> cards = builtDeck.FindAll((obj) => { return obj.Name == card.Name; });
+            uiCardView.SetNumberOwned(cards.Count);
         }
         else if(uiCardPoolCards.TryGetValue(card.Name, out uiCardView))
         {
@@ -126,7 +185,7 @@ public class DeckBuildManager : MonoBehaviour
             {
                 if(numLeft > 0)
                 {
-                    //Update number of on card
+                    uiCardView.SetNumberOwned(numLeft);
                 }
                 else
                 {
@@ -135,6 +194,12 @@ public class DeckBuildManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Submit()
+    {
+        initInfo.SelectedPlayerCards = builtDeck.ToArray();
+        initInfo.SelectedPlayerDriver = deckFaction;
     }
 
     public void ClearDeck()
@@ -148,12 +213,43 @@ public class DeckBuildManager : MonoBehaviour
     }
 
 
+    public void ChangeDriverToStunt()
+    {
+        if(deckFaction != PlayerCardDriver.StuntDriver)
+        {
+            ClearDeck();
+        }
+        deckBuilderBackground.color = stuntColor;
+        deckFaction = PlayerCardDriver.StuntDriver;
+    }
+
+    public void ChangeDriverToNavigator()
+    {
+        if (deckFaction != PlayerCardDriver.Navigator)
+        {
+            ClearDeck();
+        }
+        deckBuilderBackground.color = navigatorColor;
+        deckFaction = PlayerCardDriver.Navigator;
+    }
+
+    public void ChangeDriverToMechanic()
+    {
+        if (deckFaction != PlayerCardDriver.Mechanic)
+        {
+            ClearDeck();
+        }
+        deckBuilderBackground.color = mechanicColor;
+        deckFaction = PlayerCardDriver.Mechanic;
+    }
+
+
     public bool ValidateAddCard(IPlayerCard card, out string reason)
     {
 
         if (builtDeck.Count >= maxDeckSize)
         {
-            reason = "Deck is max size";
+            reason = "Your deck cant have more then 21 cards in it";
             return false;
         }
 
@@ -162,7 +258,7 @@ public class DeckBuildManager : MonoBehaviour
             IList<IPlayerCard> outOfFactionCards = builtDeck.FindAll((obj) => { return obj.Driver != deckFaction; });
             if (outOfFactionCards.Count >= maxOutOfFactionCards)
             {
-                reason = "Deck has maximum number of out of faction cards";
+                reason = "You cant have more then 4 out of faction cards";
                 return false;
             }
         }
@@ -170,10 +266,16 @@ public class DeckBuildManager : MonoBehaviour
         IList<IPlayerCard> cards = builtDeck.FindAll((obj) => { return obj.Name == card.Name; });
         if(cards.Count >= maxDuplicates)
         {
-            reason = "Deck has maximum number of duplicates of this card";
+            reason = "You cant have more then 2 copies of a card in your deck";
             return false;
         }
         reason = "";
         return true;
+    }
+
+    private IEnumerator HideErrorMessage ()
+    {
+        yield return new WaitForSeconds(2);
+        errorMessage.SetActive(false);
     }
 }
