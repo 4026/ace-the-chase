@@ -56,7 +56,7 @@ namespace AceTheChase.GameRules
         /// <summary>
         /// Called at the start of the player's turn.
         /// </summary>
-        void BeginTurn()
+        public void BeginTurn()
         {
             this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState)
                 .DrawCards(DrawCardsPerTurn)
@@ -71,7 +71,7 @@ namespace AceTheChase.GameRules
         /// <summary>
         /// Called when the player has selected a card to play.
         /// </summary>
-        void SelectCard(IPlayerCard card)
+        public void SelectCard(IPlayerCard card)
         {
             this.CurrentChaseState = card
                 .Play(this.CurrentChaseState, new Dictionary<string, object>());
@@ -91,7 +91,7 @@ namespace AceTheChase.GameRules
         /// <summary>
         /// Called at the end of a player's turn.
         /// </summary>
-        void EndTurn()
+        public void EndTurn()
         {
             this.PhaseManager.State = ChasePhase.ResolvingPursuitAndRoute;
 
