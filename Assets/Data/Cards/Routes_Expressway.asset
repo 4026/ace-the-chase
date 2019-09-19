@@ -16,6 +16,6 @@ MonoBehaviour:
   cardType: 0
   description: +1 speed, +1 pursuit speed
   flavourText: 
-  cardImage: {fileID: 21300000, guid: aeede96b23bdd4f59b5d84e7b3689798, type: 3}
+  cardImage: {fileID: 21300000, guid: c712567b5bc7e48b78f0ded75ab8ad65, type: 3}
   SpeedIncrease: 1
   PursuitSpeedIncrease: 1
