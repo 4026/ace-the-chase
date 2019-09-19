@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +9,7 @@ namespace AceTheChase.GameRules
     /// <summary>
     /// The base class for all player cards.
     /// </summary>
-    public abstract class PlayerCard : ScriptableObject, IPlayerCard
+    public abstract class PlayerCard : ScriptableObject, IPlayerCard, IComparable<PlayerCard>
     {
         /// <summary>
         /// The display name of the card.
@@ -63,10 +65,21 @@ namespace AceTheChase.GameRules
             return currentState.Control >= this.ControlCost;
         }
 
+
         public virtual IProvidesCardParameters GetParameterProvider()
         {
             // By default, cards do not require parameters.
             return null;
+        }
+
+        public int CompareTo(PlayerCard obj)
+        {
+            int ret = this.Driver - obj.Driver;
+            if(ret == 0)
+            {
+                return string.Compare(this.Name, obj.name, StringComparison.CurrentCulture);
+            }
+            return ret;
         }
     }
 }

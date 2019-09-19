@@ -39,25 +39,29 @@ namespace AceTheChase.UI
         [SerializeField]
         private GameObject m_flavourTextLayer;
 
-        public void Setup(PursuitCard card)
+        private ICard m_card;
+
+        public void Setup(IPursuitCard card)
         {
             m_cardFlavourText.text = card.Name;
             m_cardControlCostLayer.SetActive(false);
 
             UIPalette.CardTypeColourScheme scheme = UIPalette.PursuitCardColours;
             SetColourScheme(scheme);
+            m_card = card;
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
             SetFlavourText(card.FlavourText);
         }
 
-        public void Setup(PlayerCard card)
+        public void Setup(IPlayerCard card)
         {
             m_cardControlCostLayer.SetActive(true);
             
             UIPalette.CardTypeColourScheme scheme = UIPalette.GetCardTypeColorScheme(card.CardType);
             SetColourScheme(scheme);
+            m_card = card;
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
@@ -65,12 +69,13 @@ namespace AceTheChase.UI
             SetFlavourText(card.FlavourText);
         }
 
-        public void Setup(RouteCard card)
+        public void Setup(IRouteCard card)
         {
             m_cardControlCostLayer.SetActive(false);
             m_flavourTextLayer.SetActive(string.IsNullOrEmpty(card.FlavourText) == false);
             UIPalette.CardTypeColourScheme scheme = UIPalette.GetCardTypeColorScheme(card.CardType);
             SetColourScheme(scheme);
+            m_card = card;
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
@@ -104,6 +109,11 @@ namespace AceTheChase.UI
 
             m_titleHighlight.m_color1 = scheme.TitleHighlightTop;
             m_titleHighlight.m_color2 = scheme.TitleHighlightBottom;
+        }
+
+        public ICard GetCard()
+        {
+            return m_card;
         }
     }
 }
