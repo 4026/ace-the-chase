@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AceTheChase.GameRules
 {
@@ -26,9 +27,16 @@ namespace AceTheChase.GameRules
         [SerializeField]
         private string flavourText;
 
+        /// <summary>
+        /// The card image
+        /// </summary>
+        [SerializeField]
+        private Image cardImage;
+
         public string Name => displayName;
         public string Description => Description;
         public string FlavourText => flavourText;
+        public Image CardImage => cardImage;
 
         public abstract Chase Play(Chase currentState);
     }

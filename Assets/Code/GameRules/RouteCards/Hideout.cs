@@ -1,8 +1,11 @@
+using UnityEngine;
+
 namespace AceTheChase.GameRules.RouteCards
 {
     /// <summary>
     /// Win the game if the player has amassed the required amount of Lead.
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Routes/Hideout", fileName = "Routes_Hideout")]
     public class Hideout : RouteCard
     {
         public int LeadRequired;

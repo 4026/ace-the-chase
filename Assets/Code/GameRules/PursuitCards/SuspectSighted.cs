@@ -1,8 +1,11 @@
+using UnityEngine;
+
 namespace AceTheChase.GameRules.PursuitCards
 {
     /// <summary>
     /// Reduces the player's lead
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Pursuit/SuspectSighted", fileName = "Pursuit_SuspectSighted")]
     public class SuspectSighted : PursuitCard
     {
         public int LeadDecrease;

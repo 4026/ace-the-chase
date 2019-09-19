@@ -1,11 +1,12 @@
-
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace AceTheChase.GameRules.DamageCards
 {
     /// <summary>
     /// Damage that causes more damage...
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Damage/Wierd Rattling Noise", fileName = "Damage_WeirdRattlingNoise")]
     public class WeirdRattlingNoise : PlayerCard
     {
         public override PlayerCardType CardType => PlayerCardType.Damage;

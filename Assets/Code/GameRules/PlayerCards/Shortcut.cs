@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace AceTheChase.GameRules.PlayerCards
 {
     /// <summary>
     /// Perform a diversion in exchange for control.
     /// </summary>
+    [CreateAssetMenu(menuName = "Cards/Player/Shortcut", fileName = "Player_Shortcut")]
     public class Shortcut : PlayerCard
     {
         public override PlayerCardType CardType => PlayerCardType.Diversion;
