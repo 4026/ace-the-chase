@@ -67,6 +67,7 @@ namespace AceTheChase.UI
             SetColourScheme(scheme);
             m_card = card;
 
+            m_cardName.color = Color.white;
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
             m_cardImage.sprite = card.CardImage;
@@ -115,6 +116,7 @@ namespace AceTheChase.UI
             }
 
             m_cardName.text = card.Name;
+            m_cardName.color = Color.white;
             m_cardEffects.text = card.Description;
             m_cardImage.sprite = card.CardImage;
             SetFlavourText(card.FlavourText);
