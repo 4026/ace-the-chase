@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using AceTheChase.Utils;
 using AceTheChase.GameRules;
 using AceTheChase.UI;
+using UnityEngine.SceneManagement;
 
 public class DeckBuildManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class DeckBuildManager : MonoBehaviour
     public ChaseStartInfo initInfo;
 
     public GameObject errorMessage;
-    public Text errorMessageText; 
+    public Text errorMessageText;
 
     Dictionary<string, UICardView> uiPlayerDeckCards;
     Dictionary<string, UICardView> uiCardPoolCards;
@@ -40,7 +41,7 @@ public class DeckBuildManager : MonoBehaviour
     public void Start()
     {
         //Error checks
-        if(uiPlayerDeck == null)
+        if (uiPlayerDeck == null)
         {
             Debug.LogError("UIPLAYERDECK NOT SETUP IN DECK BUILD MANAGER");
         }
@@ -66,7 +67,7 @@ public class DeckBuildManager : MonoBehaviour
         }
         // ---
 
-        if(errorMessage != null)
+        if (errorMessage != null)
         {
             errorMessage.SetActive(false);
         }
@@ -99,9 +100,9 @@ public class DeckBuildManager : MonoBehaviour
                 break;
         }
 
-        if(initInfo.SelectedPlayerCards != null)
+        if (initInfo.SelectedPlayerCards != null)
         {
-            for(var i = 0; i < initInfo.SelectedPlayerCards.Length; ++i)
+            for (var i = 0; i < initInfo.SelectedPlayerCards.Length; ++i)
             {
                 AddCardToDeck(initInfo.SelectedPlayerCards[i]);
             }
@@ -130,7 +131,7 @@ public class DeckBuildManager : MonoBehaviour
 
     public void AddCardToDeck(IPlayerCard card)
     {
-        if(card == null)
+        if (card == null)
         {
             return;
         }
@@ -154,12 +155,12 @@ public class DeckBuildManager : MonoBehaviour
 
         builtDeck.Add(card);
         UICardView uiCardView;
-        if(uiPlayerDeckCards.TryGetValue(card.Name, out uiCardView))
+        if (uiPlayerDeckCards.TryGetValue(card.Name, out uiCardView))
         {
             IList<IPlayerCard> cards = builtDeck.FindAll((obj) => { return obj.Name == card.Name; });
             uiCardView.SetNumberOwned(cards.Count);
         }
-        else if(uiCardPoolCards.TryGetValue(card.Name, out uiCardView))
+        else if (uiCardPoolCards.TryGetValue(card.Name, out uiCardView))
         {
             GameObject g = Instantiate(uiCardView.gameObject);
             UICardView view = g.GetComponent<UICardView>();
@@ -172,18 +173,18 @@ public class DeckBuildManager : MonoBehaviour
 
     public void RemoveCardFromDeck(IPlayerCard card)
     {
-        if(card == null)
+        if (card == null)
         {
             return;
         }
 
-        if(builtDeck.Remove(card))
+        if (builtDeck.Remove(card))
         {
             int numLeft = builtDeck.FindAll((obj) => { return obj.Name == card.Name; }).Count;
             UICardView uiCardView;
-            if(uiPlayerDeckCards.TryGetValue(card.Name, out uiCardView))
+            if (uiPlayerDeckCards.TryGetValue(card.Name, out uiCardView))
             {
-                if(numLeft > 0)
+                if (numLeft > 0)
                 {
                     uiCardView.SetNumberOwned(numLeft);
                 }
@@ -196,10 +197,23 @@ public class DeckBuildManager : MonoBehaviour
         }
     }
 
-    public void Submit()
+    public void Save()
     {
         initInfo.SelectedPlayerCards = builtDeck.ToArray();
         initInfo.SelectedPlayerDriver = deckFaction;
+    }
+
+
+    public void Submit()
+    {
+        Save();
+        SceneManager.LoadScene("Main");
+    }
+
+    public void GoBack()
+    {
+        Save();
+        SceneManager.LoadScene("TitleScreen");
     }
 
     public void ClearDeck()
@@ -253,9 +267,12 @@ public class DeckBuildManager : MonoBehaviour
             return false;
         }
 
-        if (card.Driver != deckFaction)
+        if (card.Driver != deckFaction && card.Driver != PlayerCardDriver.None)
         {
-            IList<IPlayerCard> outOfFactionCards = builtDeck.FindAll((obj) => { return obj.Driver != deckFaction; });
+            IList<IPlayerCard> outOfFactionCards = builtDeck.FindAll((obj) => { 
+            return obj.Driver != deckFaction 
+                && obj.Driver != PlayerCardDriver.None; 
+            });
             if (outOfFactionCards.Count >= maxOutOfFactionCards)
             {
                 reason = "You cant have more then 4 out of faction cards";
