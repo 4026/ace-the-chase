@@ -15,7 +15,7 @@ namespace AceTheChase.UI
             get
             {
                 if (!_instance)
-                    _instance = Resources.Load<UIPalette>("Data/Resources/UIPalette");
+                    _instance = Resources.Load<UIPalette>("UIPalette");
                 return _instance;
             }
         }
