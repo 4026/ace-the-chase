@@ -591,6 +591,7 @@ MonoBehaviour:
   m_flavourTextLayer: {fileID: 7037716767421248418}
   m_cardTypeLayer: {fileID: 6019231748147106556}
   m_cardTypeText: {fileID: 2427363467372786661}
+  m_cardTypeBG: {fileID: 2728618171594138418}
   m_numberOwnedLayer: {fileID: 8819513558403426232}
   m_numberOwnedText: {fileID: 943687521652800527}
   m_numberOwnedBorder: {fileID: 4721695467949134120}

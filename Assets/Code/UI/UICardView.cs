@@ -36,12 +36,16 @@ namespace AceTheChase.UI
         [SerializeField]
         private GameObject m_flavourTextLayer;
 
+        [Header("Card Type")]
         //cardtype (for special effects)
         [SerializeField]
         private GameObject m_cardTypeLayer;
         [SerializeField]
         private Text m_cardTypeText;
+        [SerializeField]
+        private Image m_cardTypeBG;
 
+        [Header("Number of cards owned")]
         //deck building thingy
         [SerializeField]
         private GameObject m_numberOwnedLayer;
@@ -74,6 +78,15 @@ namespace AceTheChase.UI
             UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.Driver);
             SetColourScheme(scheme);
             m_card = card;
+            if (card.CardType != PlayerCardType.None)
+            {
+                m_cardTypeLayer.SetActive(true);
+                m_cardTypeText.text = card.CardType.ToString();
+            }
+            else
+            {
+                m_cardTypeLayer.SetActive(false);
+            }
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
@@ -89,6 +102,15 @@ namespace AceTheChase.UI
             UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.CardType);
             SetColourScheme(scheme);
             m_card = card;
+            if (card.CardType != RouteCardType.None)
+            {
+                m_cardTypeLayer.SetActive(true);
+                m_cardTypeText.text = card.CardType.ToString();
+            }
+            else
+            {
+                m_cardTypeLayer.SetActive(false);
+            }
 
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
@@ -118,6 +140,7 @@ namespace AceTheChase.UI
             m_titleHighlight.SetColours(scheme.TitleHighlightTop, scheme.TitleHighlightBottom);
             m_numberOwnedBorder.color = scheme.BorderGradientTop;
             m_cardFlavourText.color = scheme.BorderGradientBottom;
+            m_cardTypeBG.color = scheme.BorderGradientBottom;
         }
 
         public ICard GetCard()

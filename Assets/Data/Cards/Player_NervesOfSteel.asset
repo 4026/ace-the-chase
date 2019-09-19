@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: NERVES_OF_STEEL
   controlCost: 2
-  driver: 0
+  driver: 1
   playerCardType: 2
   description: +1 control per current speed
   flavourText: 
