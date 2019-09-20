@@ -15,6 +15,7 @@ namespace AceTheChase.GameRules.RouteCards
         public override Chase Play(Chase currentState, UIManager uiManager)
         {
             ChaseMutator mutator = new ChaseMutator(currentState, uiManager);
+            mutator.ActivateCard(this);
             if (currentState.PlayerSpeed > SpeedThreshold)
             {
                 mutator.AddDamageToTopOfDeck(Damage);

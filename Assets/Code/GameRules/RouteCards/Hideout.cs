@@ -21,6 +21,7 @@ namespace AceTheChase.GameRules.RouteCards
             }
 
             return mutator
+                .ActivateCard(this)
                 .DiscardFromRoute(this)
                 .Done();
         }

@@ -377,39 +377,9 @@ namespace AceTheChase.UI
             this.RouteDeckCountLabel.text = newState.RouteDeck.Count.ToString("N0");
         }
 
-        /// <summary>
-        /// Queue an animation to show a card being discarded from the player's hand.
-        /// </summary>
-        public void AnimateDiscard(IPlayerCard card, Chase newState)
+        private UICardView FindCard(Transform parent, ICard card)
         {
-            // Remove the first matching card from the player's hand.
-            foreach (Transform child in this.Hand.transform)
-            {
-                UICardView uiCard = child.GetComponent<UICardView>();
-                if (uiCard == null) 
-                {
-                    Debug.LogWarning("Found object in hand that didn't have a UICardView component. Disregarding...");
-                    continue;
-                }
-
-                if (uiCard.GetCard() == card) 
-                {
-                    //queue card destroy
-                    AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(child.gameObject); }, null));
-                    break;
-                }
-            }
-
-            this.PlayerDiscardCountLabel.text = newState.PlayerDiscard.Count.ToString("N0");
-        }
-
-        /// <summary>
-        /// Queue an animation to show a card being exhausted from the player's hand.
-        /// </summary>
-        public void AnimateActivation(IPlayerCard card, Chase newState)
-        {
-            // Remove the first matching card from the player's hand.
-            foreach (Transform child in this.Hand.transform)
+            foreach (Transform child in parent)
             {
                 UICardView uiCard = child.GetComponent<UICardView>();
                 if (uiCard == null)
@@ -420,10 +390,56 @@ namespace AceTheChase.UI
 
                 if (uiCard.GetCard() == card)
                 {
-                    AddAnimationToQueue(new QueuedAnimation(uiCard.Anim, "Activate", null, null));
-                    break;
+                    //queue card destroy
+                    return uiCard;
                 }
             }
+            return null;
+        }
+
+
+
+        /// <summary>
+        /// Queue an animation to show a card being discarded from the player's hand.
+        /// </summary>
+        public void AnimateDiscard(IPlayerCard card, Chase newState)
+        {
+            UICardView uiCard = FindCard(this.Hand.transform, card);
+            if (uiCard != null) 
+            {
+                //queue card destroy
+                AddAnimationToQueue(new QueuedAnimation(null, null, () => {
+                    Destroy(uiCard.gameObject);
+                    this.PlayerDiscardCountLabel.text = newState.PlayerDiscard.Count.ToString("N0");
+                }, null));
+            }
+        }
+
+        /// <summary>
+        /// Queue an animation to show a card being exhausted from the player's hand.
+        /// </summary>
+        public void AnimateActivation(ICard card, Chase newState)
+        {
+            // Remove the first matching card from the player's hand.
+            UICardView uiCard = FindCard(this.Hand.transform, card);
+            if (uiCard != null)
+            {
+                AddAnimationToQueue(new QueuedAnimation(uiCard.Anim, "Activate", null, null));
+                return;
+            }
+            uiCard = FindCard(this.Route.transform, card);
+            if (uiCard != null)
+            {
+                AddAnimationToQueue(new QueuedAnimation(uiCard.Anim, "Activate", null, null));
+                return;
+            }
+            uiCard = FindCard(this.Pursuit.transform, card);
+            if (uiCard != null)
+            {
+                AddAnimationToQueue(new QueuedAnimation(uiCard.Anim, "Activate", null, null));
+                return;
+            }
+
         }
 
         /// <summary>
@@ -432,19 +448,10 @@ namespace AceTheChase.UI
         public void AnimateExhaust(IPlayerCard card, Chase newState)
         {
             // Remove the first matching card from the player's hand.
-            foreach (Transform child in this.Hand.transform)
+            UICardView uiCard = FindCard(this.Hand.transform, card);
+            if (uiCard != null)
             {
-                UICardView uiCard = child.GetComponent<UICardView>();
-                if (uiCard == null)
-                {
-                    Debug.LogWarning("Found object in hand that didn't have a UICardView component. Disregarding...");
-                    continue;
-                }
-
-                if (uiCard.GetCard() == card)
-                {
-                    AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(child.gameObject); }, null));
-                }
+                AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(uiCard.gameObject); }, null));
             }
         }
 
@@ -454,20 +461,13 @@ namespace AceTheChase.UI
         public void AnimateRouteDiscard(IRouteCard card, Chase newState)
         {
             // Remove the first matching card from the current route.
-            foreach (Transform child in this.Route.transform)
+            UICardView uiCard = FindCard(this.Route.transform, card);
+            if (uiCard != null)
             {
-                UICardView uiCard = child.GetComponent<UICardView>();
-                if (uiCard == null) 
-                {
-                    Debug.LogWarning("Found object in route that didn't have a UICardView component. Disregarding...");
-                    continue;
-                }
-
-                if (uiCard.GetCard() == card)
-                {
-                    Destroy(child.gameObject);
-                    break;
-                }
+                //queue card destroy
+                AddAnimationToQueue(new QueuedAnimation(null, null, () => {
+                    Destroy(uiCard.gameObject);
+                }, null));
             }
         }
 
@@ -478,7 +478,9 @@ namespace AceTheChase.UI
         {
             foreach (Transform child in this.Pursuit.transform)
             {
-                Destroy(child.gameObject);
+                AddAnimationToQueue(new QueuedAnimation(null, null, () => {
+                    Destroy(child.gameObject);
+                }, null));
             }
 
             this.SpawnCard(card, CardSpawnLocation.Pursuit);

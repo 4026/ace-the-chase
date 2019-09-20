@@ -179,11 +179,8 @@ namespace AceTheChase.GameRules
         /// <summary>
         /// Exhaust the specified card from the player's hand.
         /// </summary>
-        public ChaseMutator ActivateCard(IPlayerCard card)
+        public ChaseMutator ActivateCard(ICard card)
         {
-            this.chase.Hand.Remove(card);
-            this.chase.PlayerTrash.Prepend(card);
-
             this.uiManager.AnimateActivation(card, this.chase);
 
             return this;
