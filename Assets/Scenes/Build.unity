@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 175860984}
   - component: {fileID: 175860982}
   - component: {fileID: 175860983}
+  - component: {fileID: 175860985}
   m_Layer: 5
   m_Name: CardPoolRect
   m_TagString: Untagged
@@ -525,6 +526,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175860980}
   m_CullTransparentMesh: 0
+--- !u!114 &175860985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175860980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74d0e12d862d04b018bd5112040c3501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numChildren: 0
 --- !u!1 &191029039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,6 +1708,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a0215d5aa33a430ba507f8e70cf4fe7, type: 2}
   - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
   - {fileID: 11400000, guid: 732cedf2dda0d4d99a93f6cac4429048, type: 2}
+  - {fileID: 11400000, guid: 9f925ee68b70943e3bfaf56a2e2ccded, type: 2}
   uiPlayerDeck: {fileID: 155177021}
   uiCardPool: {fileID: 175860981}
   deckBuilderBackground: {fileID: 1846517191}
