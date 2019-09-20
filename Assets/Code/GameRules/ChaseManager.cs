@@ -144,6 +144,10 @@ namespace AceTheChase.GameRules
         /// </summary>
         public void EndTurn()
         {
+            if(!UiManager.HasFinishedAnimations())
+            {
+                return;
+            }
             this.PhaseManager.State = ChasePhase.ResolvingPursuitAndRoute;
             this.UiManager.PlayerCardClicked -=  SelectCard;
 

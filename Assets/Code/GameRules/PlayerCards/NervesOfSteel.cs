@@ -42,7 +42,7 @@ namespace AceTheChase.GameRules.PlayerCards
                 .DiscardFromHand(this);
 
 
-            if (additionalParameters.ContainsKey("manuver"))
+            if (additionalParameters.ContainsKey("maneuver"))
             {
                 IRouteCard discardedRouteCard = additionalParameters["maneuver"] as IRouteCard;
                 if(discardedRouteCard != null)
