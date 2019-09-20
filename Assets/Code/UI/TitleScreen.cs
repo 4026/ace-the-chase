@@ -7,6 +7,7 @@ public class TitleScreen : MonoBehaviour
     // Start is called before the first frame update
     public void LoadNextScreen()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+       // UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsWin");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Rules");
     }
 }
