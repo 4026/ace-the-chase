@@ -482,13 +482,29 @@ namespace AceTheChase.UI
         /// <summary>
         /// Queue an animation to show a card being exhausted from the player's hand.
         /// </summary>
-        public void AnimateExhaust(IPlayerCard card, Chase newState)
+        public void AnimateExhaust(ICard card,  Chase newState)
         {
             // Remove the first matching card from the player's hand.
             UICardView uiCard = FindCard(this.Hand.transform, card);
             if (uiCard != null)
             {
+                uiCard.CardRemoved = true;
                 AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(uiCard.gameObject); }, null));
+                return;
+            }
+            uiCard = FindCard(this.Route.transform, card);
+            if (uiCard != null)
+            {
+                uiCard.CardRemoved = true;
+                AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(uiCard.gameObject); }, null));
+                return;
+            }
+            uiCard = FindCard(this.Pursuit.transform, card);
+            if (uiCard != null)
+            {
+                uiCard.CardRemoved = true;
+                AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(uiCard.gameObject); }, null));
+                return;
             }
         }
 
@@ -503,7 +519,10 @@ namespace AceTheChase.UI
             {
                 //queue card destroy
                 AddAnimationToQueue(new QueuedAnimation(null, null, () => {
-                    Destroy(uiCard.gameObject);
+                    if (uiCard != null && uiCard.gameObject != null)
+                    {
+                        Destroy(uiCard.gameObject);
+                    }
                 }, null));
             }
         }
