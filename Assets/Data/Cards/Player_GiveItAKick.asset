@@ -16,7 +16,7 @@ MonoBehaviour:
   controlCost: 0
   driver: 2
   playerCardType: 0
-  description: Draw 2 Cards. Discard 2 Cards.
+  description: Discard 2 Cards. Draw 2 Cards.
   flavourText: '"It''s perfectly reliable! Most of the time, anyway."'
   cardImage: {fileID: 21300000, guid: 8c1495ed9c47244c3ab4455385ded1b5, type: 3}
   CardsToDiscard: 2
