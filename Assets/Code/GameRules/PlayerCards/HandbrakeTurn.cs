@@ -29,7 +29,7 @@ namespace AceTheChase.GameRules.PlayerCards
 
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, object> additionalParameters,
+            IDictionary<string, List<ICard>> additionalParameters,
             UIManager uiManager
         )
         {
@@ -40,9 +40,11 @@ namespace AceTheChase.GameRules.PlayerCards
                 .AddLead(LeadIncrease)
                 .DiscardFromHand(this);
                 
-            if (additionalParameters.ContainsKey("manuver"))
+            if (additionalParameters.ContainsKey("manuver")
+                && additionalParameters["maneuver"].Count > 0
+                && additionalParameters["maneuver"][0] != null)
             {
-                IRouteCard discardedRouteCard = additionalParameters["maneuver"] as IRouteCard;
+                IRouteCard discardedRouteCard = additionalParameters["maneuver"][0] as IRouteCard;
                 if (discardedRouteCard != null)
                     muta.DiscardFromRoute(discardedRouteCard);
             }

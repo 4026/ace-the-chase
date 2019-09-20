@@ -1695,11 +1695,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPool:
+  - {fileID: 11400000, guid: 09bb9f94f1aa14db7a25cfede3fa5a5e, type: 2}
   - {fileID: 11400000, guid: 81179fda42d044fad9399a85160eb63a, type: 2}
   - {fileID: 11400000, guid: 6c1cb604c8ee442408b990d45a14bb6e, type: 2}
+  - {fileID: 11400000, guid: 50f9c4f6db2ce42ea9b2ee3244f8d49d, type: 2}
   - {fileID: 11400000, guid: 78a84fe7f740945a7af519efec87ab29, type: 2}
   - {fileID: 11400000, guid: a5b1c78130ff34c01951ca60d10c297d, type: 2}
+  - {fileID: 11400000, guid: 732cedf2dda0d4d99a93f6cac4429048, type: 2}
   - {fileID: 11400000, guid: 4868a0068db234cf1a0e6727d7a494b0, type: 2}
+  - {fileID: 11400000, guid: 9703020e8e03345c39c9d5a50f0eeee5, type: 2}
+  - {fileID: 11400000, guid: efa7a391c4d394a329607b9bd40bcca2, type: 2}
+  - {fileID: 11400000, guid: 46a8684357dd64e52987d4dfb2ace08e, type: 2}
+  - {fileID: 11400000, guid: 0d5c6ef50cb604964ae16f6562d657f4, type: 2}
+  - {fileID: 11400000, guid: 9f925ee68b70943e3bfaf56a2e2ccded, type: 2}
   - {fileID: 11400000, guid: 214c55b6f9e5c47fdb7cdb3d9ff7bb61, type: 2}
   - {fileID: 11400000, guid: c20b8ef7acc764f1283a6eaa893cd648, type: 2}
   - {fileID: 11400000, guid: a9cd5fc80ac9646eea1d58e67a765327, type: 2}
@@ -1707,13 +1715,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b47217d21c0146faa2cb69c4ffde560, type: 2}
   - {fileID: 11400000, guid: 4a0215d5aa33a430ba507f8e70cf4fe7, type: 2}
   - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
-  - {fileID: 11400000, guid: 732cedf2dda0d4d99a93f6cac4429048, type: 2}
-  - {fileID: 11400000, guid: 9f925ee68b70943e3bfaf56a2e2ccded, type: 2}
-  - {fileID: 11400000, guid: 09bb9f94f1aa14db7a25cfede3fa5a5e, type: 2}
-  - {fileID: 11400000, guid: 50f9c4f6db2ce42ea9b2ee3244f8d49d, type: 2}
-  - {fileID: 11400000, guid: efa7a391c4d394a329607b9bd40bcca2, type: 2}
-  - {fileID: 11400000, guid: 46a8684357dd64e52987d4dfb2ace08e, type: 2}
-  - {fileID: 11400000, guid: 0d5c6ef50cb604964ae16f6562d657f4, type: 2}
   uiPlayerDeck: {fileID: 155177021}
   uiCardPool: {fileID: 175860981}
   deckBuilderBackground: {fileID: 1846517191}
