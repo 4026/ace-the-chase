@@ -18,4 +18,4 @@ MonoBehaviour:
   playerCardType: 3
   description: 
   flavourText: '"Quick, turn here"'
-  cardImage: {fileID: 21300000, guid: 6e892bd25477543b2be5481be1abe15b, type: 3}
+  cardImage: {fileID: 21300000, guid: 324f68008f5d34f3ebdc0e9dfa587c3d, type: 3}
