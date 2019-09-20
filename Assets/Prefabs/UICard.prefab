@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 298615686342671756}
   - component: {fileID: 3044367168095379441}
   - component: {fileID: 7422827066246561938}
-  - component: {fileID: 6924035205538995896}
+  - component: {fileID: 225135136}
   m_Layer: 0
   m_Name: CostBG
   m_TagString: Untagged
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &6924035205538995896
+--- !u!114 &225135136
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,13 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 304909250197620622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0ff3490b648c41b99180dbb57c2a079, type: 3}
+  m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_color1: {r: 1, g: 1, b: 1, a: 1}
-  m_color2: {r: 0.9056604, g: 0.8757565, b: 0.8757565, a: 1}
-  m_angle: 0
-  m_ignoreRatio: 1
+  m_ShowMaskGraphic: 1
 --- !u!1 &735440809245770195
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,8 +313,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.327, y: -1.11}
-  m_SizeDelta: {x: 59.85, y: 73.49}
+  m_AnchoredPosition: {x: 10, y: -0.35}
+  m_SizeDelta: {x: 68.49, y: 65.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4660181596327691575
 CanvasRenderer:
@@ -1495,8 +1492,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -21.9, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -23.2, y: 0}
+  m_SizeDelta: {x: -21.9, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5342377270873446375
 CanvasRenderer:
@@ -1519,7 +1516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 88c1eb3d086c34e609b5c1e99102099a, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
