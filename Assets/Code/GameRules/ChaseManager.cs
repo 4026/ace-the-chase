@@ -49,6 +49,15 @@ namespace AceTheChase.GameRules
             BeginTurn();
         }
 
+        void Update()
+        {
+            if (this.PhaseManager.State == ChasePhase.PlayingAnimation
+                && this.UiManager.HasFinishedAnimations())
+            {
+                this.PhaseManager.State = this.PhaseManager.QueuedState;
+            }
+        }
+
         /// <summary>
         /// Called at the start of the player's turn.
         /// </summary>
@@ -60,8 +69,8 @@ namespace AceTheChase.GameRules
                 .DrawRouteCards(this.CurrentChaseState.PlayerSpeed)
                 .AddControl(ControlGainPerTurn)
                 .Done();
-
-            this.PhaseManager.State = ChasePhase.SelectingCard;
+            this.PhaseManager.QueuedState = ChasePhase.SelectingCard;
+            this.PhaseManager.State = ChasePhase.PlayingAnimation;
             this.UiManager.PlayerCardClicked += SelectCard;
         }
 

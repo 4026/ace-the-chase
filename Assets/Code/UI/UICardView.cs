@@ -59,7 +59,13 @@ namespace AceTheChase.UI
         [SerializeField]
         private Image m_numberOwnedBG2;
 
+
+        [SerializeField]
+        private Animator m_animator;
+
         private ICard m_card;
+
+        public Animator Anim { get { return m_animator; } }
 
         public void Setup(IPursuitCard card)
         {

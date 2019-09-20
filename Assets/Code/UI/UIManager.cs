@@ -63,12 +63,15 @@ namespace AceTheChase.UI
         private Dictionary<CardSpawnLocation, GameObject> CardSpawnParents
             = new Dictionary<CardSpawnLocation, GameObject>();
 
+        private List<KeyValuePair<Animator, string>> AnimationQueue;
+
         void Start()
         {
             CardSpawnParents[CardSpawnLocation.Hand] = Hand;
             CardSpawnParents[CardSpawnLocation.Route] = Route;
             CardSpawnParents[CardSpawnLocation.Pursuit] = Pursuit;
             CardSpawnParents[CardSpawnLocation.CardPicker] = CardPicker.CardGrid;
+            AnimationQueue = new List<KeyValuePair<Animator, string>>();
         }
 
         /// <summary>
@@ -113,6 +116,38 @@ namespace AceTheChase.UI
             }
         }
 
+        public void AddAnimationToQueue(Animator animator, string trigger)
+        {
+            KeyValuePair<Animator, string> keyValuePair = new KeyValuePair<Animator, string>(animator, trigger);
+            AnimationQueue.Add(keyValuePair);
+            if (AnimationQueue.Count == 1)
+            {
+                AnimationQueue[0].Key.SetTrigger(AnimationQueue[0].Value);
+            }
+        }
+
+        public void AnimationEnded()
+        {
+            if (AnimationQueue.Count > 0)
+            {
+                AnimationQueue[0].Key.ResetTrigger(AnimationQueue[0].Value);
+                AnimationQueue.RemoveAt(0);
+                if (AnimationQueue.Count > 0)
+                {
+                    AnimationQueue[0].Key.SetTrigger(AnimationQueue[0].Value);
+                }
+            }
+            else
+            {
+                Debug.LogError("No animations to end");
+            }
+        }
+
+        public bool HasFinishedAnimations()
+        {
+            return (AnimationQueue.Count == 0);
+        }
+
         /// <summary>
         /// Spawn a new card prefab at the specified location.
         /// </summary>
@@ -123,6 +158,7 @@ namespace AceTheChase.UI
             GameObject parent = this.CardSpawnParents[location];
             GameObject newCard = Instantiate(UICardPrefab, parent.transform);
             UICardView cardComponent = newCard.GetComponent<UICardView>();
+            newCard.GetComponent<AnimationEndedTrigger>().SetUIManager(this);
 
             PlayerCard playerCard = card as PlayerCard;
             if (playerCard != null)
@@ -243,6 +279,9 @@ namespace AceTheChase.UI
         public void AnimateCardDraw(IPlayerCard card, Chase newState)
         {
             GameObject newCard = this.SpawnCard(card, CardSpawnLocation.Hand);
+            UICardView uiCardView = newCard.GetComponent<UICardView>();
+            uiCardView.Anim.SetTrigger("PreDraw");
+            AddAnimationToQueue(uiCardView.Anim, "Draw");
             this.PlayerDeckCountLabel.text = newState.PlayerDeck.Count.ToString("N0");
         }
 

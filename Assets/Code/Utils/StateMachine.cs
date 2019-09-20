@@ -11,6 +11,7 @@ namespace AceTheChase.Utils
     /// </summary>
     public class StateMachine<TState> where TState : System.Enum
     {
+        public TState QueuedState;
         /// <summary>
         /// The current state that the game is in.
         /// </summary>
