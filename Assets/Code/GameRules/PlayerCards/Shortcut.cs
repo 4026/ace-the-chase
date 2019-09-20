@@ -33,8 +33,8 @@ namespace AceTheChase.GameRules.PlayerCards
             IRouteCard discardedRouteCard = additionalParameters["obstacle"] as IRouteCard;
 
             return new ChaseMutator(currentState, uiManager)
-                .DiscardFromRoute(discardedRouteCard)
                 .AddControl(-this.ControlCost)
+                .DiscardFromRoute(discardedRouteCard)
                 .DiscardFromHand(this)
                 .Done();
         }

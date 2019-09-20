@@ -7,6 +7,7 @@ namespace AceTheChase.UI
     public class AnimationEndedTrigger : MonoBehaviour
     {
         // Start is called before the first frame update
+        [SerializeField]
         private UIManager m_uiManager;
 
         public void SetUIManager(UIManager uiManager)

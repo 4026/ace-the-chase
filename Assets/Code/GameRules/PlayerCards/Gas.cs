@@ -19,8 +19,8 @@ namespace AceTheChase.GameRules.PlayerCards
         )
         {
             return new ChaseMutator(currentState, uiManager)
-                .AddPlayerSpeed(SpeedIncrease)
                 .AddControl(-this.ControlCost)
+                .AddPlayerSpeed(SpeedIncrease)
                 .DiscardFromHand(this)
                 .Done();
         }

@@ -32,8 +32,8 @@ namespace AceTheChase.GameRules.PlayerCards
             IPlayerCard repairedDamage = additionalParameters["damage"] as IPlayerCard;
 
             return new ChaseMutator(currentState, uiManager)
-                .ExhaustFromHand(repairedDamage)
                 .AddControl(-this.ControlCost)
+                .ExhaustFromHand(repairedDamage)
                 .DiscardFromHand(this)
                 .Done();
         }
