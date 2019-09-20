@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AceTheChase.UI;
 using UnityEngine;
+using System.Linq;
 
 namespace AceTheChase.GameRules.PlayerCards
 {
@@ -12,18 +13,39 @@ namespace AceTheChase.GameRules.PlayerCards
     {
         public float ControlPerSpeed;
 
+        public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
+        {
+            // Drift is a stunt, so it requires a Maneuver card as a parameter.
+            return new CardParameterProvider<IRouteCard>(
+                "maneuver",
+                chaseState.CurrentRoute
+                    .Where(card => card.CardType == RouteCardType.Maneuver)
+                    .ToList()
+            );
+        }
+
         public override Chase Play(
             Chase currentState,
             IDictionary<string, object> additionalParameters,
             UIManager uiManager
         )
         {
-            return new ChaseMutator(currentState, uiManager)
+
+            ChaseMutator muta = new ChaseMutator(currentState, uiManager)
                 .AddControl(
                     Mathf.FloorToInt(ControlPerSpeed * currentState.PlayerSpeed) - this.ControlCost
                 )
-                .DiscardFromHand(this)
-                .Done();
+                .DiscardFromHand(this);
+
+
+            if (additionalParameters.ContainsKey("manuver"))
+            {
+                IRouteCard discardedRouteCard = additionalParameters["maneuver"] as IRouteCard;
+                if(discardedRouteCard != null)
+                muta.DiscardFromRoute(discardedRouteCard);
+            }
+
+            return muta.Done();
         }
     }
 }

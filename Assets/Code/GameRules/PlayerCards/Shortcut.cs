@@ -30,13 +30,20 @@ namespace AceTheChase.GameRules.PlayerCards
             UIManager uiManager
         )
         {
-            IRouteCard discardedRouteCard = additionalParameters["obstacle"] as IRouteCard;
-
-            return new ChaseMutator(currentState, uiManager)
+            ChaseMutator muta = new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlCost)
-                .DiscardFromRoute(discardedRouteCard)
-                .DiscardFromHand(this)
-                .Done();
+                .DiscardFromHand(this);
+
+
+            if (additionalParameters.ContainsKey("manuver"))
+            {
+                IRouteCard discardedRouteCard = additionalParameters["maneuver"] as IRouteCard;
+                if (discardedRouteCard != null)
+                    muta.DiscardFromRoute(discardedRouteCard);
+            }
+
+
+            return muta.Done();
         }
     }
 }

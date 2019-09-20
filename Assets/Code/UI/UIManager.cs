@@ -26,6 +26,7 @@ namespace AceTheChase.UI
         public event Action<ICard> CardClicked;
 
         public event Action CardPickerCancelled;
+        public event Action CardPickerNoTarget;
 
         //lead
         public Text LeadLabel;
@@ -295,6 +296,12 @@ namespace AceTheChase.UI
         {
             this.CardPicker.gameObject.SetActive(false);
             this.CardPickerCancelled?.Invoke();
+        }
+
+        public void CardPickerNoTargetSelected()
+        {
+            this.CardPicker.gameObject.SetActive(false);
+            this.CardPickerNoTarget?.Invoke();
         }
 
         /// <summary>

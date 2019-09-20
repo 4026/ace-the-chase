@@ -26,5 +26,10 @@ namespace AceTheChase.UI
         {
             this.UIManager.CancelCardPicker();
         }
+
+        public void NoTarget()
+        {
+            this.UIManager.CardPickerNoTargetSelected();
+        }
     }
 }

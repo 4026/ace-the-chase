@@ -38,6 +38,7 @@ namespace AceTheChase.GameRules
             uiManager.DisplayCardPicker(candidateCards);
             uiManager.CardClicked += this.CardSelected;
             uiManager.CardPickerCancelled += () => { Cancel(OnCancel); };
+            uiManager.CardPickerNoTarget += () => { CardSelected(null); };
 
             this.OnComplete = OnComplete;
         }

@@ -145,6 +145,7 @@ namespace AceTheChase.GameRules
         public void EndTurn()
         {
             this.PhaseManager.State = ChasePhase.ResolvingPursuitAndRoute;
+            this.UiManager.PlayerCardClicked -=  SelectCard;
 
             // The player loses any unspent control
             this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState, this.UiManager)
