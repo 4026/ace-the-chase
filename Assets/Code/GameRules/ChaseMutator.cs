@@ -64,11 +64,23 @@ namespace AceTheChase.GameRules
             return this;
         }
 
-        /// <summary>
-        /// Add the specified value to the current pursuit speed, keeping it within the current
-        /// bounds.
-        /// </summary>
-        public ChaseMutator AddPursuitSpeed(int delta)
+		/// <summary>
+		/// Add the specified value to the player's current speed, keeping it within the current
+		/// bounds.
+		/// </summary>
+		public ChaseMutator AddMaxSpeed(int delta)
+		{
+			Debug.Log($"Applying {delta} speed");
+			this.chase.MaxPlayerSpeed = this.chase.MaxPlayerSpeed + delta;
+			this.uiManager.AnimatePlayerMaxSpeedChange(delta, this.chase);
+			return this;
+		}
+
+		/// <summary>
+		/// Add the specified value to the current pursuit speed, keeping it within the current
+		/// bounds.
+		/// </summary>
+		public ChaseMutator AddPursuitSpeed(int delta)
         {
             Debug.Log($"Applying {delta} pursuit speed");
             this.chase.PursuitSpeed = Mathf.Clamp(

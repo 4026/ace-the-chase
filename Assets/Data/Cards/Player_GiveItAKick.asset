@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae503b3696cda4688bb1c03ec3708762, type: 3}
+  m_Name: Player_GiveItAKick
+  m_EditorClassIdentifier: 
+  displayName: Give it a Kick!
+  controlCost: 0
+  driver: 2
+  playerCardType: 0
+  description: Draw 2 Cards. Discard 2 Cards.
+  flavourText: '"It''s perfectly reliable! Most of the time, anyway."'
+  cardImage: {fileID: 21300000, guid: 8c1495ed9c47244c3ab4455385ded1b5, type: 3}
+  CardsToDiscard: 2
+  CardsToDraw: 2

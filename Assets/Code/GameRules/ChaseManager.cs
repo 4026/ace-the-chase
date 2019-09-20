@@ -90,7 +90,7 @@ namespace AceTheChase.GameRules
             if (parameterProvider == null)
             {
                 // If the card doesn't require any parameters, jut play it immediately.
-                this.PlayCard(card, new Dictionary<string, object>());
+                this.PlayCard(card, new Dictionary<string, List<ICard>>());
             } 
             else 
             {
@@ -117,7 +117,7 @@ namespace AceTheChase.GameRules
             }
         }
 
-        private void PlayCard(IPlayerCard card, IDictionary<string, object> cardParameters)
+        private void PlayCard(IPlayerCard card, IDictionary<string, List<ICard>> cardParameters)
         {
             if (!card.CanPlay(this.CurrentChaseState))
             {
@@ -204,7 +204,7 @@ namespace AceTheChase.GameRules
             {
 
                 this.CurrentChaseState = damageCard
-                    .Play(this.CurrentChaseState, new Dictionary<string, object>(), this.UiManager);
+                    .Play(this.CurrentChaseState, new Dictionary<string, List<ICard>>(), this.UiManager);
 
                 if (this.CurrentChaseState.Lead <= 0)
                 {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AceTheChase.UI;
 using UnityEngine;
@@ -38,6 +39,12 @@ namespace AceTheChase.GameRules
         public string Description => description;
         public string FlavourText => flavourText;
         public Sprite CardImage => cardImage;
+        public Guid GUID => Guid.Empty;
+
+        public int CompareTo(object obj)
+        {
+            return -1;
+        }
 
         public abstract Chase Play(Chase currentState, UIManager uiManager);
     }

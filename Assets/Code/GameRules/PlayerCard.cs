@@ -54,6 +54,8 @@ namespace AceTheChase.GameRules
         [SerializeField]
         private Sprite cardImage;
 
+        private Guid m_guid;
+
         public string Name => displayName;
         public int ControlCost => controlCost;
         public PlayerCardDriver Driver => driver;
@@ -61,13 +63,18 @@ namespace AceTheChase.GameRules
         public string Description => description;
         public string FlavourText => flavourText;
         public Sprite CardImage => cardImage;
+        public Guid GUID => m_guid;
 
         public abstract Chase Play(
             Chase currentState,
-            IDictionary<string, object> additionalParameters,
+            IDictionary<string, List<ICard>> additionalParameters,
             UIManager uiManager
         );
-        
+
+        void Awake()
+        {
+            m_guid = Guid.NewGuid();
+        }
 
         public bool CanPlay(Chase currentState)
         {
@@ -88,7 +95,20 @@ namespace AceTheChase.GameRules
             {
                 return string.Compare(this.Name, obj.name, StringComparison.CurrentCulture);
             }
+            if (ret == 0)
+            {
+                return m_guid.CompareTo(obj.m_guid);
+            }
             return ret;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj as PlayerCard)
+            {
+                return CompareTo((PlayerCard)obj);
+            }
+            return -1;
         }
     }
 }

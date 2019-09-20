@@ -64,6 +64,7 @@ namespace AceTheChase.UI
         private Animator m_animator;
 
         private ICard m_card;
+        public bool CardRemoved = false;
 
         public Animator Anim { get { return m_animator; } }
 

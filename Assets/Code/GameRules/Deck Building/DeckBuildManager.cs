@@ -11,6 +11,7 @@ using UnityEngine.SceneManagement;
 public class DeckBuildManager : MonoBehaviour
 {
     List<IPlayerCard> builtDeck;
+    [SerializeField]
     public List<PlayerCard> cardPool;
 
     public Transform uiPlayerDeck;

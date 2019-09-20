@@ -18,7 +18,7 @@ namespace AceTheChase.GameRules
         void PromptForParameters(
             Chase currentChaseState,
             UIManager uiManager,
-            Action<IDictionary<string, object>> OnComplete,
+            Action<IDictionary<string, List<ICard>>> OnComplete,
             Action OnCancel
         );
     }

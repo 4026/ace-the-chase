@@ -23,7 +23,7 @@ namespace AceTheChase.UI
         public event Action<IPlayerCard> PlayerCardClicked;
         public event Action<IRouteCard> RouteCardClicked;
         public event Action<IPursuitCard> PursuitCardClicked;
-        public event Action<ICard> CardClicked;
+        public event Action<UICardView> CardClicked;
 
         public event Action CardPickerCancelled;
         public event Action CardPickerNoTarget;
@@ -224,7 +224,10 @@ namespace AceTheChase.UI
             {
                 cardComponent.Setup(playerCard);
                 cardComponent.OnClick += OnCardClicked;
-                cardComponent.OnClick += OnPlayerCardClicked;
+                if (location != CardSpawnLocation.CardPicker)
+                {
+                    cardComponent.OnClick += OnPlayerCardClicked;
+                }
                 return newCard;
             }
             
@@ -233,7 +236,10 @@ namespace AceTheChase.UI
             {
                 cardComponent.Setup(routeCard);
                 cardComponent.OnClick += OnCardClicked;
-                cardComponent.OnClick += OnRouteCardClicked;
+                if (location != CardSpawnLocation.CardPicker)
+                {
+                    cardComponent.OnClick += OnRouteCardClicked;
+                }
                 return newCard;
             }
 
@@ -242,7 +248,10 @@ namespace AceTheChase.UI
             {
                 cardComponent.Setup(pursuitCard);
                 cardComponent.OnClick += OnCardClicked;
-                cardComponent.OnClick += OnPursuitCardClicked;
+                if (location != CardSpawnLocation.CardPicker)
+                {
+                    cardComponent.OnClick += OnPursuitCardClicked;
+                }
                 return newCard;
             }
 
@@ -260,9 +269,8 @@ namespace AceTheChase.UI
 
         private void OnCardClicked(object sender, EventArgs e)
         {
-            ICard clickedCard = (sender as GameObject)
-                ?.GetComponent<UICardView>()
-                ?.GetCard() as ICard;
+            UICardView clickedCard = (sender as GameObject)
+                ?.GetComponent<UICardView>();
 
             this.CardClicked?.Invoke(clickedCard);
         }
@@ -340,10 +348,21 @@ namespace AceTheChase.UI
             }, null));
         }
 
-        /// <summary>
-        /// Queue an animation to change the current pursuit speed.
-        /// </summary>
-        public void AnimatePursuitSpeedChange(int delta, Chase newState)
+		/// <summary>
+		/// Queue an animation to change the player's max speed.
+		/// </summary>
+		public void AnimatePlayerMaxSpeedChange(int delta, Chase newState)
+		{
+			//AddAnimationToQueue(new QueuedAnimation(PlayerSpeedAnimator, delta > 0 ? "StatUp" : "StatDown", () => {
+			//	this.PlayerSpeedLabel.text = newState.PlayerSpeed.ToString("N0");
+			//	this.PlayerSpeedLabelDelta.text = delta.ToString("N0");
+			//}, null));
+		}
+
+		/// <summary>
+		/// Queue an animation to change the current pursuit speed.
+		/// </summary>
+		public void AnimatePursuitSpeedChange(int delta, Chase newState)
         {
             AddAnimationToQueue(new QueuedAnimation(PursuitSpeedAnimator, delta > 0 ? "StatUp" : "StatDown", () => {
                 this.PursuitSpeedLabel.text = newState.PursuitSpeed.ToString("N0");
@@ -395,10 +414,17 @@ namespace AceTheChase.UI
                     continue;
                 }
 
+                if (uiCard.CardRemoved)
+                {
+                    continue;
+                }
                 if (uiCard.GetCard() == card)
                 {
-                    //queue card destroy
-                    return uiCard;
+                    if (uiCard.GetCard().GUID == card.GUID)
+                    {
+                        //queue card destroy
+                        return uiCard;
+                    }
                 }
             }
             return null;
@@ -414,6 +440,7 @@ namespace AceTheChase.UI
             UICardView uiCard = FindCard(this.Hand.transform, card);
             if (uiCard != null) 
             {
+                uiCard.CardRemoved = true;
                 //queue card destroy
                 AddAnimationToQueue(new QueuedAnimation(null, null, () => {
                     if (uiCard != null && uiCard.gameObject != null)

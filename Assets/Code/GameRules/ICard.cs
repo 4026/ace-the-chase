@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,8 +8,9 @@ namespace AceTheChase.GameRules
     /// <summary>
     /// The interface provided by all card objects in the game, regardless of type.
     /// </summary>
-    public interface ICard
+    public interface ICard : IComparable
     {
+
         /// <summary>
         /// The display name of the card.
         /// </summary>
@@ -28,5 +30,8 @@ namespace AceTheChase.GameRules
         /// The image for this card.
         /// </summary>
         Sprite CardImage { get; }
+
+
+        Guid GUID {get; }
     }
 }

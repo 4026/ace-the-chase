@@ -16,7 +16,7 @@ namespace AceTheChase.GameRules.DamageCards
 
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, object> additionalParameters,
+            IDictionary<string, List<ICard>> additionalParameters,
             UIManager uiManager
         )
         {
