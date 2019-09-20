@@ -67,6 +67,7 @@ namespace AceTheChase.GameRules
             IDictionary<string, object> additionalParameters,
             UIManager uiManager
         );
+        
 
         public bool CanPlay(Chase currentState)
         {

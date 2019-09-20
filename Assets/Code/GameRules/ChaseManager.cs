@@ -79,6 +79,11 @@ namespace AceTheChase.GameRules
         /// </summary>
         public void SelectCard(IPlayerCard card)
         {
+            if (!card.CanPlay(this.CurrentChaseState))
+            {
+                return;
+            }
+
             IProvidesCardParameters parameterProvider = card
                 .GetParameterProvider(this.CurrentChaseState);
 
@@ -114,6 +119,11 @@ namespace AceTheChase.GameRules
 
         private void PlayCard(IPlayerCard card, IDictionary<string, object> cardParameters)
         {
+            if (!card.CanPlay(this.CurrentChaseState))
+            {
+                return;
+            }
+
             this.CurrentChaseState = card.Play(this.CurrentChaseState, cardParameters, this.UiManager);
 
             // Check if the player has won or lost as a result of playing this card.

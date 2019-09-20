@@ -23,6 +23,7 @@ namespace AceTheChase.UI
         public event Action<IPlayerCard> PlayerCardClicked;
         public event Action<IRouteCard> RouteCardClicked;
         public event Action<IPursuitCard> PursuitCardClicked;
+        public event Action<ICard> CardClicked;
 
         public event Action CardPickerCancelled;
 
@@ -164,6 +165,7 @@ namespace AceTheChase.UI
             if (playerCard != null)
             {
                 cardComponent.Setup(playerCard);
+                cardComponent.OnClick += OnCardClicked;
                 cardComponent.OnClick += OnPlayerCardClicked;
                 return newCard;
             }
@@ -172,6 +174,7 @@ namespace AceTheChase.UI
             if (routeCard != null)
             {
                 cardComponent.Setup(routeCard);
+                cardComponent.OnClick += OnCardClicked;
                 cardComponent.OnClick += OnRouteCardClicked;
                 return newCard;
             }
@@ -180,6 +183,7 @@ namespace AceTheChase.UI
             if (pursuitCard != null)
             {
                 cardComponent.Setup(pursuitCard);
+                cardComponent.OnClick += OnCardClicked;
                 cardComponent.OnClick += OnPursuitCardClicked;
                 return newCard;
             }
@@ -194,6 +198,15 @@ namespace AceTheChase.UI
                 ?.GetCard() as IPlayerCard;
 
             this.PlayerCardClicked?.Invoke(clickedCard);
+        }
+
+        private void OnCardClicked(object sender, EventArgs e)
+        {
+            ICard clickedCard = (sender as GameObject)
+                ?.GetComponent<UICardView>()
+                ?.GetCard() as ICard;
+
+            this.CardClicked?.Invoke(clickedCard);
         }
 
         private void OnRouteCardClicked(object sender, EventArgs e)

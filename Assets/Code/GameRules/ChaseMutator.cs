@@ -34,6 +34,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddLead(int delta)
         {
+            Debug.Log($"Applying {delta} lead");
             this.chase.Lead = Mathf.Clamp(
                 this.chase.Lead + delta,
                 0,
@@ -51,6 +52,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddPlayerSpeed(int delta)
         {
+            Debug.Log($"Applying {delta} speed");
             this.chase.PlayerSpeed = Mathf.Clamp(
                 this.chase.PlayerSpeed + delta,
                 0,
@@ -68,6 +70,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddPursuitSpeed(int delta)
         {
+            Debug.Log($"Applying {delta} pursuit speed");
             this.chase.PursuitSpeed = Mathf.Clamp(
                 this.chase.PursuitSpeed + delta,
                 0,
@@ -85,6 +88,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddControl(int delta)
         {
+            Debug.Log($"Applying {delta} control");
             // Control may be negative: this is how we apply penalties to the player's control at 
             // turn start.
             this.chase.Control = Mathf.Min(
@@ -103,6 +107,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator DrawCards(int numCards)
         {
+            Debug.Log($"Applying {numCards} cardDraw");
             int cardsToDrawFromThisDeck = Mathf.Min(numCards, this.chase.PlayerDeck.Count);
             int cardsToDrawAfterRecycle = numCards - cardsToDrawFromThisDeck;
 
@@ -132,6 +137,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator DrawRouteCards(int numCards)
         {
+            Debug.Log($"Applying {numCards} routes");
             int cardsToDrawFromThisDeck = Mathf.Min(numCards, this.chase.RouteDeck.Count);
             int cardsToDrawAfterRecycle = numCards - cardsToDrawFromThisDeck;
 
@@ -161,6 +167,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator DiscardFromHand(IPlayerCard card)
         {
+            Debug.Log($"Applying {card} discard");
             this.chase.Hand.Remove(card);
             this.chase.PlayerDiscard.Prepend(card);
 

@@ -19,6 +19,13 @@ namespace AceTheChase.GameRules
             this.candidateCards = candidateCards;
         }
 
+        public void Cancel(Action OnCancel)
+        {
+            uiManager.CardClicked -= this.CardSelected;
+            OnCancel();
+        }
+
+
         public void PromptForParameters(
             Chase currentChaseState,
             UIManager uiManager,
@@ -29,15 +36,16 @@ namespace AceTheChase.GameRules
             this.uiManager = uiManager;
             
             uiManager.DisplayCardPicker(candidateCards);
-            uiManager.RouteCardClicked += this.CardSelected;
-            uiManager.CardPickerCancelled += OnCancel;
+            uiManager.CardClicked += this.CardSelected;
+            uiManager.CardPickerCancelled += () => { Cancel(OnCancel); };
 
             this.OnComplete = OnComplete;
         }
 
-        private void CardSelected(IRouteCard card)
+        private void CardSelected(ICard card)
         {
             this.uiManager.HideCardPicker();
+            uiManager.CardClicked -= this.CardSelected;
             this.OnComplete(new Dictionary<string, object>() {
                 { parameterName, card }
             });
