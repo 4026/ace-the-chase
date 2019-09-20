@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Open road
   cardType: 0
-  description: 
+  description: No Effects
   flavourText: '"Just drive!"'
   cardImage: {fileID: 21300000, guid: 5165fe297d338428f94e52467414f3b5, type: 3}

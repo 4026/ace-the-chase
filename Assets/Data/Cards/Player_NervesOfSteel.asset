@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076195b87fd46614180d77ecb9e0e65c, type: 3}
   m_Name: Player_NervesOfSteel
   m_EditorClassIdentifier: 
-  displayName: NERVES_OF_STEEL
+  displayName: Nerves of steel
   controlCost: 2
   driver: 1
   playerCardType: 2
