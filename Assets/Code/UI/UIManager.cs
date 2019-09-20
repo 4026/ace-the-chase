@@ -26,10 +26,26 @@ namespace AceTheChase.UI
 
         public event Action CardPickerCancelled;
 
+        //lead
         public Text LeadLabel;
+        public Text LeadLabelDelta;
+        public Animator LeadAnimator;
+
+        //PlayerSpeed
         public Text PlayerSpeedLabel;
-        public Text PursuitSpeedLabel;
+        public Text PlayerSpeedLabelDelta;
+        public Animator PlayerSpeedAnimator;
+
+        //PlayerSpeed
         public Text ControlLabel;
+        public Text ControlLabelDelta;
+        public Animator ControlAnimator;
+
+        //PursuitSpeed
+        public Text PursuitSpeedLabel;
+        public Text PursuitSpeedLabelDelta;
+        public Animator PursuitSpeedAnimator;
+
         public Text PlayerDeckCountLabel;
         public Text PlayerDiscardCountLabel;
         public Text RouteDeckCountLabel;
@@ -247,6 +263,9 @@ namespace AceTheChase.UI
         public void AnimateLeadChange(int delta, Chase newState)
         {
             this.LeadLabel.text = newState.Lead.ToString("N0");
+            this.LeadLabelDelta.text = delta.ToString("N0");
+            AddAnimationToQueue(LeadAnimator, delta > 0 ? "StatUp" : "StatDown");
+
         }
 
         /// <summary>
@@ -255,6 +274,8 @@ namespace AceTheChase.UI
         public void AnimatePlayerSpeedChange(int delta, Chase newState)
         {
             this.PlayerSpeedLabel.text = newState.PlayerSpeed .ToString("N0");
+            this.PlayerSpeedLabelDelta.text = delta.ToString("N0");
+            AddAnimationToQueue(PlayerSpeedAnimator, delta > 0 ? "StatUp" : "StatDown");
         }
 
         /// <summary>
@@ -263,6 +284,8 @@ namespace AceTheChase.UI
         public void AnimatePursuitSpeedChange(int delta, Chase newState)
         {
             this.PursuitSpeedLabel.text = newState.PursuitSpeed .ToString("N0");
+            this.PursuitSpeedLabelDelta.text = delta.ToString("N0");
+            AddAnimationToQueue(PursuitSpeedAnimator, delta > 0 ? "StatUp" : "StatDown");
         }
 
         /// <summary>
@@ -271,6 +294,8 @@ namespace AceTheChase.UI
         public void AnimateControlChange(int delta, Chase newState)
         {
             this.ControlLabel.text = newState.Control.ToString("N0");
+            this.ControlLabelDelta.text = delta.ToString("N0");
+            AddAnimationToQueue(ControlAnimator, delta > 0 ? "StatUp" : "StatDown");
         }
 
         /// <summary>
