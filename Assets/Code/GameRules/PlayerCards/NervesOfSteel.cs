@@ -33,7 +33,11 @@ namespace AceTheChase.GameRules.PlayerCards
 
             ChaseMutator muta = new ChaseMutator(currentState, uiManager)
                 .AddControl(
-                    Mathf.FloorToInt(ControlPerSpeed * currentState.PlayerSpeed) - this.ControlCost
+                    -this.ControlCost
+                )
+                .ActivateCard(this)
+                .AddControl(
+                    Mathf.FloorToInt(ControlPerSpeed * currentState.PlayerSpeed)
                 )
                 .DiscardFromHand(this);
 

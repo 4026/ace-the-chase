@@ -21,6 +21,7 @@ namespace AceTheChase.GameRules.DamageCards
         )
         {
             return new ChaseMutator(currentState, uiManager)
+                .ActivateCard(this)
                 .AddPlayerSpeed(-this.SpeedDecrease)
                 .DiscardFromHand(this)
                 .Done();

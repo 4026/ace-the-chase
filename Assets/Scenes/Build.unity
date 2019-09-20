@@ -1681,16 +1681,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPool:
-  - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
-  - {fileID: 11400000, guid: 3b47217d21c0146faa2cb69c4ffde560, type: 2}
-  - {fileID: 11400000, guid: 6b406f8e4faba468eb01dc43bc31a4b3, type: 2}
-  - {fileID: 11400000, guid: a9cd5fc80ac9646eea1d58e67a765327, type: 2}
   - {fileID: 11400000, guid: 81179fda42d044fad9399a85160eb63a, type: 2}
+  - {fileID: 11400000, guid: 6c1cb604c8ee442408b990d45a14bb6e, type: 2}
   - {fileID: 11400000, guid: 78a84fe7f740945a7af519efec87ab29, type: 2}
   - {fileID: 11400000, guid: a5b1c78130ff34c01951ca60d10c297d, type: 2}
   - {fileID: 11400000, guid: 4868a0068db234cf1a0e6727d7a494b0, type: 2}
   - {fileID: 11400000, guid: 214c55b6f9e5c47fdb7cdb3d9ff7bb61, type: 2}
   - {fileID: 11400000, guid: c20b8ef7acc764f1283a6eaa893cd648, type: 2}
+  - {fileID: 11400000, guid: a9cd5fc80ac9646eea1d58e67a765327, type: 2}
+  - {fileID: 11400000, guid: 6b406f8e4faba468eb01dc43bc31a4b3, type: 2}
+  - {fileID: 11400000, guid: 3b47217d21c0146faa2cb69c4ffde560, type: 2}
+  - {fileID: 11400000, guid: 4a0215d5aa33a430ba507f8e70cf4fe7, type: 2}
+  - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
+  - {fileID: 11400000, guid: 732cedf2dda0d4d99a93f6cac4429048, type: 2}
   uiPlayerDeck: {fileID: 155177021}
   uiCardPool: {fileID: 175860981}
   deckBuilderBackground: {fileID: 1846517191}
@@ -1958,11 +1961,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4789807207390783591, guid: 33ba99d9813be433fb0e9085c66768df,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6371979508618536778, guid: 33ba99d9813be433fb0e9085c66768df,
         type: 3}
       propertyPath: m_color1.r
@@ -2057,6 +2055,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_color2.b
       value: 0.8490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807207390783591, guid: 33ba99d9813be433fb0e9085c66768df,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ba99d9813be433fb0e9085c66768df, type: 3}
@@ -2246,7 +2249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.2, y: -160}
+  m_AnchoredPosition: {x: 2.1999512, y: -160}
   m_SizeDelta: {x: 71.9, y: -33.1}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1846517189

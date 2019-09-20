@@ -5,11 +5,14 @@ using UnityEngine;
 namespace AceTheChase.GameRules.PlayerCards
 {
     /// <summary>
-    /// Recycle the route deck.
+    /// Gain control, provided you have control to spare.
     /// </summary>
-    [CreateAssetMenu(menuName = "Cards/Player/Double Back", fileName = "Player_DoubleBack")]
-    public class DoubleBack : PlayerCard
+    [CreateAssetMenu(menuName = "Cards/Player/Everythings Under Control", fileName = "Player_EverythingsUnderControl")]
+    public class EverythingUnderControl : PlayerCard
     {
+        public int DamageCardsGiven;
+        public int LeadGain;
+
         public override Chase Play(
             Chase currentState,
             IDictionary<string, object> additionalParameters,
@@ -19,7 +22,8 @@ namespace AceTheChase.GameRules.PlayerCards
             return new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
-                .RecycleRouteDeck()
+                .AddLead(LeadGain)
+                .AddDamageToTopOfDeck(DamageCardsGiven)
                 .DiscardFromHand(this)
                 .Done();
         }

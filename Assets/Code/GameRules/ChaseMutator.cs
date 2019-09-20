@@ -179,6 +179,16 @@ namespace AceTheChase.GameRules
         /// <summary>
         /// Exhaust the specified card from the player's hand.
         /// </summary>
+        public ChaseMutator ActivateCard(ICard card)
+        {
+            this.uiManager.AnimateActivation(card, this.chase);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Exhaust the specified card from the player's hand.
+        /// </summary>
         public ChaseMutator ExhaustFromHand(IPlayerCard card)
         {
             this.chase.Hand.Remove(card);

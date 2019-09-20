@@ -22,6 +22,7 @@ namespace AceTheChase.GameRules.DamageCards
         )
         {
             return new ChaseMutator(currentState, uiManager)
+                .ActivateCard(this)
                 .AddLead(-this.LeadDecrease)
                 .DiscardFromHand(this)
                 .Done();

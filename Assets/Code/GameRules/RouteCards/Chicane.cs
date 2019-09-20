@@ -17,6 +17,7 @@ namespace AceTheChase.GameRules.RouteCards
         public override Chase Play(Chase currentState, UIManager uiManager)
         {
             ChaseMutator mutator = new ChaseMutator(currentState, uiManager);
+            mutator.ActivateCard(this);
             bool triggerFirstDecrease = currentState.PlayerSpeed > SpeedThreshold1;
             bool triggerSecondDecrease = currentState.PlayerSpeed - SpeedDecrease1 > SpeedThreshold2;
 

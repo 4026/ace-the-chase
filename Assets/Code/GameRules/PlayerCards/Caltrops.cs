@@ -5,11 +5,13 @@ using UnityEngine;
 namespace AceTheChase.GameRules.PlayerCards
 {
     /// <summary>
-    /// Recycle the route deck.
+    /// A simple card that adds speed in exchange for Control.
     /// </summary>
-    [CreateAssetMenu(menuName = "Cards/Player/Double Back", fileName = "Player_DoubleBack")]
-    public class DoubleBack : PlayerCard
+    [CreateAssetMenu(menuName = "Cards/Player/Caltrops", fileName = "Player_Caltrops")]
+    public class Caltrops : PlayerCard
     {
+        public int PursuitSpeedDecrease;
+
         public override Chase Play(
             Chase currentState,
             IDictionary<string, object> additionalParameters,
@@ -19,8 +21,8 @@ namespace AceTheChase.GameRules.PlayerCards
             return new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
-                .RecycleRouteDeck()
-                .DiscardFromHand(this)
+                .AddPursuitSpeed(-PursuitSpeedDecrease)
+                .ExhaustFromHand(this)
                 .Done();
         }
     }
