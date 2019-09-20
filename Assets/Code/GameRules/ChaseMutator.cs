@@ -188,6 +188,13 @@ namespace AceTheChase.GameRules
             return this;
         }
 
+        public ChaseMutator AddCardToRouteDeck(IRouteCard card)
+        {
+            Debug.Log($"Adding {card} to route deck");
+            this.chase.RouteDeck.Prepend(card);
+            return this;
+        }
+
         /// <summary>
         /// Exhaust the specified card from the player's hand.
         /// </summary>
@@ -210,6 +217,17 @@ namespace AceTheChase.GameRules
 
             return this;
         }
+
+        public ChaseMutator ExhaustFromRoute(IRouteCard card)
+        {
+            this.chase.CurrentRoute.Remove(card);
+
+            this.uiManager.AnimateExhaust(card, this.chase);
+
+            return this;
+        }
+
+
 
         /// <summary>
         /// Discard the specified card from the current route.
