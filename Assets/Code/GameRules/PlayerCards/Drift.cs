@@ -34,6 +34,7 @@ namespace AceTheChase.GameRules.PlayerCards
 
             return new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlCost)
+                .ActivateCard(this)
                 .DiscardFromRoute(discardedRouteCard)
                 .DiscardFromHand(this)
                 .Done();

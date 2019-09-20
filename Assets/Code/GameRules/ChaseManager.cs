@@ -197,6 +197,7 @@ namespace AceTheChase.GameRules
 
             foreach (IPlayerCard damageCard in damageCards)
             {
+
                 this.CurrentChaseState = damageCard
                     .Play(this.CurrentChaseState, new Dictionary<string, object>(), this.UiManager);
 

@@ -18,6 +18,7 @@ namespace AceTheChase.GameRules.PlayerCards
         {
             return new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlCost)
+                .ActivateCard(this)
                 .RecycleRouteDeck()
                 .DiscardFromHand(this)
                 .Done();

@@ -88,6 +88,7 @@ namespace AceTheChase.UI
             public string TriggerToSet;
             public Action CodeToRunAtStart;
             public Action CodeToRunAtEnd;
+            public Action AnimationEndedTrigger;
 
             public QueuedAnimation(Animator anim, string trigger, Action customStartAction, Action customEndAction)
             {
@@ -95,18 +96,30 @@ namespace AceTheChase.UI
                 TriggerToSet = trigger;
                 CodeToRunAtStart = customStartAction;
                 CodeToRunAtEnd = customEndAction;
+                AnimationEndedTrigger = null;
             }
 
             public void Run()
             {
-                CodeToRunAtStart?.Invoke();
-                Animator.SetTrigger(TriggerToSet);
+                if (Animator != null)
+                {
+                    CodeToRunAtStart?.Invoke();
+                    Animator.SetTrigger(TriggerToSet);
+                }
+                else
+                {
+                    CodeToRunAtStart?.Invoke();
+                    AnimationEndedTrigger?.Invoke();
+                }
             }
 
             public void End()
             {
                 CodeToRunAtEnd?.Invoke();
-                Animator.ResetTrigger(TriggerToSet);
+                if (Animator != null)
+                {
+                    Animator.ResetTrigger(TriggerToSet);
+                }
             }
         }
 
@@ -163,6 +176,7 @@ namespace AceTheChase.UI
 
         public void AddAnimationToQueue(QueuedAnimation queuedAnim)
         {
+            queuedAnim.AnimationEndedTrigger = AnimationEnded;
             AnimationQueue.Add(queuedAnim);
             if (AnimationQueue.Count == 1)
             {
@@ -380,12 +394,36 @@ namespace AceTheChase.UI
 
                 if (uiCard.GetCard() == card) 
                 {
-                    Destroy(child.gameObject);
+                    //queue card destroy
+                    AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(child.gameObject); }, null));
                     break;
                 }
             }
 
             this.PlayerDiscardCountLabel.text = newState.PlayerDiscard.Count.ToString("N0");
+        }
+
+        /// <summary>
+        /// Queue an animation to show a card being exhausted from the player's hand.
+        /// </summary>
+        public void AnimateActivation(IPlayerCard card, Chase newState)
+        {
+            // Remove the first matching card from the player's hand.
+            foreach (Transform child in this.Hand.transform)
+            {
+                UICardView uiCard = child.GetComponent<UICardView>();
+                if (uiCard == null)
+                {
+                    Debug.LogWarning("Found object in hand that didn't have a UICardView component. Disregarding...");
+                    continue;
+                }
+
+                if (uiCard.GetCard() == card)
+                {
+                    AddAnimationToQueue(new QueuedAnimation(uiCard.Anim, "Activate", null, null));
+                    break;
+                }
+            }
         }
 
         /// <summary>
@@ -397,16 +435,15 @@ namespace AceTheChase.UI
             foreach (Transform child in this.Hand.transform)
             {
                 UICardView uiCard = child.GetComponent<UICardView>();
-                if (uiCard == null) 
+                if (uiCard == null)
                 {
                     Debug.LogWarning("Found object in hand that didn't have a UICardView component. Disregarding...");
                     continue;
                 }
 
-                if (uiCard.GetCard() == card) 
+                if (uiCard.GetCard() == card)
                 {
-                    Destroy(child.gameObject);
-                    break;
+                    AddAnimationToQueue(new QueuedAnimation(null, null, () => { Destroy(child.gameObject); }, null));
                 }
             }
         }

@@ -22,6 +22,7 @@ namespace AceTheChase.GameRules.DamageCards
         {
             return new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlDecrease)
+                .ActivateCard(this)
                 .DiscardFromHand(this)
                 .Done();
         }
