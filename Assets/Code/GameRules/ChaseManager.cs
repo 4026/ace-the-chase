@@ -71,6 +71,9 @@ namespace AceTheChase.GameRules
                 .Done();
             this.PhaseManager.QueuedState = ChasePhase.SelectingCard;
             this.PhaseManager.State = ChasePhase.PlayingAnimation;
+            this.UiManager.PlayerCardClicked -= SelectCard;
+            this.UiManager.PlayerCardClicked -= SelectCard;
+            this.UiManager.PlayerCardClicked -= SelectCard;
             this.UiManager.PlayerCardClicked += SelectCard;
         }
 
@@ -91,6 +94,7 @@ namespace AceTheChase.GameRules
             {
                 // If the card doesn't require any parameters, jut play it immediately.
                 this.PlayCard(card, new Dictionary<string, List<ICard>>());
+                this.PhaseManager.State = ChasePhase.PlayingAnimation;
             } 
             else 
             {
@@ -104,6 +108,7 @@ namespace AceTheChase.GameRules
                     this.UiManager,
                     cardParameters => {
                         // Paramters provided, play the card.
+                        this.PhaseManager.State = ChasePhase.PlayingAnimation;
                         this.PlayCard(card, cardParameters);
                         this.PhaseManager.State = ChasePhase.SelectingCard;
                         this.UiManager.PlayerCardClicked += SelectCard;

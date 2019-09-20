@@ -185,6 +185,11 @@ namespace AceTheChase.UI
             }
         }
 
+        public void Update()
+        {
+            
+        }
+
         public void AnimationEnded()
         {
             if (AnimationQueue.Count > 0)
