@@ -88,6 +88,10 @@ namespace AceTheChase.UI
             m_cardControlCostLayer.SetActive(true);
 
             UIPalette.CardTypeColourScheme scheme = UIPalette.Instance.GetCardTypeColorScheme(card.Driver);
+            if (card.CardType == PlayerCardType.Damage)
+            {
+                scheme = UIPalette.Instance.DamageCardColours;
+            }
             SetColourScheme(scheme);
             m_card = card;
             if (card.CardType != PlayerCardType.None)

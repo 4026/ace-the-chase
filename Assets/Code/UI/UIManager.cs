@@ -409,7 +409,10 @@ namespace AceTheChase.UI
             {
                 //queue card destroy
                 AddAnimationToQueue(new QueuedAnimation(null, null, () => {
-                    Destroy(uiCard.gameObject);
+                    if (uiCard != null && uiCard.gameObject != null)
+                    {
+                        Destroy(uiCard.gameObject);
+                    }
                     this.PlayerDiscardCountLabel.text = newState.PlayerDiscard.Count.ToString("N0");
                 }, null));
             }
