@@ -79,7 +79,35 @@ namespace AceTheChase.UI
         private Dictionary<CardSpawnLocation, GameObject> CardSpawnParents
             = new Dictionary<CardSpawnLocation, GameObject>();
 
-        private List<KeyValuePair<Animator, string>> AnimationQueue;
+        private List<QueuedAnimation> AnimationQueue;
+
+        public struct QueuedAnimation
+        {
+            public Animator Animator;
+            public string TriggerToSet;
+            public Action CodeToRunAtStart;
+            public Action CodeToRunAtEnd;
+
+            public QueuedAnimation(Animator anim, string trigger, Action customStartAction, Action customEndAction)
+            {
+                Animator = anim;
+                TriggerToSet = trigger;
+                CodeToRunAtStart = customStartAction;
+                CodeToRunAtEnd = customEndAction;
+            }
+
+            public void Run()
+            {
+                CodeToRunAtStart?.Invoke();
+                Animator.SetTrigger(TriggerToSet);
+            }
+
+            public void End()
+            {
+                CodeToRunAtEnd?.Invoke();
+                Animator.ResetTrigger(TriggerToSet);
+            }
+        }
 
         void Start()
         {
@@ -87,7 +115,7 @@ namespace AceTheChase.UI
             CardSpawnParents[CardSpawnLocation.Route] = Route;
             CardSpawnParents[CardSpawnLocation.Pursuit] = Pursuit;
             CardSpawnParents[CardSpawnLocation.CardPicker] = CardPicker.CardGrid;
-            AnimationQueue = new List<KeyValuePair<Animator, string>>();
+            AnimationQueue = new List<QueuedAnimation>();
         }
 
         /// <summary>
@@ -132,13 +160,12 @@ namespace AceTheChase.UI
             }
         }
 
-        public void AddAnimationToQueue(Animator animator, string trigger)
+        public void AddAnimationToQueue(QueuedAnimation queuedAnim)
         {
-            KeyValuePair<Animator, string> keyValuePair = new KeyValuePair<Animator, string>(animator, trigger);
-            AnimationQueue.Add(keyValuePair);
+            AnimationQueue.Add(queuedAnim);
             if (AnimationQueue.Count == 1)
             {
-                AnimationQueue[0].Key.SetTrigger(AnimationQueue[0].Value);
+                AnimationQueue[0].Run();
             }
         }
 
@@ -146,11 +173,11 @@ namespace AceTheChase.UI
         {
             if (AnimationQueue.Count > 0)
             {
-                AnimationQueue[0].Key.ResetTrigger(AnimationQueue[0].Value);
+                AnimationQueue[0].End();
                 AnimationQueue.RemoveAt(0);
                 if (AnimationQueue.Count > 0)
                 {
-                    AnimationQueue[0].Key.SetTrigger(AnimationQueue[0].Value);
+                    AnimationQueue[0].Run();
                 }
             }
             else
@@ -262,10 +289,10 @@ namespace AceTheChase.UI
         /// </summary>
         public void AnimateLeadChange(int delta, Chase newState)
         {
-            this.LeadLabel.text = newState.Lead.ToString("N0");
-            this.LeadLabelDelta.text = delta.ToString("N0");
-            AddAnimationToQueue(LeadAnimator, delta > 0 ? "StatUp" : "StatDown");
-
+            AddAnimationToQueue(new QueuedAnimation(LeadAnimator, delta > 0 ? "StatUp" : "StatDown", () => {
+                this.LeadLabel.text = newState.Lead.ToString("N0");
+                this.LeadLabelDelta.text = delta.ToString("N0");
+            }, null));
         }
 
         /// <summary>
@@ -273,9 +300,10 @@ namespace AceTheChase.UI
         /// </summary>
         public void AnimatePlayerSpeedChange(int delta, Chase newState)
         {
-            this.PlayerSpeedLabel.text = newState.PlayerSpeed .ToString("N0");
-            this.PlayerSpeedLabelDelta.text = delta.ToString("N0");
-            AddAnimationToQueue(PlayerSpeedAnimator, delta > 0 ? "StatUp" : "StatDown");
+            AddAnimationToQueue(new QueuedAnimation(PlayerSpeedAnimator, delta > 0 ? "StatUp" : "StatDown", () => {
+                this.PlayerSpeedLabel.text = newState.PlayerSpeed.ToString("N0");
+                this.PlayerSpeedLabelDelta.text = delta.ToString("N0");
+            }, null));
         }
 
         /// <summary>
@@ -283,9 +311,10 @@ namespace AceTheChase.UI
         /// </summary>
         public void AnimatePursuitSpeedChange(int delta, Chase newState)
         {
-            this.PursuitSpeedLabel.text = newState.PursuitSpeed .ToString("N0");
-            this.PursuitSpeedLabelDelta.text = delta.ToString("N0");
-            AddAnimationToQueue(PursuitSpeedAnimator, delta > 0 ? "StatUp" : "StatDown");
+            AddAnimationToQueue(new QueuedAnimation(PursuitSpeedAnimator, delta > 0 ? "StatUp" : "StatDown", () => {
+                this.PursuitSpeedLabel.text = newState.PursuitSpeed.ToString("N0");
+                this.PursuitSpeedLabelDelta.text = delta.ToString("N0");
+            }, null));
         }
 
         /// <summary>
@@ -293,9 +322,11 @@ namespace AceTheChase.UI
         /// </summary>
         public void AnimateControlChange(int delta, Chase newState)
         {
-            this.ControlLabel.text = newState.Control.ToString("N0");
-            this.ControlLabelDelta.text = delta.ToString("N0");
-            AddAnimationToQueue(ControlAnimator, delta > 0 ? "StatUp" : "StatDown");
+
+            AddAnimationToQueue(new QueuedAnimation(ControlAnimator, delta > 0 ? "StatUp" : "StatDown", () => {
+                this.ControlLabel.text = newState.Control.ToString("N0");
+                this.ControlLabelDelta.text = delta.ToString("N0");
+            }, null));
         }
 
         /// <summary>
@@ -306,7 +337,7 @@ namespace AceTheChase.UI
             GameObject newCard = this.SpawnCard(card, CardSpawnLocation.Hand);
             UICardView uiCardView = newCard.GetComponent<UICardView>();
             uiCardView.Anim.SetTrigger("PreDraw");
-            AddAnimationToQueue(uiCardView.Anim, "Draw");
+            AddAnimationToQueue(new QueuedAnimation(uiCardView.Anim, "Draw", null, null));
             this.PlayerDeckCountLabel.text = newState.PlayerDeck.Count.ToString("N0");
         }
 
