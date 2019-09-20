@@ -1709,6 +1709,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
   - {fileID: 11400000, guid: 732cedf2dda0d4d99a93f6cac4429048, type: 2}
   - {fileID: 11400000, guid: 9f925ee68b70943e3bfaf56a2e2ccded, type: 2}
+  - {fileID: 11400000, guid: 09bb9f94f1aa14db7a25cfede3fa5a5e, type: 2}
+  - {fileID: 11400000, guid: 50f9c4f6db2ce42ea9b2ee3244f8d49d, type: 2}
+  - {fileID: 11400000, guid: efa7a391c4d394a329607b9bd40bcca2, type: 2}
+  - {fileID: 11400000, guid: 46a8684357dd64e52987d4dfb2ace08e, type: 2}
+  - {fileID: 11400000, guid: 0d5c6ef50cb604964ae16f6562d657f4, type: 2}
   uiPlayerDeck: {fileID: 155177021}
   uiCardPool: {fileID: 175860981}
   deckBuilderBackground: {fileID: 1846517191}

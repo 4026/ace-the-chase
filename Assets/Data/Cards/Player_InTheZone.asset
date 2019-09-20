@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d621b15429abf494694c232b82117dd7, type: 3}
   m_Name: Player_InTheZone
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: In The Zone
   controlCost: 0
-  driver: 0
+  driver: 1
   playerCardType: 0
-  description: 
+  description: +1 Control if Speed is 2 or more.
   flavourText: 
-  cardImage: {fileID: 0}
-  SpeedThreshold: 0
-  ControlIncrease: 0
+  cardImage: {fileID: 21300000, guid: a3a9c73a1640b4f5095f99b5acca615e, type: 3}
+  SpeedThreshold: 2
+  ControlIncrease: 1
