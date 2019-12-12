@@ -77,6 +77,8 @@ namespace AceTheChase.UI
             SetColourScheme(scheme);
             m_card = card;
 
+            m_cardTypeLayer.SetActive(false);
+
             m_cardName.color = Color.white;
             m_cardName.text = card.Name;
             m_cardEffects.text = card.Description;
