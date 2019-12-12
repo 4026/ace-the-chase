@@ -128,7 +128,6 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator DrawCards(int numCards)
         {
-            Debug.Log($"Applying {numCards} cardDraw");
             int cardsToDrawFromThisDeck = Mathf.Min(numCards, this.chase.PlayerDeck.Count);
             int cardsToDrawAfterRecycle = numCards - cardsToDrawFromThisDeck;
 
@@ -161,7 +160,6 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator DrawRouteCards(int numCards)
         {
-            Debug.Log($"Applying {numCards} routes");
             int cardsToDrawFromThisDeck = Mathf.Min(numCards, this.chase.RouteDeck.Count);
             int cardsToDrawAfterRecycle = numCards - cardsToDrawFromThisDeck;
 
