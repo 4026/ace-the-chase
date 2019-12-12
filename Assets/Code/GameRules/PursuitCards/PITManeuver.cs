@@ -14,7 +14,7 @@ namespace AceTheChase.GameRules.PursuitCards
         {
             return new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .ActivateCard(this)
-                .AddLead(-ControlDecrease)
+                .AddControl(-ControlDecrease)
                 .Done();
         }
     }
