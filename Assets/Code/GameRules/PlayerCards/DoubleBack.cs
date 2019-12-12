@@ -16,7 +16,7 @@ namespace AceTheChase.GameRules.PlayerCards
             UIManager uiManager
         )
         {
-            return new ChaseMutator(currentState, uiManager)
+            return new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
                 .RecycleRouteDeck()

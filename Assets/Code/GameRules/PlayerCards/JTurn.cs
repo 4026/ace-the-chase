@@ -39,7 +39,7 @@ namespace AceTheChase.GameRules.PlayerCards
                 speedIncrease = 0;
                 leadIncrease = 0;
             }
-            ChaseMutator muta = new ChaseMutator(currentState, uiManager)
+            ChaseMutator muta = new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
                 .AddPlayerSpeed(speedIncrease)

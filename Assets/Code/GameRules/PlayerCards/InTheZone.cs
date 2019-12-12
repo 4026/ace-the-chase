@@ -25,7 +25,7 @@ namespace AceTheChase.GameRules.PlayerCards
             {
                 controlToIncrease = 0;
             }
-            return new ChaseMutator(currentState, uiManager)
+            return new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
                 .AddControl(controlToIncrease)

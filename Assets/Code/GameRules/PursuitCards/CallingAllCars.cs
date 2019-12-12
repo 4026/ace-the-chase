@@ -12,7 +12,7 @@ namespace AceTheChase.GameRules.PursuitCards
 
         public override Chase Play(Chase currentState, UIManager uiManager)
         {
-            return new ChaseMutator(currentState, uiManager)
+            return new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .ActivateCard(this)
                 .AddPursuitSpeed(PursuitSpeedIncrease)
                 .Done();

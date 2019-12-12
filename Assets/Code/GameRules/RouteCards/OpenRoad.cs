@@ -11,7 +11,7 @@ namespace AceTheChase.GameRules.RouteCards
     {
         public override Chase Play(Chase currentState, UIManager uiManager)
         {
-            return new ChaseMutator(currentState, uiManager)
+            return new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .ActivateCard(this)
                 .DiscardFromRoute(this).Done();
         }

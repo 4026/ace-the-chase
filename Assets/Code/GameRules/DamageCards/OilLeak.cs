@@ -21,7 +21,7 @@ namespace AceTheChase.GameRules.DamageCards
             UIManager uiManager
         )
         {
-            return new ChaseMutator(currentState, uiManager)
+            return new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .ActivateCard(this)
                 .AddLead(-this.LeadDecrease)
                 .DiscardFromHand(this)

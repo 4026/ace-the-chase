@@ -29,7 +29,7 @@ namespace AceTheChase.GameRules.PlayerCards
             UIManager uiManager
         )
         {
-            ChaseMutator mutator = new ChaseMutator(currentState, uiManager)
+            ChaseMutator mutator = new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this);
 

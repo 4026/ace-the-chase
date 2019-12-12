@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AceTheChase.UI;
 using AceTheChase.Utils;
@@ -21,11 +22,15 @@ namespace AceTheChase.GameRules
         private System.Random rng;
         private UIManager uiManager;
 
-        public ChaseMutator(Chase chaseState, UIManager uiManager)
+        private string reason;
+        private List<string> changesApplied = new List<string>();
+
+        public ChaseMutator(Chase chaseState, UIManager uiManager, string reason)
         {
             this.chase = chaseState;
             this.rng = new System.Random();
             this.uiManager = uiManager;
+            this.reason = reason;
         }
 
         /// <summary>
@@ -34,12 +39,13 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddLead(int delta)
         {
-            Debug.Log($"Applying {delta} lead");
             this.chase.Lead = Mathf.Clamp(
                 this.chase.Lead + delta,
                 0,
                 this.chase.MaxLead
             );
+
+            this.changesApplied.Add($"{delta:+#;-#;0} lead");
 
             this.uiManager.AnimateLeadChange(delta, this.chase);
             
@@ -52,12 +58,13 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddPlayerSpeed(int delta)
         {
-            Debug.Log($"Applying {delta} speed");
             this.chase.PlayerSpeed = Mathf.Clamp(
                 this.chase.PlayerSpeed + delta,
                 0,
                 this.chase.MaxPlayerSpeed
             );
+
+            this.changesApplied.Add($"{delta:+#;-#;0} speed");
 
             this.uiManager.AnimatePlayerSpeedChange(delta, this.chase);
 
@@ -70,8 +77,8 @@ namespace AceTheChase.GameRules
 		/// </summary>
 		public ChaseMutator AddMaxSpeed(int delta)
 		{
-			Debug.Log($"Applying {delta} speed");
 			this.chase.MaxPlayerSpeed = this.chase.MaxPlayerSpeed + delta;
+            this.changesApplied.Add($"{delta:+#;-#;0} max speed");
 			this.uiManager.AnimatePlayerMaxSpeedChange(delta, this.chase);
 			return this;
 		}
@@ -82,12 +89,13 @@ namespace AceTheChase.GameRules
 		/// </summary>
 		public ChaseMutator AddPursuitSpeed(int delta)
         {
-            Debug.Log($"Applying {delta} pursuit speed");
             this.chase.PursuitSpeed = Mathf.Clamp(
                 this.chase.PursuitSpeed + delta,
                 0,
                 this.chase.MaxPursuitSpeed
             );
+
+            this.changesApplied.Add($"{delta:+#;-#;0} pursuit speed");
 
             this.uiManager.AnimatePursuitSpeedChange(delta, this.chase);
 
@@ -100,13 +108,14 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddControl(int delta)
         {
-            Debug.Log($"Applying {delta} control");
             // Control may be negative: this is how we apply penalties to the player's control at 
             // turn start.
             this.chase.Control = Mathf.Min(
                 this.chase.Control + delta,
                 this.chase.MaxControl
             );
+
+            this.changesApplied.Add($"{delta:+#;-#;0} control");
 
             this.uiManager.AnimateControlChange(delta, this.chase);
 
@@ -135,6 +144,9 @@ namespace AceTheChase.GameRules
             }
 
             this.chase.Hand.AddRange(drawnCards);
+
+            this.changesApplied.Add($"Drew {numCards} player cards");
+
             foreach (IPlayerCard card in drawnCards)
             {
                 this.uiManager.AnimateCardDraw(card, this.chase);
@@ -166,6 +178,9 @@ namespace AceTheChase.GameRules
             }
 
             this.chase.CurrentRoute.AddRange(drawnCards);
+
+            this.changesApplied.Add($"Drew {numCards} route cards");
+
             foreach (IRouteCard card in drawnCards)
             {
                 this.uiManager.AnimateRouteCardDraw(card, this.chase);
@@ -179,9 +194,10 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator DiscardFromHand(IPlayerCard card)
         {
-            Debug.Log($"Applying {card} discard");
             this.chase.Hand.Remove(card);
             this.chase.PlayerDiscard.Prepend(card);
+
+            this.changesApplied.Add($"Discarded {card.Name} from player's hand.");
 
             this.uiManager.AnimateDiscard(card, this.chase);
 
@@ -190,8 +206,8 @@ namespace AceTheChase.GameRules
 
         public ChaseMutator AddCardToRouteDeck(IRouteCard card)
         {
-            Debug.Log($"Adding {card} to route deck");
             this.chase.RouteDeck.Prepend(card);
+            this.changesApplied.Add($"Added {card.Name} to top of route deck.");
             return this;
         }
 
@@ -213,6 +229,8 @@ namespace AceTheChase.GameRules
             this.chase.Hand.Remove(card);
             this.chase.PlayerTrash.Prepend(card);
 
+            this.changesApplied.Add($"Exhausted {card.Name} from player's hand.");
+
             this.uiManager.AnimateExhaust(card, this.chase);
 
             return this;
@@ -221,6 +239,8 @@ namespace AceTheChase.GameRules
         public ChaseMutator ExhaustFromRoute(IRouteCard card)
         {
             this.chase.CurrentRoute.Remove(card);
+
+            this.changesApplied.Add($"Exhausted {card.Name} from route.");
 
             this.uiManager.AnimateExhaust(card, this.chase);
 
@@ -237,6 +257,8 @@ namespace AceTheChase.GameRules
             this.chase.CurrentRoute.Remove(card);
             this.chase.RouteDiscard.Prepend(card);
 
+            this.changesApplied.Add($"Discarded {card.Name} from route.");
+
             this.uiManager.AnimateRouteDiscard(card, this.chase);
 
             return this;
@@ -248,12 +270,18 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator ReplacePursuitAction()
         {
+            string oldCard = "Nothing";
             if (this.chase.PursuitAction != null)
             {
+                oldCard = this.chase.PursuitAction.Name;
                 this.chase.PursuitDeck.Append(this.chase.PursuitAction);
             }
+
             this.chase.PursuitDeck.Shuffle();
             this.chase.PursuitAction = this.chase.PursuitDeck.Draw(1)[0];
+
+            this.changesApplied
+                .Add($"Replaced {oldCard} pursuit action with {this.chase.PursuitAction.Name}.");
 
             this.uiManager.AnimatePursuitChange(this.chase.PursuitAction, this.chase);
 
@@ -297,12 +325,16 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddDamageToTopOfDeck(int numDamage)
         {
+            string[] damageNames = new string[numDamage];
             for (int i = 0; i < numDamage; ++i)
             {
                 IPlayerCard addedDamage = this.chase.PossibleDamage.ChooseRandom(this.rng);
                 this.chase.PlayerDeck.Prepend(addedDamage);
+                damageNames[i] = addedDamage.Name;
                 this.uiManager.AnimateDamageToDeck(addedDamage, this.chase);
             }
+
+            this.changesApplied.Add($"Added {numDamage} damage to top of deck: " + String.Join(", ", damageNames));
 
             return this;
         }
@@ -313,12 +345,16 @@ namespace AceTheChase.GameRules
         /// </summary>
         public ChaseMutator AddDamageToDiscardPile(int numDamage)
         {
+            string[] damageNames = new string[numDamage];
             for (int i = 0; i < numDamage; ++i)
             {
                 IPlayerCard addedDamage = this.chase.PossibleDamage.ChooseRandom(this.rng);
                 this.chase.PlayerDiscard.Prepend(addedDamage);
+                damageNames[i] = addedDamage.Name;
                 this.uiManager.AnimateDamageToDiscard(addedDamage, this.chase);
             }
+
+            this.changesApplied.Add($"Added {numDamage} damage to discard pile: " + String.Join(", ", damageNames));
 
             return this;
         }
@@ -330,6 +366,8 @@ namespace AceTheChase.GameRules
         {
             this.chase.PlayerHasWon = value;
 
+            this.changesApplied.Add($"Set player victory flag to {value}.");
+
             return this;
         }
 
@@ -338,6 +376,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public Chase Done()
         {
+            Debug.Log($"Mutated chase state as a result of {this.reason}:\n\t" + String.Join("\n\t", this.changesApplied));
             return this.chase;
         }
     }

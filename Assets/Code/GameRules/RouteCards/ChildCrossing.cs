@@ -15,7 +15,7 @@ namespace AceTheChase.GameRules.RouteCards
 
         public override Chase Play(Chase currentState, UIManager uiManager)
         {
-            ChaseMutator mutator = new ChaseMutator(currentState, uiManager);
+            ChaseMutator mutator = new ChaseMutator(currentState, uiManager, $"playing {this.Name}");
             mutator.ActivateCard(this);
             mutator.AddPlayerSpeed(-SpeedDecrease);
             if (currentState.PlayerSpeed > SpeedThreshold)

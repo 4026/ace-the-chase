@@ -62,7 +62,7 @@ namespace AceTheChase.GameRules
         /// </summary>
         public void BeginTurn()
         {
-            this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState, this.UiManager)
+            this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState, this.UiManager, "starting new turn")
                 .DrawCards(DrawCardsPerTurn)
                 .ReplacePursuitAction()
                 .DrawRouteCards(this.CurrentChaseState.PlayerSpeed)
@@ -153,10 +153,16 @@ namespace AceTheChase.GameRules
 
             this.PhaseManager.State = ChasePhase.ResolvingPursuitAndRoute;
 
-            // The player loses any unspent control
-            this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState, this.UiManager)
-                .AddControl(-this.CurrentChaseState.Control)
-                .Done();
+            // The player discards all remaining cards and loses any unspent control.
+            ChaseMutator endPlayerTurnMutator = new ChaseMutator(
+                this.CurrentChaseState,
+                this.UiManager,
+                "ending player turn"
+            );
+            endPlayerTurnMutator.AddControl(-this.CurrentChaseState.Control);
+            this.CurrentChaseState.Hand.ToList()
+                .ForEach(card => endPlayerTurnMutator.DiscardFromHand(card));
+            this.CurrentChaseState = endPlayerTurnMutator.Done();
 
             // Apply the current pursuit card.
             if (this.CurrentChaseState.PursuitAction != null)
@@ -220,15 +226,12 @@ namespace AceTheChase.GameRules
             }
 
             // Discard any remaining cards in the player's hand.
-            ChaseMutator mutator = new ChaseMutator(this.CurrentChaseState, this.UiManager);
-            
-            this.CurrentChaseState.Hand.ToList()
-                .ForEach(card => mutator.DiscardFromHand(card));
+            ChaseMutator endRoundMutator = new ChaseMutator(this.CurrentChaseState, this.UiManager, "ending round");
             
             // Finally, apply the effects of pursit speed and the player's speed
-            this.CurrentChaseState = mutator.AddLead(
-                this.CurrentChaseState.PlayerSpeed - this.CurrentChaseState.PursuitSpeed
-            ).Done();
+            this.CurrentChaseState = endRoundMutator
+                .AddLead(this.CurrentChaseState.PlayerSpeed - this.CurrentChaseState.PursuitSpeed)
+                .Done();
 
             if (this.CurrentChaseState.Lead <= 0)
             {
