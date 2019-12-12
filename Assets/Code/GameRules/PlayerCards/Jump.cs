@@ -30,9 +30,19 @@ namespace AceTheChase.GameRules.PlayerCards
             UIManager uiManager
         )
         {
-            return new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
+            ChaseMutator mutator = new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .AddControl(-this.ControlCost)
-                .ActivateCard(this)
+                .ActivateCard(this);
+
+            foreach (IRouteCard targetCard in targetCards)
+            {
+                if (targetCard != null)
+                {
+                    mutator.DiscardFromRoute(targetCard);
+                }
+            }
+
+            return mutator
                 .DrawCards(CardsDrawn)
                 .AddDamageToTopOfDeck(DamageAdded)
                 .DiscardFromHand(this)
