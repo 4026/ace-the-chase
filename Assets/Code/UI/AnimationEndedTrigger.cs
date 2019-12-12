@@ -19,7 +19,7 @@ namespace AceTheChase.UI
         {
             if (m_uiManager != null)
             {
-                m_uiManager.AnimationEnded();
+                m_uiManager.OnAnimationEnded();
             }
         }
     }

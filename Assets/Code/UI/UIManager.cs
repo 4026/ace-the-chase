@@ -28,6 +28,8 @@ namespace AceTheChase.UI
         public event Action CardPickerCancelled;
         public event Action CardPickerNoTarget;
 
+        public event Action NotifyAnimationQueueComplete;
+
         //lead
         public Text LeadLabel;
         public Text LeadLabelDelta;
@@ -177,7 +179,7 @@ namespace AceTheChase.UI
 
         public void AddAnimationToQueue(QueuedAnimation queuedAnim)
         {
-            queuedAnim.AnimationEndedTrigger = AnimationEnded;
+            queuedAnim.AnimationEndedTrigger = OnAnimationEnded;
             AnimationQueue.Add(queuedAnim);
             if (AnimationQueue.Count == 1)
             {
@@ -190,21 +192,50 @@ namespace AceTheChase.UI
             
         }
 
-        public void AnimationEnded()
+        public void OnAnimationEnded()
         {
+            if (AnimationQueue.Count == 0)
+            {
+                Debug.LogError("No animations to end");
+                return;
+            }
+
+            // Finalize the current animation
+            AnimationQueue[0].End();
+            AnimationQueue.RemoveAt(0);
+
+            // Move on to the next queued animation if there is one, otherwise notify subscribers
+            // that the queue has ended.
             if (AnimationQueue.Count > 0)
             {
-                AnimationQueue[0].End();
-                AnimationQueue.RemoveAt(0);
-                if (AnimationQueue.Count > 0)
-                {
-                    AnimationQueue[0].Run();
-                }
+                AnimationQueue[0].Run();
             }
             else
             {
-                Debug.LogError("No animations to end");
+                this.NotifyAnimationQueueComplete?.Invoke();
             }
+        }
+
+        /// <summary>
+        /// Execute the provided action once the animation queue finishes (and never again 
+        /// thereafter).
+        /// </summary>
+        public void OnceAnimationQueueCompletes(Action doThis)
+        {
+            // If the animation queue is empty, just do the action now.
+            if (this.AnimationQueue.Count == 0)
+            {
+                doThis();
+                return;
+            }
+
+            // Otherwise, add an event subscription for the animation queue completing that will
+            // self-unsubscribe when invoked.
+            Action actionWrapper = null;
+            this.NotifyAnimationQueueComplete += actionWrapper = () => {
+                this.NotifyAnimationQueueComplete -= actionWrapper;
+                doThis();
+            };
         }
 
         public bool HasFinishedAnimations()

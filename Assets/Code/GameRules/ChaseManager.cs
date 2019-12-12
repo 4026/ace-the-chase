@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AceTheChase.UI;
@@ -46,16 +47,14 @@ namespace AceTheChase.GameRules
         void Start()
         {
             this.UiManager.SetState(this.CurrentChaseState);
-            BeginTurn();
-        }
+            
+            this.UiManager.PlayerCardClicked += (IPlayerCard card) => {
+                if (this.PhaseManager.State == ChasePhase.SelectingCard) {
+                    SelectCard(card);
+                }
+            };
 
-        void Update()
-        {
-            if (this.PhaseManager.State == ChasePhase.PlayingAnimation
-                && this.UiManager.HasFinishedAnimations())
-            {
-                this.PhaseManager.State = this.PhaseManager.QueuedState;
-            }
+            BeginTurn();
         }
 
         /// <summary>
@@ -69,12 +68,8 @@ namespace AceTheChase.GameRules
                 .DrawRouteCards(this.CurrentChaseState.PlayerSpeed)
                 .AddControl(ControlGainPerTurn)
                 .Done();
-            this.PhaseManager.QueuedState = ChasePhase.SelectingCard;
-            this.PhaseManager.State = ChasePhase.PlayingAnimation;
-            this.UiManager.PlayerCardClicked -= SelectCard;
-            this.UiManager.PlayerCardClicked -= SelectCard;
-            this.UiManager.PlayerCardClicked -= SelectCard;
-            this.UiManager.PlayerCardClicked += SelectCard;
+            
+            this.PhaseManager.State = ChasePhase.SelectingCard;
         }
 
         /// <summary>
@@ -101,23 +96,18 @@ namespace AceTheChase.GameRules
                 // Otherwise, fire up the parameter provider and play the card once parameter values
                 // have been provided.
                 this.PhaseManager.State = ChasePhase.SelectingParameters;
-                this.UiManager.PlayerCardClicked -= SelectCard;
 
                 parameterProvider.PromptForParameters(
                     this.CurrentChaseState,
                     this.UiManager,
                     targetCards => {
                         // Paramters provided, play the card.
-                        this.PhaseManager.State = ChasePhase.PlayingAnimation;
                         this.PlayCard(card, targetCards);
-                        this.PhaseManager.State = ChasePhase.SelectingCard;
-                        this.UiManager.PlayerCardClicked += SelectCard;
                     },
                     () => {
                         // User cancelled out of parameter dialogue, go back to selecting card to
                         // play.
                         this.PhaseManager.State = ChasePhase.SelectingCard;
-                        this.UiManager.PlayerCardClicked += SelectCard;
                     });
             }
         }
@@ -129,6 +119,7 @@ namespace AceTheChase.GameRules
                 return;
             }
 
+            this.PhaseManager.State = ChasePhase.PlayingAnimation;
             this.CurrentChaseState = card.Play(this.CurrentChaseState, targetCards, this.UiManager);
 
             // Check if the player has won or lost as a result of playing this card.
@@ -144,6 +135,10 @@ namespace AceTheChase.GameRules
                 UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsWin");
                 return;
             }
+
+            this.UiManager.OnceAnimationQueueCompletes(() => { 
+                this.PhaseManager.State = ChasePhase.SelectingCard; 
+            });
         }
 
         /// <summary>
@@ -155,8 +150,8 @@ namespace AceTheChase.GameRules
             {
                 return;
             }
+
             this.PhaseManager.State = ChasePhase.ResolvingPursuitAndRoute;
-            this.UiManager.PlayerCardClicked -=  SelectCard;
 
             // The player loses any unspent control
             this.CurrentChaseState = new ChaseMutator(this.CurrentChaseState, this.UiManager)
@@ -241,7 +236,9 @@ namespace AceTheChase.GameRules
                 return;
             }
 
-            BeginTurn();
+            // Add a callback to start the next turn once the animation for the end of the turn is
+            // done.
+            this.UiManager.OnceAnimationQueueCompletes(() => { BeginTurn(); });
         }
     }
 }
