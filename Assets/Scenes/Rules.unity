@@ -571,8 +571,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "To escape, you need to get a good lead.\nyour lead is displayed in the
-    top right. \nA lead of 10 means you escape.\nA lead of 0 means you get caught."
+  m_Text: "To escape, you need to reach the hideout with a good lead on the cops.\nyour
+    lead is displayed in the middle of the screen. \nYou need a lead of 10 to safely
+    park your car under the hideout.\nIf your lead drops to 0, you have been caught."
 --- !u!222 &1067572257
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -615,8 +616,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 283}
-  m_SizeDelta: {x: 2732.7, y: 221.5}
+  m_AnchoredPosition: {x: 0, y: 333}
+  m_SizeDelta: {x: 2732.7, y: 286.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1293809128
 MonoBehaviour:
@@ -651,7 +652,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The goal is simple, escape the police!
+  m_Text: 'The heist was successful!
+
+    You''re all going to be rich... if you can escape the cops.'
 --- !u!222 &1293809129
 CanvasRenderer:
   m_ObjectHideFlags: 0
