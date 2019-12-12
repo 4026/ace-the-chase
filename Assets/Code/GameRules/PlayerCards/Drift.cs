@@ -17,7 +17,6 @@ namespace AceTheChase.GameRules.PlayerCards
         {
             // Drift is a stunt, so it requires a Maneuver card as a parameter.
             return new CardParameterProvider<IRouteCard>(
-                "maneuver",
                 chaseState.CurrentRoute
                     .Where(card => card.CardType == RouteCardType.Maneuver)
                     .ToList()
@@ -26,7 +25,7 @@ namespace AceTheChase.GameRules.PlayerCards
         
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         )
         {
@@ -35,17 +34,13 @@ namespace AceTheChase.GameRules.PlayerCards
                    .ActivateCard(this)
                    .DiscardFromHand(this);
 
-            if (additionalParameters.ContainsKey("manuver")
-                && additionalParameters["manuver"].Count > 0)
+            foreach (IRouteCard targetCard in targetCards)
             {
-                if (additionalParameters["maneuver"][0] != null)
+                if (targetCard != null)
                 {
-                    IRouteCard discardedRouteCard = additionalParameters["maneuver"][0] as IRouteCard;
-                    if (discardedRouteCard != null)
-                        muta.DiscardFromRoute(discardedRouteCard);
+                    muta.DiscardFromRoute(targetCard);
                 }
             }
-
 
             return muta.Done();
         }

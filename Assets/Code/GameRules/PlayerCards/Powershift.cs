@@ -15,7 +15,7 @@ namespace AceTheChase.GameRules.PlayerCards
 
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         )
         {

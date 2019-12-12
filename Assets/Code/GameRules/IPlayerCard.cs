@@ -32,12 +32,12 @@ namespace AceTheChase.GameRules
         IProvidesCardParameters GetParameterProvider(Chase chaseState);
 
         /// <summary>
-        /// Given the current chase state and some additional paramteters about how this card is
-        /// played, mutate and return the state to represent the effect of playing this card.
+        /// Given the current chase state and a list of target cards, mutate and return the state
+        /// to represent the effect of playing this card.
         /// </summary>
         Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         );
 

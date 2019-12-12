@@ -1,25 +1,22 @@
 using System;
 using System.Collections.Generic;
 using AceTheChase.UI;
-using UnityEngine;
 
 namespace AceTheChase.GameRules
 {
     public class CardParameterProvider<TCard> : IProvidesCardParameters where TCard : ICard
     {
-        private string parameterName;
         private IList<TCard> candidateCards;
         private int numCards;
         private List<ICard> selectedCards;
 
-        private Action<IDictionary<string, List<ICard>>> OnComplete;
+        private Action<List<ICard>> OnComplete;
 
         private UIManager uiManager;
 
-        public CardParameterProvider(string parameterName, IList<TCard> candidateCards, int numCards = 1)
+        public CardParameterProvider(IList<TCard> candidateCards, int numCards = 1)
         {
             this.selectedCards = new List<ICard>();
-            this.parameterName = parameterName;
             this.candidateCards = candidateCards;
             this.numCards = numCards;
         }
@@ -34,7 +31,7 @@ namespace AceTheChase.GameRules
         public void PromptForParameters(
             Chase currentChaseState,
             UIManager uiManager,
-            Action<IDictionary<string, List<ICard>>> OnComplete,
+            Action<List<ICard>> OnComplete,
             Action OnCancel
         )
         {
@@ -61,10 +58,7 @@ namespace AceTheChase.GameRules
             {
                 this.uiManager.CardClicked -= this.CardSelected;
                 this.uiManager.HideCardPicker();
-                this.OnComplete(
-                    new Dictionary<string, List<ICard>> {
-                    { parameterName, selectedCards }
-                });
+                this.OnComplete(selectedCards);
             }
             else if (card != null)
             {

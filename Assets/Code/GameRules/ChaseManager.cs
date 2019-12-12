@@ -93,7 +93,7 @@ namespace AceTheChase.GameRules
             if (parameterProvider == null)
             {
                 // If the card doesn't require any parameters, jut play it immediately.
-                this.PlayCard(card, new Dictionary<string, List<ICard>>());
+                this.PlayCard(card, new List<ICard>());
                 this.PhaseManager.State = ChasePhase.PlayingAnimation;
             } 
             else 
@@ -106,10 +106,10 @@ namespace AceTheChase.GameRules
                 parameterProvider.PromptForParameters(
                     this.CurrentChaseState,
                     this.UiManager,
-                    cardParameters => {
+                    targetCards => {
                         // Paramters provided, play the card.
                         this.PhaseManager.State = ChasePhase.PlayingAnimation;
-                        this.PlayCard(card, cardParameters);
+                        this.PlayCard(card, targetCards);
                         this.PhaseManager.State = ChasePhase.SelectingCard;
                         this.UiManager.PlayerCardClicked += SelectCard;
                     },
@@ -122,14 +122,14 @@ namespace AceTheChase.GameRules
             }
         }
 
-        private void PlayCard(IPlayerCard card, IDictionary<string, List<ICard>> cardParameters)
+        private void PlayCard(IPlayerCard card, List<ICard> targetCards)
         {
             if (!card.CanPlay(this.CurrentChaseState))
             {
                 return;
             }
 
-            this.CurrentChaseState = card.Play(this.CurrentChaseState, cardParameters, this.UiManager);
+            this.CurrentChaseState = card.Play(this.CurrentChaseState, targetCards, this.UiManager);
 
             // Check if the player has won or lost as a result of playing this card.
             if (this.CurrentChaseState.Lead <= 0)
@@ -209,9 +209,8 @@ namespace AceTheChase.GameRules
 
             foreach (IPlayerCard damageCard in damageCards)
             {
-
                 this.CurrentChaseState = damageCard
-                    .Play(this.CurrentChaseState, new Dictionary<string, List<ICard>>(), this.UiManager);
+                    .Play(this.CurrentChaseState, new List<ICard>(), this.UiManager);
 
                 if (this.CurrentChaseState.Lead <= 0)
                 {

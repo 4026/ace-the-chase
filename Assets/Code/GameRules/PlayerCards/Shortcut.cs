@@ -12,12 +12,11 @@ namespace AceTheChase.GameRules.PlayerCards
     public class Shortcut : PlayerCard
     {
         public override PlayerCardType CardType => PlayerCardType.Diversion;
-        
+
         public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
             // Shortcut is a diversion, so it requires an Obstacle card as a parameter.
             return new CardParameterProvider<IRouteCard>(
-                "obstacle",
                 chaseState.CurrentRoute
                     .Where(card => card.CardType == RouteCardType.Obstacle)
                     .ToList()
@@ -26,7 +25,7 @@ namespace AceTheChase.GameRules.PlayerCards
 
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         )
         {
@@ -36,11 +35,12 @@ namespace AceTheChase.GameRules.PlayerCards
                 .DiscardFromHand(this);
 
 
-            if (additionalParameters.ContainsKey("manuver"))
+            foreach (IRouteCard targetCard in targetCards)
             {
-                IRouteCard discardedRouteCard = additionalParameters["maneuver"] as IRouteCard;
-                if (discardedRouteCard != null)
-                    muta.DiscardFromRoute(discardedRouteCard);
+                if (targetCard != null)
+                {
+                    muta.DiscardFromRoute(targetCard);
+                }
             }
 
 

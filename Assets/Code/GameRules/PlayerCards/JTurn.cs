@@ -18,9 +18,8 @@ namespace AceTheChase.GameRules.PlayerCards
 
         public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
-            // Drift is a stunt, so it requires a Maneuver card as a parameter.
+            // J-Turn is a stunt, so it requires a Maneuver card as a parameter.
             return new CardParameterProvider<IRouteCard>(
-                "maneuver",
                 chaseState.CurrentRoute
                     .Where(card => card.CardType == RouteCardType.Maneuver)
                     .ToList()
@@ -29,7 +28,7 @@ namespace AceTheChase.GameRules.PlayerCards
 
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         )
         {
@@ -47,13 +46,12 @@ namespace AceTheChase.GameRules.PlayerCards
                 .AddLead(leadIncrease)
                 .DiscardFromHand(this);
 
-            if (additionalParameters.ContainsKey("manuver")
-                && additionalParameters["maneuver"].Count > 0
-                && additionalParameters["maneuver"][0] != null)
+            foreach (IRouteCard targetCard in targetCards)
             {
-                IRouteCard discardedRouteCard = additionalParameters["maneuver"] as IRouteCard;
-                if (discardedRouteCard != null)
-                    muta.DiscardFromRoute(discardedRouteCard);
+                if (targetCard != null)
+                {
+                    muta.DiscardFromRoute(targetCard);
+                }
             }
 
             return muta.Done();

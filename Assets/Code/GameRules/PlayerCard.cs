@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using AceTheChase.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace AceTheChase.GameRules
 {
@@ -67,7 +65,7 @@ namespace AceTheChase.GameRules
 
         public abstract Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         );
 

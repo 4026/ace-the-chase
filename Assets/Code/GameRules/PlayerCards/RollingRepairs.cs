@@ -15,26 +15,33 @@ namespace AceTheChase.GameRules.PlayerCards
         
         public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
-            // RollingRepairs is a repair, so it requires a Damage card as a parameter.
+            // Rolling Repairs is a repair, so it requires a Damage card as a parameter.
             return new CardParameterProvider<IPlayerCard>(
-                "damage",
                 chaseState.Hand
                     .Where(card => card.CardType == PlayerCardType.Damage)
                     .ToList()
             );
         }
+
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         )
         {
-            IPlayerCard repairedDamage = additionalParameters["damage"] as IPlayerCard;
-
-            return new ChaseMutator(currentState, uiManager)
+            ChaseMutator mutator = new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlCost)
-                .ActivateCard(this)
-                .ExhaustFromHand(repairedDamage)
+                .ActivateCard(this);
+
+            foreach (IPlayerCard repairedDamage in targetCards)
+            {
+                if (repairedDamage != null)
+                {
+                    mutator.ExhaustFromHand(repairedDamage);
+                }
+            }
+
+            return mutator
                 .DiscardFromHand(this)
                 .Done();
         }

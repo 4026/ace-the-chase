@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AceTheChase.GameRules.PlayerCards
 {
     /// <summary>
-    /// Recycle the route deck.
+    /// Discard cards, then draw more.
     /// </summary>
     [CreateAssetMenu(menuName = "Cards/Player/Give It A Kick", fileName = "Player_GiveItAKick")]
     public class GiveItAKick : PlayerCard
@@ -16,52 +16,39 @@ namespace AceTheChase.GameRules.PlayerCards
 
         public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
+            // Prompt the player to choose some cards from their hand that aren't this card.
             List<IPlayerCard> selection = chaseState.Hand;
             selection.Remove((IPlayerCard)this);
-            // Drift is a stunt, so it requires a Maneuver card as a parameter.
             CardParameterProvider <IPlayerCard> cards =  new CardParameterProvider<IPlayerCard>(
-                "discards",
                 selection,
                 2
             );
+
             return cards;
         }
 
         public override Chase Play(
             Chase currentState,
-            IDictionary<string, List<ICard>> additionalParameters,
+            List<ICard> targetCards,
             UIManager uiManager
         )
         {
-            IPlayerCard discardedCard1 = null;
-            IPlayerCard discardedCard2 = null;
-            if (additionalParameters.ContainsKey("discards"))
-            {
-                if (additionalParameters["discards"].Count > 0
-                    && additionalParameters["discards"][0] != null)
-                {
-                    discardedCard1 = additionalParameters["discards"][0] as IPlayerCard;
-                }
-                if (additionalParameters["discards"].Count > 1
-                    && additionalParameters["discards"][1] != null)
-                {
-                    discardedCard2 = additionalParameters["discards"][1] as IPlayerCard;
-                }
-            }
             ChaseMutator chase = new ChaseMutator(currentState, uiManager)
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
                 .DrawCards(CardsToDraw);
-            if (discardedCard1 != null)
+
+            foreach (IPlayerCard discardedCard in targetCards)
             {
-                chase.DiscardFromHand(discardedCard1);
+                if (discardedCard != null)
+                {
+                    chase.DiscardFromHand(discardedCard);
+                }
             }
-            if (discardedCard2 != null)
-            {
-                chase.DiscardFromHand(discardedCard2);
-            }
-            return chase.DiscardFromHand(this)
-                    .Done();
+
+            return chase
+                .DiscardFromHand(this)
+                .Done();
         }
     }
 }

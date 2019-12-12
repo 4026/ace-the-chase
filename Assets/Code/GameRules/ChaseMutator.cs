@@ -196,7 +196,7 @@ namespace AceTheChase.GameRules
         }
 
         /// <summary>
-        /// Exhaust the specified card from the player's hand.
+        /// Animate the activation of a card.
         /// </summary>
         public ChaseMutator ActivateCard(ICard card)
         {

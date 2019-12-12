@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Nerves of steel
   controlCost: 2
   driver: 1
-  playerCardType: 2
+  playerCardType: 0
   description: +1 control per current speed
   flavourText: 
   cardImage: {fileID: 21300000, guid: 4b90a581bc70a4263bf2ce2af511b206, type: 3}
