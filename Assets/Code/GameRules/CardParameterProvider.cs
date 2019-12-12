@@ -36,32 +36,40 @@ namespace AceTheChase.GameRules
         )
         {
             this.uiManager = uiManager;
+
+            // If there are no available cards to choose from, just return an empty list
+            // immediately.
+            if (this.candidateCards.Count == 0)
+            {
+                OnComplete(new List<ICard>());
+                return;
+            }
             
             uiManager.DisplayCardPicker(candidateCards);
             uiManager.CardClicked += this.CardSelected;
             uiManager.CardPickerCancelled += () => { Cancel(OnCancel); };
-            uiManager.CardPickerNoTarget += () => { CardSelected(null); };
 
             this.OnComplete = OnComplete;
         }
 
         private void CardSelected(UICardView card)
         {
-            if (card != null)
+            ICard cardClicked = card.GetCard();
+            selectedCards.Add(cardClicked);
+            candidateCards.Remove((TCard)cardClicked);
+
+            if (selectedCards.Count >= numCards || candidateCards.Count == 0)
             {
-                ICard cardClicked = card.GetCard();
-                selectedCards.Add(cardClicked);
-                candidateCards.Remove((TCard)cardClicked);
-            }
-            if (selectedCards.Count >= numCards
-                || candidateCards.Count == 0)
-            {
+                // If the player has selected the required number of cards or has exhausted all 
+                // available candidate cards, we're done: return the list of selected cards.
                 this.uiManager.CardClicked -= this.CardSelected;
                 this.uiManager.HideCardPicker();
                 this.OnComplete(selectedCards);
             }
             else if (card != null)
             {
+                // Otherwise, just remove the selected card from the displayed list and let the
+                // player keep picking.
                 UnityEngine.Object.Destroy(card.gameObject);
             }
         }
