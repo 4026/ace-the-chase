@@ -142,13 +142,17 @@ namespace AceTheChase.GameRules
             if (this.CurrentChaseState.Lead <= 0)
             {
                 this.PhaseManager.State = ChasePhase.Defeat;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsLose");
+                this.UiManager.OnceAnimationQueueCompletes(() => { 
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsLose");
+                });
                 return true;
             }
             else if (this.CurrentChaseState.PlayerHasWon)
             {
                 this.PhaseManager.State = ChasePhase.Victory;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsWin");
+                this.UiManager.OnceAnimationQueueCompletes(() => { 
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsWin");
+                });
                 return true;
             }
 
