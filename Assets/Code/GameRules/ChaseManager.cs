@@ -123,22 +123,36 @@ namespace AceTheChase.GameRules
             this.CurrentChaseState = card.Play(this.CurrentChaseState, targetCards, this.UiManager);
 
             // Check if the player has won or lost as a result of playing this card.
-            if (this.CurrentChaseState.Lead <= 0)
+            if (this.CheckForChaseEnd())
             {
-                this.PhaseManager.State = ChasePhase.Defeat;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsLose");
-                return;
-            }
-            else if (this.CurrentChaseState.PlayerHasWon)
-            {
-                this.PhaseManager.State = ChasePhase.Victory;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsWin");
                 return;
             }
 
             this.UiManager.OnceAnimationQueueCompletes(() => { 
                 this.PhaseManager.State = ChasePhase.SelectingCard; 
             });
+        }
+
+        /// <summary>
+        /// Check if the chase has ended, either because the player has won or they have been 
+        /// caught.
+        /// </summary>
+        private bool CheckForChaseEnd()
+        {
+            if (this.CurrentChaseState.Lead <= 0)
+            {
+                this.PhaseManager.State = ChasePhase.Defeat;
+                UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsLose");
+                return true;
+            }
+            else if (this.CurrentChaseState.PlayerHasWon)
+            {
+                this.PhaseManager.State = ChasePhase.Victory;
+                UnityEngine.SceneManagement.SceneManager.LoadScene("ResultsWin");
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -170,14 +184,8 @@ namespace AceTheChase.GameRules
                 this.CurrentChaseState = this.CurrentChaseState.PursuitAction
                     .Play(this.CurrentChaseState, this.UiManager);
 
-                if (this.CurrentChaseState.Lead <= 0)
+                if (this.CheckForChaseEnd())
                 {
-                    this.PhaseManager.State = ChasePhase.Defeat;
-                    return;
-                }
-                else if (this.CurrentChaseState.PlayerHasWon)
-                {
-                    this.PhaseManager.State = ChasePhase.Victory;
                     return;
                 }
             }
@@ -191,14 +199,8 @@ namespace AceTheChase.GameRules
                 IRouteCard routeCard = this.CurrentChaseState.CurrentRoute[0];
                 this.CurrentChaseState = routeCard.Play(this.CurrentChaseState, this.UiManager);
 
-                if (this.CurrentChaseState.Lead <= 0)
+                if (this.CheckForChaseEnd())
                 {
-                    this.PhaseManager.State = ChasePhase.Defeat;
-                    return;
-                }
-                else if (this.CurrentChaseState.PlayerHasWon)
-                {
-                    this.PhaseManager.State = ChasePhase.Victory;
                     return;
                 }
             }
@@ -213,14 +215,8 @@ namespace AceTheChase.GameRules
                 this.CurrentChaseState = damageCard
                     .Play(this.CurrentChaseState, new List<ICard>(), this.UiManager);
 
-                if (this.CurrentChaseState.Lead <= 0)
+                if (this.CheckForChaseEnd())
                 {
-                    this.PhaseManager.State = ChasePhase.Defeat;
-                    return;
-                }
-                else if (this.CurrentChaseState.PlayerHasWon)
-                {
-                    this.PhaseManager.State = ChasePhase.Victory;
                     return;
                 }
             }
@@ -233,9 +229,8 @@ namespace AceTheChase.GameRules
                 .AddLead(this.CurrentChaseState.PlayerSpeed - this.CurrentChaseState.PursuitSpeed)
                 .Done();
 
-            if (this.CurrentChaseState.Lead <= 0)
+            if (this.CheckForChaseEnd())
             {
-                this.PhaseManager.State = ChasePhase.Defeat;
                 return;
             }
 
