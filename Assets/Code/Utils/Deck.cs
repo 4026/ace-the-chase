@@ -83,5 +83,13 @@ namespace AceTheChase.Utils
         {
             this.cards.InsertRange(0, cards);
         }
+
+        /// <summary>
+        /// Remove a specific card from the deck.
+        /// </summary>
+        public void Remove(TCard card)
+        {
+            this.cards.Remove(card);
+        }
     }
 }

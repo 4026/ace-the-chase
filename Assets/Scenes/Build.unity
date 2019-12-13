@@ -1716,6 +1716,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a0215d5aa33a430ba507f8e70cf4fe7, type: 2}
   - {fileID: 11400000, guid: ab4f8bb5e5c05412db4369d77170b3a6, type: 2}
   - {fileID: 11400000, guid: 296088abc5a764bb98201d4ee92f617a, type: 2}
+  - {fileID: 11400000, guid: bfdbf52fef247472fa4ff4dd05435f8d, type: 2}
+  - {fileID: 11400000, guid: 4b015c120cfac4d91ab9843fff9c2773, type: 2}
+  - {fileID: 11400000, guid: b42583c80aa0645b4b56472941562da1, type: 2}
+  - {fileID: 11400000, guid: 49238b86fbb374e5c91f3be6eee126bb, type: 2}
+  - {fileID: 11400000, guid: d21286e0404434e71a607a24d714663e, type: 2}
+  - {fileID: 11400000, guid: c948ac16554f14b58ad2d2ddf22036b3, type: 2}
+  - {fileID: 11400000, guid: 2bec8cb030ce249fd8351f2e97aba1cb, type: 2}
+  - {fileID: 11400000, guid: 5f4c584792d8a4fe6b0d08dacc09e8c8, type: 2}
+  - {fileID: 11400000, guid: 37757bf4cd1034a0ebdd9cef4bf2dcbb, type: 2}
   uiPlayerDeck: {fileID: 155177021}
   uiCardPool: {fileID: 175860981}
   deckBuilderBackground: {fileID: 1846517191}
@@ -1983,6 +1992,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4789807207390783591, guid: 33ba99d9813be433fb0e9085c66768df,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6371979508618536778, guid: 33ba99d9813be433fb0e9085c66768df,
         type: 3}
       propertyPath: m_color1.r
@@ -2077,11 +2091,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_color2.b
       value: 0.8490566
-      objectReference: {fileID: 0}
-    - target: {fileID: 4789807207390783591, guid: 33ba99d9813be433fb0e9085c66768df,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33ba99d9813be433fb0e9085c66768df, type: 3}

@@ -225,11 +225,27 @@ namespace AceTheChase.GameRules
         public ChaseMutator ExhaustFromHand(IPlayerCard card)
         {
             this.chase.Hand.Remove(card);
-            this.chase.PlayerTrash.Prepend(card);
+            this.chase.PlayerExhaust.Add(card);
 
             this.changesApplied.Add($"Exhausted {card.Name} from player's hand.");
 
             this.uiManager.AnimateExhaust(card, this.chase);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Resurrect the specified card from the player's exhaust into their hand.
+        /// </summary>
+        public ChaseMutator ResurrectFromExhaustToHand(IPlayerCard card)
+        {
+            this.chase.PlayerExhaust.Remove(card);
+            this.chase.Hand.Add(card);
+
+            this.changesApplied.Add($"Resurrected {card.Name} from player's exhaust into their hand.");
+
+            // TODO: Improve this.
+            this.uiManager.AnimateCardDraw(card, this.chase);
 
             return this;
         }

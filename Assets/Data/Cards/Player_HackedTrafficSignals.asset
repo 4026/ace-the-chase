@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06484b32b029f4b96a41a05772ab4b05, type: 3}
+  m_Name: Player_HackedTrafficSignals
+  m_EditorClassIdentifier: 
+  displayName: Hacked Traffic Signals
+  controlCost: 2
+  driver: 2
+  playerCardType: 0
+  description: +1 Speed, -1 Pursuit Speed
+  flavourText: 
+  cardImage: {fileID: 21300000, guid: fbb36c85a5b0845098864994c2a36ca6, type: 3}
+  SpeedIncrease: 1
+  PursuitSpeedDecrease: 1

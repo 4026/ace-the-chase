@@ -21,7 +21,7 @@ namespace AceTheChase.GameRules
         public Deck<IPlayerCard> PlayerDeck;
         public List<IPlayerCard> Hand;
         public Deck<IPlayerCard> PlayerDiscard;
-        public Deck<IPlayerCard> PlayerTrash;
+        public List<IPlayerCard> PlayerExhaust;
 
         public Deck<IPursuitCard> PursuitDeck;
         public IPursuitCard PursuitAction;
@@ -68,7 +68,7 @@ namespace AceTheChase.GameRules
 
             this.Hand = new List<IPlayerCard>();
             this.PlayerDiscard = new Deck<IPlayerCard>(new List<IPlayerCard>());
-            this.PlayerTrash = new Deck<IPlayerCard>(new List<IPlayerCard>());
+            this.PlayerExhaust = new List<IPlayerCard>();
             
             this.CurrentRoute = new List<IRouteCard>();
             this.RouteDiscard = new Deck<IRouteCard>(new List<IRouteCard>());

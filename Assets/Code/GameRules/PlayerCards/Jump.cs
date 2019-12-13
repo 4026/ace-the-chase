@@ -14,6 +14,8 @@ namespace AceTheChase.GameRules.PlayerCards
         public int CardsDrawn;
         public int DamageAdded;
 
+        public override PlayerCardType CardType => PlayerCardType.Stunt;
+
         public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
             // Jump is a stunt, so it requires a Maneuver card as a parameter.

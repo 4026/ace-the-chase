@@ -6,24 +6,22 @@ using UnityEngine;
 namespace AceTheChase.GameRules.PlayerCards
 {
     /// <summary>
-    /// Diversion; Gain lead, but take damage.
+    /// Discard any route card, but take damage.
     /// </summary>
-    [CreateAssetMenu(menuName = "Cards/Player/Everythings Under Control", fileName = "Player_EverythingsUnderControl")]
-    public class EverythingUnderControl : PlayerCard
+    [CreateAssetMenu(menuName = "Cards/Player/Power On Through", fileName = "Player_PowerOnThrough")]
+    public class PowerOnThrough : PlayerCard
     {
+        public int RouteCardsDiscarded;
         public int DamageCardsGiven;
-        public int LeadGain;
 
         public override PlayerCardType CardType => PlayerCardType.Diversion;
 
         public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
-            // Everything's Under Control is a diversion, so it requires an Obstacle card as a 
-            // parameter.
+            // Power on Through can target any route card.
             return new CardParameterProvider<IRouteCard>(
-                chaseState.CurrentRoute
-                    .Where(card => card.CardType == RouteCardType.Obstacle)
-                    .ToList()
+                chaseState.CurrentRoute,
+                RouteCardsDiscarded
             );
         }
 
@@ -36,7 +34,6 @@ namespace AceTheChase.GameRules.PlayerCards
             ChaseMutator muta = new ChaseMutator(currentState, uiManager, $"playing {this.Name}")
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
-                .AddLead(LeadGain)
                 .AddDamageToTopOfDeck(DamageCardsGiven);
 
             foreach (IRouteCard targetCard in targetCards)
