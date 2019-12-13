@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using AceTheChase.UI;
 using UnityEngine;
 
@@ -13,8 +12,6 @@ namespace AceTheChase.GameRules.PlayerCards
     {
         public int RouteCardsDiscarded;
         public int DamageCardsGiven;
-
-        public override PlayerCardType CardType => PlayerCardType.Diversion;
 
         public override IProvidesCardParameters GetParameterProvider(Chase chaseState)
         {
