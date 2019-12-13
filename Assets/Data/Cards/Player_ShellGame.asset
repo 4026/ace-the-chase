@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682377510ef78413997f77f3a1530e21, type: 3}
   m_Name: Player_ShellGame
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: Shell Game
   controlCost: 0
   driver: 0
   playerCardType: 0
