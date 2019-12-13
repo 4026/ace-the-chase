@@ -127,7 +127,9 @@ public class DeckBuildManager : MonoBehaviour
                 }
                 else if (uiCardView.transform.parent == uiCardPool)
                 {
-                    this.AddCardToDeck(cardView.GetCard() as IPlayerCard);
+                    PlayerCard prototype = cardView.GetCard() as PlayerCard;
+                    PlayerCard clone = Instantiate(prototype);
+                    this.AddCardToDeck(clone);
                 }
             }
         }
