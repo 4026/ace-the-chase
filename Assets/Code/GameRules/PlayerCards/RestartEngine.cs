@@ -33,7 +33,7 @@ namespace AceTheChase.GameRules.PlayerCards
             }
 
             return mutator
-                .ExhaustFromHand(this)
+                .DiscardFromHand(this)
                 .Done();
         }
     }

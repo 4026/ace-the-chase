@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9fdaff62d452f4da071cb23cf1285b, type: 3}
   m_Name: Player_SlowAndSteady
   m_EditorClassIdentifier: 
-  displayName: SlowAndSteady
+  displayName: Slow And Steady
   controlCost: 0
   driver: 3
   playerCardType: 0

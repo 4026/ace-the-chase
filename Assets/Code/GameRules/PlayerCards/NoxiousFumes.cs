@@ -27,7 +27,7 @@ namespace AceTheChase.GameRules.PlayerCards
                 .AddControl(-this.ControlCost)
                 .ActivateCard(this)
                 .AddPursuitSpeed(pursuitSpeedDelta)
-                .ExhaustFromHand(this)
+                .DiscardFromHand(this)
                 .Done();
         }
     }

@@ -1734,6 +1734,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: feb43f8596a9249b39ec84ea75de660c, type: 2}
   - {fileID: 11400000, guid: bc226ea85a6ac48faa5be65dff26de88, type: 2}
   - {fileID: 11400000, guid: c60be875be8724eb389e3731ed588ee2, type: 2}
+  - {fileID: 11400000, guid: 6f9093d8328fe4eb7a819179faece03a, type: 2}
   uiPlayerDeck: {fileID: 155177021}
   uiCardPool: {fileID: 175860981}
   deckBuilderBackground: {fileID: 1846517191}
