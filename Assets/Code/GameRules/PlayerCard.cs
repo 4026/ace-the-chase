@@ -91,7 +91,7 @@ namespace AceTheChase.GameRules
             int ret = this.Driver.CompareTo(obj.Driver);
             if (ret == 0)
             {
-                return string.Compare(this.Name, obj.name, StringComparison.CurrentCulture);
+                return string.Compare(this.Name, obj.Name, StringComparison.CurrentCulture);
             }
             if (ret == 0)
             {
