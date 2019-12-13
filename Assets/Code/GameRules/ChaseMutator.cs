@@ -154,6 +154,43 @@ namespace AceTheChase.GameRules
             return this;
         }
 
+        
+        /// <summary>
+        /// Remove a specific card from the player's deck and add it to their hand.
+        /// </summary>
+        public ChaseMutator DrawSpecific(IPlayerCard card)
+        {
+            this.chase.Hand.Add(card);
+
+            this.changesApplied.Add($"Drew {card.Name}.");
+
+            this.uiManager.AnimateCardDraw(card, this.chase);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Search the player's draw pile for the first card that matches the provided predicate 
+        /// and, if it exists, draw it into their hand.
+        /// </summary>
+        public ChaseMutator TutorCard(Func<IPlayerCard, bool> predicate)
+        {
+            IPlayerCard card = this.chase.PlayerDeck.Tutor(predicate);
+            if (card == null)
+            {
+                return this;
+            }
+
+            this.chase.Hand.Add(card);
+
+            this.changesApplied.Add($"Searched player draw pile for a card, found {card.Name} and drew it.");
+
+            this.uiManager.AnimateCardDraw(card, this.chase);
+
+            return this;
+        }
+
+
         /// <summary>
         /// Draw the specified number of route cards from the route deck and add them to the current
         /// route, recycling the rotue discard pile into the route deck if necessary.

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AceTheChase.Utils
 {
@@ -90,6 +92,22 @@ namespace AceTheChase.Utils
         public void Remove(TCard card)
         {
             this.cards.Remove(card);
+        }
+
+        /// <summary>
+        /// Search the deck for the first card that matches the provided predicate, remove it from
+        /// the deck, and return it (or null, if there is no matching card).
+        /// </summary>
+        public TCard Tutor(Func<TCard, bool> predicate)
+        {
+            TCard card = this.cards.FirstOrDefault(predicate);
+            if (card.Equals(default(TCard)))
+            {
+                return default(TCard);
+            }
+
+            this.cards.Remove(card);
+            return card;
         }
     }
 }
